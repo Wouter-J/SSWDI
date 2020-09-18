@@ -1,4 +1,4 @@
-# SSWDI - Serverside Web development indi
+# SSWDI - Serverside Web development-indi
 
 ## User stories
 - US_01 Als vrijwilliger wil ik een nieuw dier kunnen inschrijven in het asiel, zodat het ter adoptie aan
