@@ -1,5 +1,9 @@
 # SSWDI - Serverside Web development indi
 
+## Status // Badges
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/359826177036cfbb7f4d/maintainability)](https://codeclimate.com/github/Wouter-J/SSWDI/maintainability)
+
 ## User stories
 - US_01 Als vrijwilliger wil ik een nieuw dier kunnen inschrijven in het asiel, zodat het ter adoptie aan
 kan worden geboden.
