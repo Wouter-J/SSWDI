@@ -1,8 +1,8 @@
 ﻿using System;
-using AnimalShelterManagement.Enums;
+using AnimalShelterCore.DomainModel;
 
 
-namespace AnimalShelterManagement.Models
+namespace AnimalShelterCore.DomainModel
 {
     public class Treatment
     {

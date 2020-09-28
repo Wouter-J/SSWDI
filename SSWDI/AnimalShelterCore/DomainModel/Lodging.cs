@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using AnimalShelterManagement.Enums;
 
-namespace AnimalShelterManagement.Models
+namespace AnimalShelterCore.DomainModel
 {
     public class Lodging
     {

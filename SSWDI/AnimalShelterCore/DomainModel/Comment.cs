@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AnimalShelterManagement.Models
+namespace AnimalShelterCore.DomainModel
 {
     public class Comment
     {

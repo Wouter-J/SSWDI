@@ -1,4 +1,4 @@
-﻿namespace AnimalShelterManagement.Models
+﻿namespace AnimalShelterCore.DomainModel
 {
     public enum AnimalType
     {

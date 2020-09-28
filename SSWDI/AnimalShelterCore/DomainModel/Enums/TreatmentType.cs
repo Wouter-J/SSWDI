@@ -1,4 +1,4 @@
-﻿namespace AnimalShelterManagement.Enums
+﻿namespace AnimalShelterCore.DomainModel
 {
     public enum TreatmentType
     {

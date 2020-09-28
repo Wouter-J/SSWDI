@@ -35,9 +35,18 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="DomainModel\" />
-    <Folder Include="DomainServices\" />
+    <Compile Include="DomainModel\Animal.cs" />
+    <Compile Include="DomainModel\Comment.cs" />
+    <Compile Include="DomainModel\Enums\AnimalType.cs" />
+    <Compile Include="DomainModel\Enums\ChildFriendly.cs" />
+    <Compile Include="DomainModel\Enums\LodgingType.cs" />
+    <Compile Include="DomainModel\Enums\TreatmentType.cs" />
+    <Compile Include="DomainModel\Lodging.cs" />
+    <Compile Include="DomainModel\Stay.cs" />
+    <Compile Include="DomainModel\Treatment.cs" />
+    <Compile Include="DomainServices\ITreatmentRepository.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
