@@ -46,6 +46,10 @@
     <Compile Include="DomainModel\Lodging.cs" />
     <Compile Include="DomainModel\Stay.cs" />
     <Compile Include="DomainModel\Treatment.cs" />
+    <Compile Include="DomainServices\IAnimalRepository.cs" />
+    <Compile Include="DomainServices\ICommentRepository.cs" />
+    <Compile Include="DomainServices\ILodgingRepository.cs" />
+    <Compile Include="DomainServices\IStayRepository.cs" />
     <Compile Include="DomainServices\ITreatmentRepository.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
