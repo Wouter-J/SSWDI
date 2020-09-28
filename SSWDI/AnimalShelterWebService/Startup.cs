@@ -26,6 +26,9 @@ namespace AnimalShelterWebService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            //Register Swagger generator
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,8 +38,20 @@ namespace AnimalShelterWebService
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            //Enable middleware to serve generated swagger as a JSON endpoint
+            app.UseSwagger(c =>
+            {
+                c.SerializeAsV2 = true;
+            });
             app.UseHttpsRedirection();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "AnimalWebService V1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 
