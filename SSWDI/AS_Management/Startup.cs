@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using AS_EFShelterData;
+using AS_Identity;
 
 namespace AS_Management
 {
@@ -31,10 +32,25 @@ namespace AS_Management
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddDbContext<AppIdentityDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = true;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5; //Max amount of login attempts
+            })
+            .AddEntityFrameworkStores<AppIdentityDbContext>();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddMvc();
+            services.AddSession();
+
+            //TODO: Added Dependency Injection here
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
