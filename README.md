@@ -1,4 +1,8 @@
-# SSWDI - Serverside Web development indi
+# SSWDI - Serverside Web development-indi
+
+## Status
+
+- <a href="https://codeclimate.com/github/Wouter-J/SSWDI/maintainability"><img src="https://api.codeclimate.com/v1/badges/359826177036cfbb7f4d/maintainability" /></a>
 
 ## Status // Badges
 
