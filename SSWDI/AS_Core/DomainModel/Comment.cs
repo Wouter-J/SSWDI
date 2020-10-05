@@ -8,5 +8,6 @@ namespace AS_Core.DomainModel
         public string Content { get; set; }
         public DateTime Date { get; set; }
         public string WrittenBy { get; set; }
+        public Stay Stay { get; set; }
     }
 }

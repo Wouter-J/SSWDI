@@ -15,5 +15,6 @@ namespace AS_Core.DomainModel
         public int RequiredAge { get; set; }
         public string DoneBy { get; set; } //TODO: Make this a link to the related Employee
         public DateTime Date { get; set; }
+        public Stay Stay { get; set; }
     }
 }

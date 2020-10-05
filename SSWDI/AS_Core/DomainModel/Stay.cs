@@ -9,7 +9,7 @@ namespace AS_Core.DomainModel
     public class Stay
     {
         public int ID { get; set; }
-        public Animal Animal { get; set; }
+        public List<AnimalStay> AnimalStays { get; set; }
         public DateTime ArrivalDate { get; set; }
         public DateTime AdoptionDate { get; set; }
         public List<Treatment> Treatments { get; set; }
