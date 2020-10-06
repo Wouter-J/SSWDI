@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 
 using AS_EFShelterData;
 using AS_Identity;
+using AS_Core.DomainServices;
 
 namespace AS_Management
 {
@@ -31,7 +32,9 @@ namespace AS_Management
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("DefaultConnection"))
+                    .EnableSensitiveDataLogging()
+                );
 
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(
@@ -50,7 +53,12 @@ namespace AS_Management
             services.AddMvc();
             services.AddSession();
 
-            //TODO: Added Dependency Injection here
+            //Dependency Injection
+            services.AddTransient<IAnimalRepository, EFAnimalRepository>();
+            services.AddTransient<ICommentRepository, EFCommentRepository>();
+            services.AddTransient<ILodgingRepository, EFLodgingRepository>();
+            services.AddTransient<IStayRepository, EFStayRepository>();
+            services.AddTransient<ITreatmentRepository, EFTreatmentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

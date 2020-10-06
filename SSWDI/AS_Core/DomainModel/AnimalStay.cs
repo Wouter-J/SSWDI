@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AS_Core.DomainModel
 {
     public class AnimalStay
     {
-        //public int AnimalID { get; set; }
-        public virtual Animal Animal { get; set; }
-        public virtual Stay Stay { get; set; }
+        public int AnimalID { get; set; }
+        public Animal Animal { get; set; }
+        public int StayID { get; set; }
+        public Stay Stay { get; set; }
     }
 }
