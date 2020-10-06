@@ -26,3 +26,8 @@ opgenomen of nadat het dier overleden is.
 - BR_4. Bij een aantal behandelingen is een toelichting verplicht.
 - BR_5. Voor een dier moet ofwel de leeftijd uit worden gerekend aan de hand de
 geboortedatum of de geschatte leeftijd moet ingevuld zijn.
+
+
+## Sources used
+
+- https://wildermuth.com/2018/08/12/Seeding-Related-Entities-in-EF-Core-2-1-s-HasData()
