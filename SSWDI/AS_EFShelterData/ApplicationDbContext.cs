@@ -46,20 +46,20 @@ namespace AS_EFShelterData
                 .HasForeignKey(s => s.ID);
 
             modelBuilder.Entity<Lodging>()
-                .HasMany(l => l.AnimalStays)
+                .HasMany(l => l.Stays)
                 .WithOne(s => s.LodgingLocation);
 
             //TODO: Create SeedData file
-            Lodging lodging = new Lodging
+            modelBuilder.Entity<Lodging>().HasData(new Lodging
             {
                 ID = 1,
                 LodgingType = LodgingType.Group,
                 MaxCapacity = 20,
                 AnimalType = AnimalType.Dog,
-                AnimalStays = new List<Stay>()
-            };
+                Stays = new List<Stay>()
+            });
 
-            Stay stay = new Stay
+            modelBuilder.Entity<Stay>().HasData(new
             {
                 ID = 1,
                 AnimalStays = new List<AnimalStay>(),
@@ -67,12 +67,13 @@ namespace AS_EFShelterData
                 AdoptionDate = DateTime.Now,
                 CanBeAdopted = true,
                 AdoptedBy = "Barry",
-                LodgingLocation = lodging,
+                LodgingLocationID = 1,
                 Comments = new List<Comment>(),
                 Treatments = new List<Treatment>()
-            };
+            });
 
-            Animal dog = new Animal
+            modelBuilder.Entity<Animal>().HasData(
+            new Animal
             {
                 ID = 1,
                 Name = "Doggo",
@@ -87,9 +88,10 @@ namespace AS_EFShelterData
                 Castrated = true,
                 ChildFriendly = ChildFriendly.Yes,
                 ReasonGivenAway = "Too good a boi",
-            };
+            }
+            );
 
-            Treatment treatment = new Treatment
+            modelBuilder.Entity<Treatment>().HasData(new
             {
                 ID = 1,
                 Description = "Inenting voor ziekte x",
@@ -98,28 +100,26 @@ namespace AS_EFShelterData
                 RequiredAge = 1,
                 DoneBy = "Some Person",
                 Date = DateTime.Now,
-                Stay = stay
-            };
+                StayID = 1
+            });
 
-            AnimalStay animalStay = new AnimalStay
+            modelBuilder.Entity<Comment>().HasData(new
             {
-                AnimalID = dog.ID,
-                StayID = stay.ID,
-                //Animal = dog,
-                //Stay = stay
-            };
+                ID = 1,
+                Content = "Best boi",
+                Date = DateTime.Now,
+                WrittenBy = "Dr. Barry",
+                StayID = 1
+            });
 
-            stay.Treatments.Add(treatment);
-
-            //Add data to DB
-            modelBuilder.Entity<Lodging>().HasData(lodging);
-            modelBuilder.Entity<Stay>().HasData(stay);
-            modelBuilder.Entity<Animal>().HasData(dog);
-            modelBuilder.Entity<Treatment>().HasData(treatment);
-            modelBuilder.Entity<AnimalStay>().HasData(animalStay);
-            //modelBuilder.Entity<Comment>().HasData(comment);
+            modelBuilder.Entity<AnimalStay>().HasData(new
+            {
+                AnimalID = 1,
+                StayID = 1
+            });
 
         }
+
 
     }
 }
