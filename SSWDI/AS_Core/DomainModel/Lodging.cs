@@ -8,6 +8,6 @@ namespace AS_Core.DomainModel
         public LodgingType LodgingType { get; set; }
         public int MaxCapacity { get; set; }
         public AnimalType AnimalType { get; set; }
-        public List<Animal> Animals { get; set; }
+        public List<Stay> Stays { get; set; }
     }
 }

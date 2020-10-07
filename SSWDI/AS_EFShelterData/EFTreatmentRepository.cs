@@ -7,7 +7,7 @@ using AS_Core.DomainServices;
 
 namespace AS_EFShelterData
 {
-    class EFTreatmentRepository : ITreatmentRepository
+    public class EFTreatmentRepository : ITreatmentRepository
     {
         public Treatment AddTreatment(Treatment treatment)
         {
