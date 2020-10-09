@@ -27,13 +27,15 @@ namespace AS_Management
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection"))
+                    Configuration["Data:AS_AnimalData:ConnectionString"])
                     .EnableSensitiveDataLogging()
                 );
 
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration["Data:AS_Identity:ConnectionString"])
+                    .EnableSensitiveDataLogging()
+                );
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
