@@ -7,10 +7,8 @@ using AS_Core.DomainModel;
 
 namespace AS_Core.DomainServices
 {
-    public interface ILodgingRepository
+    public interface ILodgingRepository : IGenericRepository<Lodging>
     {
-        IQueryable<Lodging> GetAll();
-        Lodging GetById(int id);
-        Lodging AddLodging(Lodging lodging);
+        //TODO: Add specific functions here
     }
 }

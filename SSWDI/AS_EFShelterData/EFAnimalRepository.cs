@@ -1,26 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AS_Core.DomainModel;
+﻿using AS_Core.DomainModel;
 using AS_Core.DomainServices;
 
 namespace AS_EFShelterData
 {
-    public class EFAnimalRepository : IAnimalRepository
+    public class EFAnimalRepository : EFGenericRepository<Animal>, IAnimalRepository
     {
-        public Animal AddAnimal(Animal Animal)
+        public EFAnimalRepository(ApplicationDbContext context) : base (context)
         {
-            throw new NotImplementedException();
         }
 
-        public IQueryable<Animal> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Animal GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
+        //TODO: Add Specific functions here
     }
 }

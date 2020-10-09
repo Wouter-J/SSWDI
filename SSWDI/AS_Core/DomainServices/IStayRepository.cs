@@ -7,10 +7,8 @@ using AS_Core.DomainModel;
 
 namespace AS_Core.DomainServices
 {
-    public interface IStayRepository
+    public interface IStayRepository : IGenericRepository<Stay>
     {
-        IQueryable<Stay> GetAll();
-        Stay GetById(int id);
-        Stay AddStay(Stay stay);
+        //TODO: Add specific functions here
     }
 }
