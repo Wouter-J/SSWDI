@@ -26,6 +26,8 @@ namespace AS_WebService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddMvc();
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +37,11 @@ namespace AS_WebService
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Animal Shelter API");
+            });
 
             app.UseHttpsRedirection();
 
