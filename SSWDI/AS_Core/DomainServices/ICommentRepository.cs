@@ -7,10 +7,8 @@ using AS_Core.DomainModel;
 
 namespace AS_Core.DomainServices
 {
-    public interface ICommentRepository
+    public interface ICommentRepository : IGenericRepository<Comment>
     {
-        IQueryable<Comment> GetAll();
-        Comment GetById(int id);
-        Comment AddComment(Comment comment);
+        //TODO: Add specific functions here
     }
 }
