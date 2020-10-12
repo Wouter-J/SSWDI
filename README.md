@@ -4,6 +4,15 @@
 
 - <a href="https://codeclimate.com/github/Wouter-J/SSWDI/maintainability"><img src="https://api.codeclimate.com/v1/badges/359826177036cfbb7f4d/maintainability" /></a>
 
+## AnimalShelter contains:
+
+ - A UI for Management & Adoption of animals
+ - Two API's one on Lvl 2 (Verbs) and one on Lvl 3 (HATEOAS)
+	- This is done for seperation of concerns
+ - Clean Architecture (Domain Models, services, Repository - Interface pattern)
+ - Generic Repository for less repetition
+ - Seperate Identity instance
+
 ## User stories
 - US_01 Als vrijwilliger wil ik een nieuw dier kunnen inschrijven in het asiel, zodat het ter adoptie aan
 kan worden geboden.
