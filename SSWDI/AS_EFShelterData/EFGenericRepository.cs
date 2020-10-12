@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AS_Core.DomainModel;
-using AS_Core.DomainServices;
+using AS_Core;
+using AS_DomainServices;
 
 namespace AS_EFShelterData
 {

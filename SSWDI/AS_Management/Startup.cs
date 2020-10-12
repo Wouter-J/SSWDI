@@ -9,7 +9,7 @@ using Microsoft.Extensions.Hosting;
 
 using AS_EFShelterData;
 using AS_Identity;
-using AS_Core.DomainServices;
+using AS_DomainServices;
 
 namespace AS_Management
 {
