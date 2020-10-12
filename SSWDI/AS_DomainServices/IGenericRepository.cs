@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 //TODO: Finish summary(s)
-namespace AS_Core.DomainServices
+namespace AS_DomainServices
 {
     /// <summary>
     /// Generic repository class for basic operations

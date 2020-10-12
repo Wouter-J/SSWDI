@@ -1,6 +1,6 @@
 ﻿using AS_Core.DomainModel;
 
-namespace AS_Core.DomainServices
+namespace AS_DomainServices
 {
     public interface ITreatmentRepository : IGenericRepository<Treatment>
     {

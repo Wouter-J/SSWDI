@@ -1,5 +1,5 @@
 ﻿using AS_Core.DomainModel;
-using AS_Core.DomainServices;
+using AS_DomainServices;
 
 
 namespace AS_EFShelterData
