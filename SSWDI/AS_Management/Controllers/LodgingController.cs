@@ -1,153 +1,97 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using AS_Core.DomainModel;
-using AS_EFShelterData;
+using AS_DomainServices;
 
 namespace AS_Management.Controllers
 {
     public class LodgingController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private ILodgingRepository _lodgingRepository;
 
-        public LodgingController(ApplicationDbContext context)
+        public LodgingController(ILodgingRepository lodgingRepository)
         {
-            _context = context;
+            _lodgingRepository = lodgingRepository;
         }
 
-        // GET: Lodging
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Lodgings.ToListAsync());
+            //TODO create custom viewModel
+            return View(_lodgingRepository.GetAll().ToList());
         }
 
-        // GET: Lodging/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [HttpGet]
+        public IActionResult Details(int ID)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var lodging = await _context.Lodgings
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (lodging == null)
-            {
-                return NotFound();
-            }
-
+            Lodging lodging = _lodgingRepository.FindByID(ID);
             return View(lodging);
         }
 
-        // GET: Lodging/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Lodging/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,LodgingType,MaxCapacity,AnimalType")] Lodging lodging)
+        public IActionResult Create(Lodging lodging)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(lodging);
-                await _context.SaveChangesAsync();
+                _lodgingRepository.Add(lodging);
                 return RedirectToAction(nameof(Index));
             }
             return View(lodging);
         }
 
-        // GET: Lodging/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpGet]
+        public IActionResult Edit(int ID)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var lodging = await _context.Lodgings.FindAsync(id);
-            if (lodging == null)
-            {
-                return NotFound();
-            }
+            //TODO: Add better ViewModel
+            Lodging lodging = _lodgingRepository.FindByID(ID);
             return View(lodging);
         }
 
-        // POST: Lodging/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,LodgingType,MaxCapacity,AnimalType")] Lodging lodging)
+        public IActionResult Edit(Lodging lodging)
         {
-            if (id != lodging.ID)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(lodging);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!LodgingExists(lodging.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _lodgingRepository.SaveLodging(lodging);
                 return RedirectToAction(nameof(Index));
             }
-            return View(lodging);
+            else
+            {
+                return View(lodging);
+            }
         }
 
-        // GET: Lodging/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Lodgings/Delete/5
+        public IActionResult Delete(int ID)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var lodging = await _context.Lodgings
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (lodging == null)
-            {
-                return NotFound();
-            }
-
+            Lodging lodging = _lodgingRepository.FindByID(ID);
             return View(lodging);
         }
 
-        // POST: Lodging/Delete/5
+        // POST: Lodgings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int ID)
         {
-            var lodging = await _context.Lodgings.FindAsync(id);
-            _context.Lodgings.Remove(lodging);
-            await _context.SaveChangesAsync();
+            //TODO: Add validation
+            Lodging lodging = _lodgingRepository.FindByID(ID);
+            _lodgingRepository.Remove(lodging);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool LodgingExists(int id)
-        {
-            return _context.Lodgings.Any(e => e.ID == id);
-        }
+        // POST: Lodgings/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // public async Task<IActionResult> Create([Bind("ID,Name,Birthdate,Age,EstimatedAge,Description,LodgingType,Race,Gender,Picture,DateOfDeath,Castrated,ChildFriendly,ReasonGivenAway")] Lodging lodging)
+
     }
 }

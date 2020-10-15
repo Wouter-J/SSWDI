@@ -10,6 +10,7 @@ namespace AS_EFShelterData
         public EFAnimalRepository(ApplicationDbContext context) : base (context)
         {
         }
+        //TODO: Add Specific functions here
 
         public void SaveAnimal(Animal animal)
         {
@@ -29,6 +30,5 @@ namespace AS_EFShelterData
             _context.SaveChanges();
         }
 
-        //TODO: Add Specific functions here
     }
 }

@@ -1,49 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using AS_Core.DomainModel;
-using AS_EFShelterData;
+using AS_DomainServices;
 
 namespace AS_Management.Controllers
 {
     public class TreatmentController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private ITreatmentRepository _treatmentRepository;
 
-        public TreatmentController(ApplicationDbContext context)
+        public TreatmentController(ITreatmentRepository treatmentRepository)
         {
-            _context = context;
+            _treatmentRepository = treatmentRepository;
         }
 
         // GET: Treatment
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Treatments.ToListAsync());
+            //TODO: Create custom viewModel
+            return View(_treatmentRepository.GetAll().ToList());
         }
 
         // GET: Treatment/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [HttpGet]
+        public IActionResult Details(int ID)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var treatment = await _context.Treatments
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (treatment == null)
-            {
-                return NotFound();
-            }
+            Treatment treatment = _treatmentRepository.FindByID(ID);
 
             return View(treatment);
         }
 
-        // GET: Treatment/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -54,30 +43,22 @@ namespace AS_Management.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Description,TreatmentType,Costs,RequiredAge,DoneBy,Date")] Treatment treatment)
+        public IActionResult Create(Treatment treatment)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(treatment);
-                await _context.SaveChangesAsync();
+                _treatmentRepository.Add(treatment);
                 return RedirectToAction(nameof(Index));
             }
             return View(treatment);
         }
 
         // GET: Treatment/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpGet]
+        public IActionResult Edit(int ID)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var treatment = await _context.Treatments.FindAsync(id);
-            if (treatment == null)
-            {
-                return NotFound();
-            }
+            //TODO: Add better ViewModel
+            Treatment treatment = _treatmentRepository.FindByID(ID);
             return View(treatment);
         }
 
@@ -86,68 +67,34 @@ namespace AS_Management.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Description,TreatmentType,Costs,RequiredAge,DoneBy,Date")] Treatment treatment)
+        public IActionResult Edit(Treatment treatment)
         {
-            if (id != treatment.ID)
+            if(ModelState.IsValid)
             {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(treatment);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TreatmentExists(treatment.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _treatmentRepository.SaveTreatment(treatment);
                 return RedirectToAction(nameof(Index));
+            } else
+            {
+                return View(treatment);
             }
-            return View(treatment);
         }
 
         // GET: Treatment/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int ID)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var treatment = await _context.Treatments
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (treatment == null)
-            {
-                return NotFound();
-            }
-
+            Treatment treatment = _treatmentRepository.FindByID(ID);
             return View(treatment);
         }
 
         // POST: Treatment/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int ID)
         {
-            var treatment = await _context.Treatments.FindAsync(id);
-            _context.Treatments.Remove(treatment);
-            await _context.SaveChangesAsync();
+            //TODO: Add validation
+            Treatment treatment = _treatmentRepository.FindByID(ID);
+            _treatmentRepository.Remove(treatment);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool TreatmentExists(int id)
-        {
-            return _context.Treatments.Any(e => e.ID == id);
         }
     }
 }

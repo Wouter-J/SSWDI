@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using AS_Core.DomainModel;
-using AS_EFShelterData;
 using AS_DomainServices;
 
 namespace AS_Management.Controllers
@@ -27,6 +23,13 @@ namespace AS_Management.Controllers
         }
 
         [HttpGet]
+        public IActionResult Details(int ID)
+        {
+            Animal animal = _animalRepository.FindByID(ID);
+            return View(animal);
+        }
+
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -41,13 +44,6 @@ namespace AS_Management.Controllers
                 _animalRepository.Add(animal);
                 return RedirectToAction(nameof(Index));
             }
-            return View(animal);
-        }
-
-        [HttpGet]
-        public IActionResult Details(int ID)
-        {
-            Animal animal = _animalRepository.FindByID(ID);
             return View(animal);
         }
 

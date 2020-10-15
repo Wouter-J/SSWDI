@@ -1,160 +1,97 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using AS_Core.DomainModel;
-using AS_EFShelterData;
+using AS_DomainServices;
 
 namespace AS_Management.Controllers
 {
     public class CommentController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private ICommentRepository _commentRepository;
 
-        public CommentController(ApplicationDbContext context)
+        public CommentController(ICommentRepository commentRepository)
         {
-            _context = context;
+            _commentRepository = commentRepository;
         }
 
-        // GET: Comment
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var applicationDbContext = _context.Comments.Include(c => c.Stay);
-            return View(await applicationDbContext.ToListAsync());
+            //TODO create custom viewModel
+            return View(_commentRepository.GetAll().ToList());
         }
 
-        // GET: Comment/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [HttpGet]
+        public IActionResult Details(int ID)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var comment = await _context.Comments
-                .Include(c => c.Stay)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (comment == null)
-            {
-                return NotFound();
-            }
-
+            Comment comment = _commentRepository.FindByID(ID);
             return View(comment);
         }
 
-        // GET: Comment/Create
+        [HttpGet]
         public IActionResult Create()
         {
-            ViewData["ID"] = new SelectList(_context.Stays, "ID", "ID");
             return View();
         }
 
-        // POST: Comment/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Content,Date,WrittenBy")] Comment comment)
+        public IActionResult Create(Comment comment)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(comment);
-                await _context.SaveChangesAsync();
+                _commentRepository.Add(comment);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ID"] = new SelectList(_context.Stays, "ID", "ID", comment.ID);
             return View(comment);
         }
 
-        // GET: Comment/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpGet]
+        public IActionResult Edit(int ID)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var comment = await _context.Comments.FindAsync(id);
-            if (comment == null)
-            {
-                return NotFound();
-            }
-            ViewData["ID"] = new SelectList(_context.Stays, "ID", "ID", comment.ID);
+            //TODO: Add better ViewModel
+            Comment comment = _commentRepository.FindByID(ID);
             return View(comment);
         }
 
-        // POST: Comment/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Content,Date,WrittenBy")] Comment comment)
+        public IActionResult Edit(Comment comment)
         {
-            if (id != comment.ID)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(comment);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CommentExists(comment.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _commentRepository.SaveComment(comment);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ID"] = new SelectList(_context.Stays, "ID", "ID", comment.ID);
-            return View(comment);
+            else
+            {
+                return View(comment);
+            }
         }
 
-        // GET: Comment/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Comments/Delete/5
+        public IActionResult Delete(int ID)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var comment = await _context.Comments
-                .Include(c => c.Stay)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (comment == null)
-            {
-                return NotFound();
-            }
-
+            Comment comment = _commentRepository.FindByID(ID);
             return View(comment);
         }
 
-        // POST: Comment/Delete/5
+        // POST: Comments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int ID)
         {
-            var comment = await _context.Comments.FindAsync(id);
-            _context.Comments.Remove(comment);
-            await _context.SaveChangesAsync();
+            //TODO: Add validation
+            Comment comment = _commentRepository.FindByID(ID);
+            _commentRepository.Remove(comment);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CommentExists(int id)
-        {
-            return _context.Comments.Any(e => e.ID == id);
-        }
+        // POST: Comments/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // public async Task<IActionResult> Create([Bind("ID,Name,Birthdate,Age,EstimatedAge,Description,CommentType,Race,Gender,Picture,DateOfDeath,Castrated,ChildFriendly,ReasonGivenAway")] Comment comment)
+
     }
 }
