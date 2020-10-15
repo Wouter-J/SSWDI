@@ -28,6 +28,7 @@ namespace AS_EFShelterData
         public void Add(TEntity entity)
         {
             _context.Set<TEntity>().Add(entity);
+            _context.SaveChanges();
         }
 
         public void Remove(TEntity entity)

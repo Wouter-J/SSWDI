@@ -30,6 +30,10 @@ namespace AS_DomainServices
         /// <param name="entity"></param>
         void Add(TEntity entity);
 
+        /// <summary>
+        /// Removes a entity
+        /// </summary>
+        /// <param name="entity"></param>
         void Remove(TEntity entity);
     }
 }

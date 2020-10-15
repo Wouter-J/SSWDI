@@ -7,11 +7,43 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AS_Core.DomainModel;
 using AS_EFShelterData;
+using AS_DomainServices;
 
 namespace AS_Management.Controllers
 {
-    public class AnimalsController : Controller
+    public class AnimalController : Controller
     {
+        private IAnimalRepository _animalRepository;
+
+        public AnimalController(IAnimalRepository animalRepository)
+        {
+            _animalRepository = animalRepository;
+        }
+
+        public IActionResult Index()
+        {
+            return View(_animalRepository.GetAll().ToViewModel());
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Animal animal)
+        {
+            if (ModelState.IsValid)
+            {
+                _animalRepository.Add(animal);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(animal);
+        }
+
+
         private readonly ApplicationDbContext _context;
 
         public AnimalsController(ApplicationDbContext context)
