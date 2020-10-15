@@ -18,7 +18,7 @@ namespace AS_DomainServices
         IEnumerable<TEntity> GetAll();
 
         /// <summary>
-        /// Gets the first entity that matches the ID and reeturns it
+        /// Gets the first entity that matches the ID and returns it
         /// </summary>
         /// <param name="ID">ID of the object to find</param>
         /// <returns>The first entity found</returns>
