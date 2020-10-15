@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 //TODO: Finish summary(s)
-namespace AS_Core.DomainServices
+namespace AS_DomainServices
 {
     /// <summary>
     /// Generic repository class for basic operations
@@ -18,7 +18,7 @@ namespace AS_Core.DomainServices
         IEnumerable<TEntity> GetAll();
 
         /// <summary>
-        /// Gets the first entity that matches the ID and reeturns it
+        /// Gets the first entity that matches the ID and returns it
         /// </summary>
         /// <param name="ID">ID of the object to find</param>
         /// <returns>The first entity found</returns>
@@ -30,6 +30,10 @@ namespace AS_Core.DomainServices
         /// <param name="entity"></param>
         void Add(TEntity entity);
 
+        /// <summary>
+        /// Removes a entity
+        /// </summary>
+        /// <param name="entity"></param>
         void Remove(TEntity entity);
     }
 }

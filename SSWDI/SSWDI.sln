@@ -7,19 +7,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AS_Core", "AS_Core\AS_Core.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AS_EFShelterData", "AS_EFShelterData\AS_EFShelterData.csproj", "{36AB4F2D-A93A-4096-9788-D678A3D96167}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS_AdoptionTests", "AS_AdoptionTests\AS_AdoptionTests.csproj", "{0826B156-171D-43CB-9414-F654B3DBE524}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AS_AdoptionTests", "AS_AdoptionTests\AS_AdoptionTests.csproj", "{0826B156-171D-43CB-9414-F654B3DBE524}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS_ManagementTests", "AS_ManagementTests\AS_ManagementTests.csproj", "{F25B9E93-577F-47AA-8518-3FD85386D624}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AS_ManagementTests", "AS_ManagementTests\AS_ManagementTests.csproj", "{F25B9E93-577F-47AA-8518-3FD85386D624}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS_WebTests", "AS_WebTests\AS_WebTests.csproj", "{B0DC9479-D637-4BF7-A304-A2CED28DD429}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AS_WebTests", "AS_WebTests\AS_WebTests.csproj", "{B0DC9479-D637-4BF7-A304-A2CED28DD429}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS_Adoption", "AS_Adoption\AS_Adoption.csproj", "{A1C811C7-EE66-4946-9C9A-544D1D0EE7D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AS_Adoption", "AS_Adoption\AS_Adoption.csproj", "{A1C811C7-EE66-4946-9C9A-544D1D0EE7D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS_Management", "AS_Management\AS_Management.csproj", "{7B4334EF-85A3-4E2A-A43D-544250FD26A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AS_Management", "AS_Management\AS_Management.csproj", "{7B4334EF-85A3-4E2A-A43D-544250FD26A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS_WebService", "AS_WebService\AS_WebService.csproj", "{FDA7D899-27A8-41D6-893F-C003F8629B6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AS_WebService", "AS_WebService\AS_WebService.csproj", "{FDA7D899-27A8-41D6-893F-C003F8629B6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS_Identity", "AS_Identity\AS_Identity.csproj", "{9650F75B-111F-4980-89EE-24F079BB6CEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AS_Identity", "AS_Identity\AS_Identity.csproj", "{9650F75B-111F-4980-89EE-24F079BB6CEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS_DomainServices", "AS_DomainServices\AS_DomainServices.csproj", "{AF049894-6B5E-4992-81C9-F19F4EA74AA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS_HATEOAS", "AS_HATEOAS\AS_HATEOAS.csproj", "{08C63651-245B-4707-A3F3-FE196DAF1B7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +67,14 @@ Global
 		{9650F75B-111F-4980-89EE-24F079BB6CEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9650F75B-111F-4980-89EE-24F079BB6CEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9650F75B-111F-4980-89EE-24F079BB6CEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF049894-6B5E-4992-81C9-F19F4EA74AA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF049894-6B5E-4992-81C9-F19F4EA74AA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF049894-6B5E-4992-81C9-F19F4EA74AA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF049894-6B5E-4992-81C9-F19F4EA74AA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08C63651-245B-4707-A3F3-FE196DAF1B7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08C63651-245B-4707-A3F3-FE196DAF1B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08C63651-245B-4707-A3F3-FE196DAF1B7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08C63651-245B-4707-A3F3-FE196DAF1B7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

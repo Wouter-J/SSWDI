@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AS_Core.DomainModel;
-using AS_Core.DomainServices;
+using AS_Core;
+using AS_DomainServices;
 
 namespace AS_EFShelterData
 {
@@ -28,6 +28,7 @@ namespace AS_EFShelterData
         public void Add(TEntity entity)
         {
             _context.Set<TEntity>().Add(entity);
+            _context.SaveChanges();
         }
 
         public void Remove(TEntity entity)
