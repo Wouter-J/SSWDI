@@ -13,6 +13,7 @@
  - Generic Repository for less repetition
  - Seperate Identity instance
 
+
 ## User stories
 - US_01 Als vrijwilliger wil ik een nieuw dier kunnen inschrijven in het asiel, zodat het ter adoptie aan
 kan worden geboden.
