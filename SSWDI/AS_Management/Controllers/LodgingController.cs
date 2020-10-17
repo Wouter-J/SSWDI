@@ -64,10 +64,7 @@ namespace AS_Management.Controllers
                 _lodgingRepository.SaveLodging(lodging);
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                return View(lodging);
-            }
+            return View(lodging);
         }
 
         // GET: Lodgings/Delete/5

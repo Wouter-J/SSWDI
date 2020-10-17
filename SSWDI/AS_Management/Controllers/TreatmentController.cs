@@ -73,10 +73,8 @@ namespace AS_Management.Controllers
             {
                 _treatmentRepository.SaveTreatment(treatment);
                 return RedirectToAction(nameof(Index));
-            } else
-            {
-                return View(treatment);
             }
+            return View(treatment);
         }
 
         // GET: Treatment/Delete/5

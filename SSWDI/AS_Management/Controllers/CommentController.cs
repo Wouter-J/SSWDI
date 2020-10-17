@@ -64,10 +64,7 @@ namespace AS_Management.Controllers
                 _commentRepository.SaveComment(comment);
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                return View(comment);
-            }
+            return View(comment);
         }
 
         // GET: Comments/Delete/5

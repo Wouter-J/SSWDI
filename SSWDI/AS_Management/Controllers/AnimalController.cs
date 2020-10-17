@@ -68,9 +68,7 @@ namespace AS_Management.Controllers
                 _animalRepository.SaveAnimal(animal);
                 return RedirectToAction(nameof(Index));
             }
-            else {
-                return View(animal);
-            }
+            return View(animal);
         }
 
         // GET: Animals/Delete/5

@@ -64,10 +64,7 @@ namespace AS_Management.Controllers
                 _stayRepository.SaveStay(stay);
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                return View(stay);
-            }
+            return View(stay);
         }
 
         // GET: Stays/Delete/5
