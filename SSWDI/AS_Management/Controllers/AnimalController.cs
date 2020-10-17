@@ -7,15 +7,16 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AS_Core.DomainModel;
 using AS_EFShelterData;
-using AS_DomainServices;
+using AS_DomainServices.Repositories;
+using AS_DomainServices.Services;
 
 namespace AS_Management.Controllers
 {
     public class AnimalController : Controller
     {
-        private IAnimalRepository _animalRepository;
+        private IAnimalService _animalRepository;
 
-        public AnimalController(IAnimalRepository animalRepository)
+        public AnimalController(IAnimalService animalRepository)
         {
             _animalRepository = animalRepository;
         }
@@ -23,7 +24,7 @@ namespace AS_Management.Controllers
         public IActionResult Index()
         {
             //TODO create custom viewModel
-            return View(_animalRepository.GetAll().ToList());
+            return View(_animalRepository.GetAll());
         }
 
         [HttpGet]

@@ -1,5 +1,5 @@
 ﻿using AS_Core.DomainModel;
-using AS_DomainServices;
+using AS_DomainServices.Repositories;
 using System;
 using System.Linq;
 
