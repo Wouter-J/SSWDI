@@ -20,6 +20,6 @@ namespace AS_Core.DomainModel
         public bool Castrated { get; set; }
         public ChildFriendly ChildFriendly { get; set; }
         public string ReasonGivenAway { get; set; } //Only employees should be able to read this
-        public List<AnimalStay> AnimalStays { get; set; }
+        public List<Stay> Stays { get; set; }
     }
 }

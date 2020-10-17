@@ -21,20 +21,6 @@ namespace AS_EFShelterData
         {
             base.OnModelCreating(modelBuilder);
 
-            //ManyToMany Relations
-            modelBuilder.Entity<AnimalStay>()
-                .HasKey(ay => new { ay.AnimalID, ay.StayID });
-
-            modelBuilder.Entity<AnimalStay>()
-                .HasOne(ay => ay.Animal)
-                .WithMany(a => a.AnimalStays)
-                .HasForeignKey(ay => ay.AnimalID);
-
-            modelBuilder.Entity<AnimalStay>()
-                .HasOne(ay => ay.Stay)
-                .WithMany(s => s.AnimalStays)
-                .HasForeignKey(ay => ay.StayID);
-
             //One to One / One to Many relations
             modelBuilder.Entity<Stay>()
                 .HasMany(s => s.Treatments)
@@ -49,6 +35,8 @@ namespace AS_EFShelterData
                 .HasMany(l => l.Stays)
                 .WithOne(s => s.LodgingLocation);
 
+            //TODO add animal / Stay relation
+
             //TODO: Create SeedData file
             modelBuilder.Entity<Lodging>().HasData(new Lodging
             {
@@ -62,7 +50,7 @@ namespace AS_EFShelterData
             modelBuilder.Entity<Stay>().HasData(new
             {
                 ID = 1,
-                AnimalStays = new List<AnimalStay>(),
+                Animal = new Animal(), //TODO properly add Animal relation
                 ArrivalDate = DateTime.Now,
                 AdoptionDate = DateTime.Now,
                 CanBeAdopted = true,
@@ -112,11 +100,6 @@ namespace AS_EFShelterData
                 StayID = 1
             });
 
-            modelBuilder.Entity<AnimalStay>().HasData(new
-            {
-                AnimalID = 1,
-                StayID = 1
-            });
 
         }
 
