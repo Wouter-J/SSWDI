@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 using AS_Core.DomainModel;
 using AS_DomainServices;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AS_Management.Controllers
 {
@@ -11,6 +11,10 @@ namespace AS_Management.Controllers
     {
         private ITreatmentRepository _treatmentRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TreatmentController"/> class.
+        /// </summary>
+        /// <param name="treatmentRepository"></param>
         public TreatmentController(ITreatmentRepository treatmentRepository)
         {
             _treatmentRepository = treatmentRepository;
@@ -39,7 +43,7 @@ namespace AS_Management.Controllers
         }
 
         // POST: Treatment/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -50,6 +54,7 @@ namespace AS_Management.Controllers
                 _treatmentRepository.Add(treatment);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(treatment);
         }
 
@@ -63,17 +68,18 @@ namespace AS_Management.Controllers
         }
 
         // POST: Treatment/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Treatment treatment)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _treatmentRepository.SaveTreatment(treatment);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(treatment);
         }
 

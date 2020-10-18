@@ -7,7 +7,7 @@ namespace AS_Core.DomainModel
     {
         public int ID { get; set; }
 
-        public Animal Animal{ get; set; }
+        public Animal Animal { get; set; }
 
         public DateTime ArrivalDate { get; set; }
 

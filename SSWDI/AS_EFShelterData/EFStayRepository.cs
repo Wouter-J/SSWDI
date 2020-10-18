@@ -1,13 +1,17 @@
-﻿using AS_Core.DomainModel;
-using AS_DomainServices;
-using System;
+﻿using System;
 using System.Linq;
+using AS_Core.DomainModel;
+using AS_DomainServices;
 
 namespace AS_EFShelterData
 {
     public class EFStayRepository : EFGenericRepository<Stay>, IStayRepository
     {
-        public EFStayRepository(ApplicationDbContext context) : base (context) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EFStayRepository"/> class.
+        /// </summary>
+        /// <param name="context"></param>
+        public EFStayRepository(ApplicationDbContext context) : base(context) { }
 
         // TODO: Add specific functions here
         public void SaveStay(Stay stay)
@@ -26,6 +30,7 @@ namespace AS_EFShelterData
                     DBStay.CanBeAdopted = stay.CanBeAdopted;
                 }
             }
+
             _context.SaveChanges();
         }
     }

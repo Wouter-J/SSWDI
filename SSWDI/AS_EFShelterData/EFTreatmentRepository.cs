@@ -1,13 +1,17 @@
-﻿using AS_Core.DomainModel;
-using AS_DomainServices;
-using System;
+﻿using System;
 using System.Linq;
+using AS_Core.DomainModel;
+using AS_DomainServices;
 
 namespace AS_EFShelterData
 {
     public class EFTreatmentRepository : EFGenericRepository<Treatment>, ITreatmentRepository
     {
-        public EFTreatmentRepository(ApplicationDbContext context) : base (context) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EFTreatmentRepository"/> class.
+        /// </summary>
+        /// <param name="context"></param>
+        public EFTreatmentRepository(ApplicationDbContext context) : base(context) { }
 
         // TODO: Add specific functions here
         public void SaveTreatment(Treatment treatment)
@@ -26,6 +30,7 @@ namespace AS_EFShelterData
                     DBTreatment.Description = treatment.Description;
                 }
             }
+
             _context.SaveChanges();
         }
     }

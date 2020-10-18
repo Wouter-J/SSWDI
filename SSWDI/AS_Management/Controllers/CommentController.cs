@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 using AS_Core.DomainModel;
 using AS_DomainServices;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AS_Management.Controllers
 {
     public class CommentController : Controller
     {
-        private ICommentRepository _commentRepository;
+        private readonly ICommentRepository _commentRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CommentController"/> class.
+        /// </summary>
+        /// <param name="commentRepository"></param>
         public CommentController(ICommentRepository commentRepository)
         {
             _commentRepository = commentRepository;
@@ -44,6 +48,7 @@ namespace AS_Management.Controllers
                 _commentRepository.Add(comment);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(comment);
         }
 
@@ -64,6 +69,7 @@ namespace AS_Management.Controllers
                 _commentRepository.SaveComment(comment);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(comment);
         }
 
@@ -86,9 +92,8 @@ namespace AS_Management.Controllers
         }
 
         // POST: Comments/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         // public async Task<IActionResult> Create([Bind("ID,Name,Birthdate,Age,EstimatedAge,Description,CommentType,Race,Gender,Picture,DateOfDeath,Castrated,ChildFriendly,ReasonGivenAway")] Comment comment)
-
     }
 }

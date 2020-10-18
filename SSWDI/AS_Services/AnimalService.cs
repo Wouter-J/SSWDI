@@ -9,6 +9,10 @@ namespace AS_Services
     {
         private readonly IAnimalRepository _animalRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AnimalService"/> class.
+        /// </summary>
+        /// <param name="animalRepository"></param>
         public AnimalService(IAnimalRepository animalRepository)
         {
             _animalRepository = animalRepository;

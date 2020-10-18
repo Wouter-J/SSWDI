@@ -20,7 +20,7 @@ namespace AS_Core.DomainModel
 
         public AnimalType AnimalType { get; set; }
 
-        public string Race { get; set; } 
+        public string Race { get; set; }
 
         public char Gender { get; set; } // M is male F is female
 

@@ -7,6 +7,10 @@ namespace AS_EFShelterData
 {
     public class ApplicationDbContext : DbContext
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationDbContext"/> class.
+        /// </summary>
+        /// <param name="options"></param>
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
 
@@ -80,8 +84,7 @@ namespace AS_EFShelterData
                 Castrated = true,
                 ChildFriendly = ChildFriendly.Yes,
                 ReasonGivenAway = "Too good a boi",
-            }
-            );
+            });
 
             modelBuilder.Entity<Treatment>().HasData(new
             {

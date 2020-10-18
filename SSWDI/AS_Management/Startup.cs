@@ -1,23 +1,26 @@
 using System;
+using AS_DomainServices;
+using AS_DomainServices.Repositories;
+using AS_DomainServices.Services;
+using AS_EFShelterData;
+using AS_Identity;
+using AS_Services;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using AS_EFShelterData;
-using AS_Identity;
-using AS_DomainServices;
-using AS_DomainServices.Repositories;
-using AS_DomainServices.Services;
-using AS_Services;
-
 namespace AS_Management
 {
     public class Startup
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,14 +34,12 @@ namespace AS_Management
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration["Data:AS_AnimalData:ConnectionString"])
-                    .EnableSensitiveDataLogging()
-                );
+                    .EnableSensitiveDataLogging());
 
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(
                     Configuration["Data:AS_Identity:ConnectionString"])
-                    .EnableSensitiveDataLogging()
-                );
+                    .EnableSensitiveDataLogging());
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -79,6 +80,7 @@ namespace AS_Management
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

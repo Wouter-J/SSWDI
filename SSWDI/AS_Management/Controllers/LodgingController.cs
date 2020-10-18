@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 using AS_Core.DomainModel;
 using AS_DomainServices;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AS_Management.Controllers
 {
@@ -11,6 +11,10 @@ namespace AS_Management.Controllers
     {
         private ILodgingRepository _lodgingRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LodgingController"/> class.
+        /// </summary>
+        /// <param name="lodgingRepository"></param>
         public LodgingController(ILodgingRepository lodgingRepository)
         {
             _lodgingRepository = lodgingRepository;
@@ -44,6 +48,7 @@ namespace AS_Management.Controllers
                 _lodgingRepository.Add(lodging);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(lodging);
         }
 
@@ -64,6 +69,7 @@ namespace AS_Management.Controllers
                 _lodgingRepository.SaveLodging(lodging);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(lodging);
         }
 
@@ -86,9 +92,8 @@ namespace AS_Management.Controllers
         }
 
         // POST: Lodgings/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         // public async Task<IActionResult> Create([Bind("ID,Name,Birthdate,Age,EstimatedAge,Description,LodgingType,Race,Gender,Picture,DateOfDeath,Castrated,ChildFriendly,ReasonGivenAway")] Lodging lodging)
-
     }
 }

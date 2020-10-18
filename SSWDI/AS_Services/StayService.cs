@@ -9,6 +9,10 @@ namespace AS_Services
     {
         private readonly IStayRepository _stayRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StayService"/> class.
+        /// </summary>
+        /// <param name="stayRepository"></param>
         public StayService(IStayRepository stayRepository)
         {
             _stayRepository = stayRepository;
@@ -26,8 +30,9 @@ namespace AS_Services
             }
 
             // Check if group lodging & castrated or not
-            if (!animal.Castrated && lodge.LodgingType == LodgingType.Group) {
-                    // err on animal
+            if (!animal.Castrated && lodge.LodgingType == LodgingType.Group)
+            {
+                // err on animal
             }
 
             _stayRepository.Add(stay);

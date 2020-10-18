@@ -16,6 +16,10 @@ namespace AS_Management.Controllers
     {
         private readonly IAnimalService _animalRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AnimalController"/> class.
+        /// </summary>
+        /// <param name="animalRepository"></param>
         public AnimalController(IAnimalService animalRepository)
         {
             _animalRepository = animalRepository;
@@ -42,6 +46,7 @@ namespace AS_Management.Controllers
                 _animalRepository.Add(animal);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(animal);
         }
 
@@ -64,10 +69,12 @@ namespace AS_Management.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Animal animal)
         {
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 _animalRepository.SaveAnimal(animal);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(animal);
         }
 
@@ -90,9 +97,8 @@ namespace AS_Management.Controllers
         }
 
         // POST: Animals/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         // public async Task<IActionResult> Create([Bind("ID,Name,Birthdate,Age,EstimatedAge,Description,AnimalType,Race,Gender,Picture,DateOfDeath,Castrated,ChildFriendly,ReasonGivenAway")] Animal animal)
-
     }
 }

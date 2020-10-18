@@ -1,13 +1,17 @@
-﻿using AS_Core.DomainModel;
-using AS_DomainServices;
-using System;
+﻿using System;
 using System.Linq;
+using AS_Core.DomainModel;
+using AS_DomainServices;
 
 namespace AS_EFShelterData
 {
     public class EFCommentRepository : EFGenericRepository<Comment>, ICommentRepository
     {
-        public EFCommentRepository(ApplicationDbContext context) : base (context) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EFCommentRepository"/> class.
+        /// </summary>
+        /// <param name="context"></param>
+        public EFCommentRepository(ApplicationDbContext context) : base(context) { }
 
         // TODO: Add specific functions here
         public void SaveComment(Comment commentg)
@@ -20,6 +24,7 @@ namespace AS_EFShelterData
             {
                 // Do nothing; Comments can't be updated
             }
+
             _context.SaveChanges();
         }
     }
