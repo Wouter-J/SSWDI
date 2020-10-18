@@ -1,21 +1,23 @@
+using System;
+using System.Collections.Generic;
+using AS_Core.DomainModel;
+using AS_DomainServices;
+using AS_Services;
+using Moq;
+using Xunit;
+
 namespace AS_ServiceTests
 {
-    using System;
-    using System.Collections.Generic;
-    using AS_Core.DomainModel;
-    using AS_DomainServices;
-    using AS_Services;
-    using Moq;
-    using Xunit;
-
     public class AnimalServiceTest
     {
+        /// <summary>
+        /// This test makes sure a animal with proper values can be added.
+        /// Lodging has proper capacity, same goes for the animaltype & castration.
+        /// </summary>
         [Fact]
-        public void AnimalShouldBeAdded()
+        public void AnimalWithProperShouldBeAdded()
         {
             // Arrange
-            // IStayRepository stayRepository;
-            // Mock stayServiceMock = new StayService(stayRepository);
             var stayRepository = new Mock<IStayRepository>();
             var stayService = new Mock<StayService>();
 
@@ -62,7 +64,24 @@ namespace AS_ServiceTests
             // Assert
             IEnumerable<Stay> stays = stayRepository.Object.GetAll();
 
-            // Assert.Equal(stays)
+            Assert.NotNull(stays);
         }
+
+        [Fact]
+        public void DogsAndCatsShouldNotGoIntoSameLodging() { }
+
+        [Fact]
+        public void MaxLodgingCapShouldNotBeOverwritten() { }
+
+        [Fact]
+        public void AnimalAgeShouldBeCalculatedProperly() { }
+
+        [Fact]
+        public void BirthDataAndCaluclatedDateNotAllowed() { }
+
+        [Fact]
+        public void SterrilisationShouldBeAddedWithTreatment() { }
+
+
     }
 }
