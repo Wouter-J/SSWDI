@@ -7,6 +7,6 @@
         Vaccination,
         Operation,
         Chipping,
-        Euthanasia
+        Euthanasia,
     }
 }

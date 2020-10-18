@@ -12,9 +12,13 @@ namespace AS_EFShelterData
 
         // Define DBSets
         public DbSet<Animal> Animals { get; set; }
+
         public DbSet<Comment> Comments { get; set; }
+
         public DbSet<Lodging> Lodgings { get; set; }
+
         public DbSet<Stay> Stays { get; set; }
+
         public DbSet<Treatment> Treatments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -44,7 +48,7 @@ namespace AS_EFShelterData
                 LodgingType = LodgingType.Group,
                 MaxCapacity = 20,
                 AnimalType = AnimalType.Dog,
-                Stays = new List<Stay>()
+                Stays = new List<Stay>(),
             });
 
             modelBuilder.Entity<Stay>().HasData(new
@@ -57,7 +61,7 @@ namespace AS_EFShelterData
                 AdoptedBy = "Barry",
                 LodgingLocationID = 1,
                 Comments = new List<Comment>(),
-                Treatments = new List<Treatment>()
+                Treatments = new List<Treatment>(),
             });
 
             modelBuilder.Entity<Animal>().HasData(
@@ -88,7 +92,7 @@ namespace AS_EFShelterData
                 RequiredAge = 1,
                 DoneBy = "Some Person",
                 Date = DateTime.Now,
-                StayID = 1
+                StayID = 1,
             });
 
             modelBuilder.Entity<Comment>().HasData(new
@@ -97,12 +101,10 @@ namespace AS_EFShelterData
                 Content = "Best boi",
                 Date = DateTime.Now,
                 WrittenBy = "Dr. Barry",
-                StayID = 1
+                StayID = 1,
             });
 
-
         }
-
 
     }
 }

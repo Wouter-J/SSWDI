@@ -1,13 +1,13 @@
-using AS_Core.DomainModel;
-using AS_DomainServices;
-using AS_Services;
-using Moq;
-using System;
-using System.Collections.Generic;
-using Xunit;
-
 namespace AS_ServiceTests
 {
+    using System;
+    using System.Collections.Generic;
+    using AS_Core.DomainModel;
+    using AS_DomainServices;
+    using AS_Services;
+    using Moq;
+    using Xunit;
+
     public class AnimalServiceTest
     {
         [Fact]
@@ -41,7 +41,7 @@ namespace AS_ServiceTests
                 MaxCapacity = 100,
                 CurrentCapacity = 10,
                 AnimalType = AnimalType.Cat,
-                Stays = new List<Stay>() { }
+                Stays = new List<Stay>() { },
             };
 
             Stay stay = new Stay()
@@ -50,10 +50,10 @@ namespace AS_ServiceTests
                 ArrivalDate = new DateTime(2019, 10, 18),
                 AdoptionDate = null,
                 CanBeAdopted = true,
-                AdoptedBy = "",
+                AdoptedBy = string.Empty,
                 LodgingLocation = coolLocation,
                 Comments = new List<Comment>(),
-                Treatments = new List<Treatment>()
+                Treatments = new List<Treatment>(),
             };
 
             // Act
