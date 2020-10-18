@@ -18,7 +18,7 @@ namespace AS_Management.Controllers
 
         public IActionResult Index()
         {
-            //TODO create custom viewModel
+            // TODO create custom viewModel
             return View(_lodgingRepository.GetAll().ToList());
         }
 
@@ -50,7 +50,7 @@ namespace AS_Management.Controllers
         [HttpGet]
         public IActionResult Edit(int ID)
         {
-            //TODO: Add better ViewModel
+            // TODO: Add better ViewModel
             Lodging lodging = _lodgingRepository.FindByID(ID);
             return View(lodging);
         }
@@ -79,7 +79,7 @@ namespace AS_Management.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int ID)
         {
-            //TODO: Add validation
+            // TODO: Add validation
             Lodging lodging = _lodgingRepository.FindByID(ID);
             _lodgingRepository.Remove(lodging);
             return RedirectToAction(nameof(Index));

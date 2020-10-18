@@ -9,7 +9,7 @@ namespace AS_EFShelterData
     {
         public EFLodgingRepository(ApplicationDbContext context) : base(context) { }
 
-        //TODO: Add specific functions here
+        // TODO: Add specific functions here
         public void SaveLodging(Lodging lodging)
         {
             if (lodging.ID == 0)
@@ -22,7 +22,7 @@ namespace AS_EFShelterData
                     .FirstOrDefault(a => a.ID == lodging.ID);
                 if (DBLodging != null)
                 {
-                    //Update specific lodging fields; Only LodgingType for now
+                    // Update specific lodging fields; Only LodgingType for now
                     DBLodging.LodgingType = lodging.LodgingType;
                 }
             }

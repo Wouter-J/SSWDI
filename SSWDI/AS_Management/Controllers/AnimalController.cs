@@ -23,7 +23,7 @@ namespace AS_Management.Controllers
 
         public IActionResult Index()
         {
-            //TODO create custom viewModel
+            // TODO create custom viewModel
             return View(_animalRepository.GetAll());
         }
 
@@ -55,7 +55,7 @@ namespace AS_Management.Controllers
         [HttpGet]
         public IActionResult Edit(int ID)
         {
-            //TODO: Add better ViewModel
+            // TODO: Add better ViewModel
             Animal animal = _animalRepository.FindByID(ID);
             return View(animal);
         }
@@ -83,7 +83,7 @@ namespace AS_Management.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int ID)
         {
-            //TODO: Add validation
+            // TODO: Add validation
             Animal animal = _animalRepository.FindByID(ID);
             _animalRepository.Remove(animal);
             return RedirectToAction(nameof(Index));

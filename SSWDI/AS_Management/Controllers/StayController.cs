@@ -18,7 +18,7 @@ namespace AS_Management.Controllers
 
         public IActionResult Index()
         {
-            //TODO create custom viewModel
+            // TODO create custom viewModel
             return View(_stayRepository.GetAll().ToList());
         }
 
@@ -50,7 +50,7 @@ namespace AS_Management.Controllers
         [HttpGet]
         public IActionResult Edit(int ID)
         {
-            //TODO: Add better ViewModel
+            // TODO: Add better ViewModel
             Stay stay = _stayRepository.FindByID(ID);
             return View(stay);
         }
@@ -79,7 +79,7 @@ namespace AS_Management.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int ID)
         {
-            //TODO: Add validation
+            // TODO: Add validation
             Stay stay = _stayRepository.FindByID(ID);
             _stayRepository.Remove(stay);
             return RedirectToAction(nameof(Index));

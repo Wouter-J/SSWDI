@@ -9,7 +9,7 @@ namespace AS_EFShelterData
     {
         public EFTreatmentRepository(ApplicationDbContext context) : base (context) { }
 
-        //TODO: Add specific functions here
+        // TODO: Add specific functions here
         public void SaveTreatment(Treatment treatment)
         {
             if (treatment.ID == 0)
@@ -22,7 +22,7 @@ namespace AS_EFShelterData
                     .FirstOrDefault(a => a.ID == treatment.ID);
                 if (DBTreatment != null)
                 {
-                    //Update specific treatment fields; Only Description for now
+                    // Update specific treatment fields; Only Description for now
                     DBTreatment.Description = treatment.Description;
                 }
             }

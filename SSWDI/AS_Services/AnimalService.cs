@@ -7,40 +7,40 @@ namespace AS_Services
 {
     public class AnimalService : IAnimalService
     {
-        private readonly IGenericRepository<Animal> _animalRepository;
+        private readonly IAnimalRepository _animalRepository;
 
-        public AnimalService(IGenericRepository<Animal> animalRepository)
+        public AnimalService(IAnimalRepository animalRepository)
         {
             _animalRepository = animalRepository;
         }
 
         public void Add(Animal animal)
         {
-            //Add specific business logic here
+            // Add specific business logic here
             _animalRepository.Add(animal);
         }
 
         public Animal FindByID(int ID)
         {
-            //Add specific business logic here
+            // Add specific business logic here
             return _animalRepository.FindByID(ID);
         }
 
         public Animal GetAll()
         {
-            //Add specific business logic here
+            // Add specific business logic here
             throw new System.NotImplementedException();
         }
 
         public void Remove(Animal animal)
         {
-            //Add specific business logic here
+            // Add specific business logic here
             throw new System.NotImplementedException();
         }
 
         public void SaveAnimal(Animal animal)
         {
-            //Add specific business logic here
+            // Add specific business logic here
             throw new System.NotImplementedException();
         }
     }

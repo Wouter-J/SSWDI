@@ -4,7 +4,7 @@ namespace AS_DomainServices.Repositories
 {
     public interface IAnimalRepository : IGenericRepository<Animal>
     {
-        //TODO: Add specific functions here
+        // TODO: Add specific functions here
         void SaveAnimal(Animal animal);
     }
 }

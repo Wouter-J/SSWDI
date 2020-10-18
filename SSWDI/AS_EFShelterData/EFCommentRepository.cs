@@ -9,7 +9,7 @@ namespace AS_EFShelterData
     {
         public EFCommentRepository(ApplicationDbContext context) : base (context) { }
 
-        //TODO: Add specific functions here
+        // TODO: Add specific functions here
         public void SaveComment(Comment commentg)
         {
             if (commentg.ID == 0)
@@ -18,7 +18,7 @@ namespace AS_EFShelterData
             }
             else
             {
-                //Do nothing; Comments can't be updated
+                // Do nothing; Comments can't be updated
             }
             _context.SaveChanges();
         }

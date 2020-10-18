@@ -10,7 +10,7 @@ namespace AS_EFShelterData
         public EFAnimalRepository(ApplicationDbContext context) : base (context)
         {
         }
-        //TODO: Add Specific functions here
+        // TODO: Add Specific functions here
 
         public void SaveAnimal(Animal animal)
         {
@@ -23,7 +23,7 @@ namespace AS_EFShelterData
                     .FirstOrDefault(a => a.ID == animal.ID);
                 if(DBAnimal != null)
                 {
-                    //Update specific animal fields; Only name for now
+                    // Update specific animal fields; Only name for now
                     DBAnimal.Name = animal.Name;
                 }
             }

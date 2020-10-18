@@ -13,9 +13,9 @@ namespace AS_ServiceTests
         [Fact]
         public void AnimalShouldBeAdded()
         {
-            //Arrange
-            //IStayRepository stayRepository;
-            //Mock stayServiceMock = new StayService(stayRepository);
+            // Arrange
+            // IStayRepository stayRepository;
+            // Mock stayServiceMock = new StayService(stayRepository);
             var stayRepository = new Mock<IStayRepository>();
             var stayService = new Mock<StayService>();
 
@@ -56,13 +56,13 @@ namespace AS_ServiceTests
                 Treatments = new List<Treatment>()
             };
 
-            //Act
+            // Act
             stayService.Setup(_ => _.Add(stay));
 
-            //Assert
+            // Assert
             IEnumerable<Stay> stays = stayRepository.Object.GetAll();
 
-            //Assert.Equal(stays)
+            // Assert.Equal(stays)
         }
     }
 }

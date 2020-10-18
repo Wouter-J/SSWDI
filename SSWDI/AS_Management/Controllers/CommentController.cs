@@ -18,7 +18,7 @@ namespace AS_Management.Controllers
 
         public IActionResult Index()
         {
-            //TODO create custom viewModel
+            // TODO create custom viewModel
             return View(_commentRepository.GetAll().ToList());
         }
 
@@ -50,7 +50,7 @@ namespace AS_Management.Controllers
         [HttpGet]
         public IActionResult Edit(int ID)
         {
-            //TODO: Add better ViewModel
+            // TODO: Add better ViewModel
             Comment comment = _commentRepository.FindByID(ID);
             return View(comment);
         }
@@ -79,7 +79,7 @@ namespace AS_Management.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int ID)
         {
-            //TODO: Add validation
+            // TODO: Add validation
             Comment comment = _commentRepository.FindByID(ID);
             _commentRepository.Remove(comment);
             return RedirectToAction(nameof(Index));

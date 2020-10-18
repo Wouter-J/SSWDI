@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-//TODO: Finish summary(s)
+// TODO: Finish summary(s)
 namespace AS_DomainServices
 {
     /// <summary>

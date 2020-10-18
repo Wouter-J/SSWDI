@@ -10,7 +10,7 @@ namespace AS_EFShelterData
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
 
-        //Define DBSets
+        // Define DBSets
         public DbSet<Animal> Animals { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Lodging> Lodgings { get; set; }
@@ -21,7 +21,7 @@ namespace AS_EFShelterData
         {
             base.OnModelCreating(modelBuilder);
 
-            //One to One / One to Many relations
+            // One to One / One to Many relations
             modelBuilder.Entity<Stay>()
                 .HasMany(s => s.Treatments)
                 .WithOne(t => t.Stay);
@@ -35,9 +35,9 @@ namespace AS_EFShelterData
                 .HasMany(l => l.Stays)
                 .WithOne(s => s.LodgingLocation);
 
-            //TODO add animal / Stay relation
+            // TODO add animal / Stay relation
 
-            //TODO: Create SeedData file
+            // TODO: Create SeedData file
             modelBuilder.Entity<Lodging>().HasData(new Lodging
             {
                 ID = 1,
@@ -50,7 +50,7 @@ namespace AS_EFShelterData
             modelBuilder.Entity<Stay>().HasData(new
             {
                 ID = 1,
-                Animal = new Animal(), //TODO properly add Animal relation
+                Animal = new Animal(), // TODO properly add Animal relation
                 ArrivalDate = DateTime.Now,
                 AdoptionDate = DateTime.Now,
                 CanBeAdopted = true,

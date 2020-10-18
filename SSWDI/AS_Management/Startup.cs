@@ -44,7 +44,7 @@ namespace AS_Management
             {
                 options.SignIn.RequireConfirmedAccount = true;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                options.Lockout.MaxFailedAccessAttempts = 5; //Max amount of login attempts
+                options.Lockout.MaxFailedAccessAttempts = 5; // Max amount of login attempts
             })
             .AddEntityFrameworkStores<AppIdentityDbContext>()
             .AddDefaultTokenProviders();
@@ -54,14 +54,14 @@ namespace AS_Management
             services.AddMvc();
             services.AddSession();
 
-            //Dependency Injection; Repos
+            // Dependency Injection; Repos
             services.AddTransient<IAnimalRepository, EFAnimalRepository>();
             services.AddTransient<ICommentRepository, EFCommentRepository>();
             services.AddTransient<ILodgingRepository, EFLodgingRepository>();
             services.AddTransient<IStayRepository, EFStayRepository>();
             services.AddTransient<ITreatmentRepository, EFTreatmentRepository>();
 
-            //Dependency Injection; Services
+            // Dependency Injection; Services
             services.AddTransient<IAnimalService, AnimalService>();
         }
 

@@ -9,7 +9,7 @@ namespace AS_EFShelterData
     {
         public EFStayRepository(ApplicationDbContext context) : base (context) { }
 
-        //TODO: Add specific functions here
+        // TODO: Add specific functions here
         public void SaveStay(Stay stay)
         {
             if (stay.ID == 0)
@@ -22,7 +22,7 @@ namespace AS_EFShelterData
                     .FirstOrDefault(a => a.ID == stay.ID);
                 if (DBStay != null)
                 {
-                    //Update specific stay fields; Only Adoption status for now
+                    // Update specific stay fields; Only Adoption status for now
                     DBStay.CanBeAdopted = stay.CanBeAdopted;
                 }
             }

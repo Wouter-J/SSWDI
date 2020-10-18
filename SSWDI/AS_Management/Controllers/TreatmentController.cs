@@ -19,7 +19,7 @@ namespace AS_Management.Controllers
         // GET: Treatment
         public IActionResult Index()
         {
-            //TODO: Create custom viewModel
+            // TODO: Create custom viewModel
             return View(_treatmentRepository.GetAll().ToList());
         }
 
@@ -57,7 +57,7 @@ namespace AS_Management.Controllers
         [HttpGet]
         public IActionResult Edit(int ID)
         {
-            //TODO: Add better ViewModel
+            // TODO: Add better ViewModel
             Treatment treatment = _treatmentRepository.FindByID(ID);
             return View(treatment);
         }
@@ -89,7 +89,7 @@ namespace AS_Management.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int ID)
         {
-            //TODO: Add validation
+            // TODO: Add validation
             Treatment treatment = _treatmentRepository.FindByID(ID);
             _treatmentRepository.Remove(treatment);
             return RedirectToAction(nameof(Index));
