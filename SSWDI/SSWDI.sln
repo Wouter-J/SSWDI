@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AS_DomainServices", "AS_Dom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AS_HATEOAS", "AS_HATEOAS\AS_HATEOAS.csproj", "{08C63651-245B-4707-A3F3-FE196DAF1B7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS_Services", "AS_Services\AS_Services.csproj", "{366F774A-30FD-43E2-B1D5-D56B1204BBC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AS_Services", "AS_Services\AS_Services.csproj", "{366F774A-30FD-43E2-B1D5-D56B1204BBC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS_ServiceTests", "AS_ServiceTests\AS_ServiceTests.csproj", "{4AEB195C-4609-4D0F-A344-C436610D491C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{366F774A-30FD-43E2-B1D5-D56B1204BBC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{366F774A-30FD-43E2-B1D5-D56B1204BBC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{366F774A-30FD-43E2-B1D5-D56B1204BBC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AEB195C-4609-4D0F-A344-C436610D491C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AEB195C-4609-4D0F-A344-C436610D491C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AEB195C-4609-4D0F-A344-C436610D491C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AEB195C-4609-4D0F-A344-C436610D491C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

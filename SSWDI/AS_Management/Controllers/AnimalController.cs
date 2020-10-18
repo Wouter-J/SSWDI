@@ -14,7 +14,7 @@ namespace AS_Management.Controllers
 {
     public class AnimalController : Controller
     {
-        private IAnimalService _animalRepository;
+        private readonly IAnimalService _animalRepository;
 
         public AnimalController(IAnimalService animalRepository)
         {

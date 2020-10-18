@@ -8,7 +8,7 @@ namespace AS_Core.DomainModel
         public int ID { get; set; }
         public Animal Animal{ get; set; }
         public DateTime ArrivalDate { get; set; }
-        public DateTime AdoptionDate { get; set; }
+        public DateTime? AdoptionDate { get; set; }
         public List<Treatment> Treatments { get; set; }
         public List<Comment> Comments { get; set; }
         public bool CanBeAdopted { get; set; }

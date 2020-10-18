@@ -11,6 +11,8 @@ using AS_EFShelterData;
 using AS_Identity;
 using AS_DomainServices;
 using AS_DomainServices.Repositories;
+using AS_DomainServices.Services;
+using AS_Services;
 
 namespace AS_Management
 {
@@ -52,12 +54,15 @@ namespace AS_Management
             services.AddMvc();
             services.AddSession();
 
-            //Dependency Injection
+            //Dependency Injection; Repos
             services.AddTransient<IAnimalRepository, EFAnimalRepository>();
             services.AddTransient<ICommentRepository, EFCommentRepository>();
             services.AddTransient<ILodgingRepository, EFLodgingRepository>();
             services.AddTransient<IStayRepository, EFStayRepository>();
             services.AddTransient<ITreatmentRepository, EFTreatmentRepository>();
+
+            //Dependency Injection; Services
+            services.AddTransient<IAnimalService, AnimalService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
