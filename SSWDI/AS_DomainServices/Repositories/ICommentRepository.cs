@@ -4,7 +4,7 @@ namespace AS_DomainServices
 {
     public interface ICommentRepository : IGenericRepository<Comment>
     {
-        //TODO: Add specific functions here
+        // TODO: Add specific functions here
         void SaveComment(Comment comment);
     }
 }

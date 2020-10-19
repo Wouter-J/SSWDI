@@ -4,6 +4,6 @@
     {
         Yes,
         No,
-        Unknown
+        Unknown,
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 using AS_Core.DomainModel;
 using AS_DomainServices;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AS_Management.Controllers
 {
@@ -11,6 +11,10 @@ namespace AS_Management.Controllers
     {
         private IStayRepository _stayRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StayController"/> class.
+        /// </summary>
+        /// <param name="stayRepository"></param>
         public StayController(IStayRepository stayRepository)
         {
             _stayRepository = stayRepository;
@@ -18,7 +22,7 @@ namespace AS_Management.Controllers
 
         public IActionResult Index()
         {
-            //TODO create custom viewModel
+            // TODO create custom viewModel
             return View(_stayRepository.GetAll().ToList());
         }
 
@@ -44,13 +48,14 @@ namespace AS_Management.Controllers
                 _stayRepository.Add(stay);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(stay);
         }
 
         [HttpGet]
         public IActionResult Edit(int ID)
         {
-            //TODO: Add better ViewModel
+            // TODO: Add better ViewModel
             Stay stay = _stayRepository.FindByID(ID);
             return View(stay);
         }
@@ -64,10 +69,8 @@ namespace AS_Management.Controllers
                 _stayRepository.SaveStay(stay);
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                return View(stay);
-            }
+
+            return View(stay);
         }
 
         // GET: Stays/Delete/5
@@ -82,16 +85,15 @@ namespace AS_Management.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int ID)
         {
-            //TODO: Add validation
+            // TODO: Add validation
             Stay stay = _stayRepository.FindByID(ID);
             _stayRepository.Remove(stay);
             return RedirectToAction(nameof(Index));
         }
 
         // POST: Stays/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         // public async Task<IActionResult> Create([Bind("ID,Name,Birthdate,Age,EstimatedAge,Description,StayType,Race,Gender,Picture,DateOfDeath,Castrated,ChildFriendly,ReasonGivenAway")] Stay stay)
-
     }
 }

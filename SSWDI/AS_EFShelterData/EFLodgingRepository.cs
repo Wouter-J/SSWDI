@@ -1,15 +1,19 @@
-﻿using AS_Core.DomainModel;
-using AS_DomainServices;
-using System;
+﻿using System;
 using System.Linq;
+using AS_Core.DomainModel;
+using AS_DomainServices;
 
 namespace AS_EFShelterData
 {
     public class EFLodgingRepository : EFGenericRepository<Lodging>, ILodgingRepository
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EFLodgingRepository"/> class.
+        /// </summary>
+        /// <param name="context"></param>
         public EFLodgingRepository(ApplicationDbContext context) : base(context) { }
 
-        //TODO: Add specific functions here
+        // TODO: Add specific functions here
         public void SaveLodging(Lodging lodging)
         {
             if (lodging.ID == 0)
@@ -22,10 +26,11 @@ namespace AS_EFShelterData
                     .FirstOrDefault(a => a.ID == lodging.ID);
                 if (DBLodging != null)
                 {
-                    //Update specific lodging fields; Only LodgingType for now
+                    // Update specific lodging fields; Only LodgingType for now
                     DBLodging.LodgingType = lodging.LodgingType;
                 }
             }
+
             _context.SaveChanges();
         }
     }

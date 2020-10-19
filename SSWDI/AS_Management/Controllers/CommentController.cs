@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 using AS_Core.DomainModel;
 using AS_DomainServices;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AS_Management.Controllers
 {
     public class CommentController : Controller
     {
-        private ICommentRepository _commentRepository;
+        private readonly ICommentRepository _commentRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CommentController"/> class.
+        /// </summary>
+        /// <param name="commentRepository"></param>
         public CommentController(ICommentRepository commentRepository)
         {
             _commentRepository = commentRepository;
@@ -18,7 +22,7 @@ namespace AS_Management.Controllers
 
         public IActionResult Index()
         {
-            //TODO create custom viewModel
+            // TODO create custom viewModel
             return View(_commentRepository.GetAll().ToList());
         }
 
@@ -44,13 +48,14 @@ namespace AS_Management.Controllers
                 _commentRepository.Add(comment);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(comment);
         }
 
         [HttpGet]
         public IActionResult Edit(int ID)
         {
-            //TODO: Add better ViewModel
+            // TODO: Add better ViewModel
             Comment comment = _commentRepository.FindByID(ID);
             return View(comment);
         }
@@ -64,10 +69,8 @@ namespace AS_Management.Controllers
                 _commentRepository.SaveComment(comment);
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                return View(comment);
-            }
+
+            return View(comment);
         }
 
         // GET: Comments/Delete/5
@@ -82,16 +85,15 @@ namespace AS_Management.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int ID)
         {
-            //TODO: Add validation
+            // TODO: Add validation
             Comment comment = _commentRepository.FindByID(ID);
             _commentRepository.Remove(comment);
             return RedirectToAction(nameof(Index));
         }
 
         // POST: Comments/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         // public async Task<IActionResult> Create([Bind("ID,Name,Birthdate,Age,EstimatedAge,Description,CommentType,Race,Gender,Picture,DateOfDeath,Castrated,ChildFriendly,ReasonGivenAway")] Comment comment)
-
     }
 }

@@ -10,6 +10,10 @@ namespace AS_EFShelterData
     {
         protected readonly ApplicationDbContext _context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EFGenericRepository{TEntity}"/> class.
+        /// </summary>
+        /// <param name="context"></param>
         public EFGenericRepository(ApplicationDbContext context)
         {
             _context = context;

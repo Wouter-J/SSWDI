@@ -1,32 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using AS_Core.DomainModel;
-using AS_DomainServices;
+using AS_DomainServices.Repositories;
+using AS_DomainServices.Services;
+using AS_EFShelterData;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace AS_Management.Controllers
 {
     public class AnimalController : Controller
     {
-        private IAnimalRepository _animalRepository;
+        private readonly IAnimalService _animalRepository;
 
-        public AnimalController(IAnimalRepository animalRepository)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AnimalController"/> class.
+        /// </summary>
+        /// <param name="animalRepository"></param>
+        public AnimalController(IAnimalService animalRepository)
         {
             _animalRepository = animalRepository;
         }
 
         public IActionResult Index()
         {
-            //TODO create custom viewModel
-            return View(_animalRepository.GetAll().ToList());
-        }
-
-        [HttpGet]
-        public IActionResult Details(int ID)
-        {
-            Animal animal = _animalRepository.FindByID(ID);
-            return View(animal);
+            // TODO create custom viewModel
+            return View(_animalRepository.GetAll());
         }
 
         [HttpGet]
@@ -44,13 +46,21 @@ namespace AS_Management.Controllers
                 _animalRepository.Add(animal);
                 return RedirectToAction(nameof(Index));
             }
+
+            return View(animal);
+        }
+
+        [HttpGet]
+        public IActionResult Details(int ID)
+        {
+            Animal animal = _animalRepository.FindByID(ID);
             return View(animal);
         }
 
         [HttpGet]
         public IActionResult Edit(int ID)
         {
-            //TODO: Add better ViewModel
+            // TODO: Add better ViewModel
             Animal animal = _animalRepository.FindByID(ID);
             return View(animal);
         }
@@ -59,13 +69,13 @@ namespace AS_Management.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Animal animal)
         {
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 _animalRepository.SaveAnimal(animal);
                 return RedirectToAction(nameof(Index));
             }
-            else {
-                return View(animal);
-            }
+
+            return View(animal);
         }
 
         // GET: Animals/Delete/5
@@ -80,16 +90,15 @@ namespace AS_Management.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int ID)
         {
-            //TODO: Add validation
+            // TODO: Add validation
             Animal animal = _animalRepository.FindByID(ID);
             _animalRepository.Remove(animal);
             return RedirectToAction(nameof(Index));
         }
 
         // POST: Animals/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         // public async Task<IActionResult> Create([Bind("ID,Name,Birthdate,Age,EstimatedAge,Description,AnimalType,Race,Gender,Picture,DateOfDeath,Castrated,ChildFriendly,ReasonGivenAway")] Animal animal)
-
     }
 }
