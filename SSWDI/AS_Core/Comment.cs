@@ -13,6 +13,9 @@ namespace AS_Core.DomainModel
 
         public string WrittenBy { get; set; }
 
+        public int StayID { get; set; }
+
+        [ForeignKey("StayID")]
         public Stay Stay { get; set; }
     }
 }

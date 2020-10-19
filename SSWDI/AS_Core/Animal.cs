@@ -34,6 +34,6 @@ namespace AS_Core.DomainModel
 
         public string ReasonGivenAway { get; set; } // Only employees should be able to read this
 
-        public List<Stay> Stays { get; set; }
+        public ICollection<Stay> Stays { get; set; }
     }
 }

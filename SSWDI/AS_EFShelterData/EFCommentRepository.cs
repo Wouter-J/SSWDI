@@ -14,11 +14,12 @@ namespace AS_EFShelterData
         public EFCommentRepository(ApplicationDbContext context) : base(context) { }
 
         // TODO: Add specific functions here
-        public void SaveComment(Comment commentg)
+        public void SaveComment(Comment comment)
         {
-            if (commentg.ID == 0)
+
+            if (comment.ID == 0)
             {
-                _context.Comments.Add(commentg);
+                _context.Comments.Add(comment);
             }
             else
             {

@@ -2,6 +2,7 @@
 using AS_DomainServices;
 using AS_DomainServices.Repositories;
 using AS_DomainServices.Services;
+using System.Collections.Generic;
 
 namespace AS_Services
 {
@@ -30,10 +31,10 @@ namespace AS_Services
             return _animalRepository.FindByID(ID);
         }
 
-        public Animal GetAll()
+        public IEnumerable<Animal> GetAll()
         {
             // Add specific business logic here
-            throw new System.NotImplementedException();
+            return _animalRepository.GetAll();
         }
 
         public void Remove(Animal animal)

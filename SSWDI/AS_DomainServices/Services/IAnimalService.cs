@@ -1,10 +1,11 @@
-﻿using AS_Core.DomainModel;
+﻿using System.Collections.Generic;
+using AS_Core.DomainModel;
 
 namespace AS_DomainServices.Services
 {
     public interface IAnimalService
     {
-        public Animal GetAll();
+        public IEnumerable<Animal> GetAll();
 
         public Animal FindByID(int ID);
 

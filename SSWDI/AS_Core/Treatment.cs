@@ -21,6 +21,9 @@ namespace AS_Core.DomainModel
 
         public DateTime Date { get; set; }
 
+        public int StayID { get; set; }
+
+        [ForeignKey("StayID")]
         public Stay Stay { get; set; }
     }
 }

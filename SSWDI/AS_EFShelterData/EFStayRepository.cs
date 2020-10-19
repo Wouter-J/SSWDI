@@ -16,6 +16,7 @@ namespace AS_EFShelterData
         // TODO: Add specific functions here
         public void SaveStay(Stay stay)
         {
+
             if (stay.ID == 0)
             {
                 _context.Stays.Add(stay);
