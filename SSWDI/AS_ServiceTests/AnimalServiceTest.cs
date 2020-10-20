@@ -59,7 +59,7 @@ namespace AS_ServiceTests
             };
 
             // Act
-            stayService.Setup(_ => _.Add(stay));
+            //stayService.Setup(_ => _.Add(stay));
 
             // Assert
             IEnumerable<Stay> stays = stayRepository.Object.GetAll();

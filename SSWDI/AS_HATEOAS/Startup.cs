@@ -31,6 +31,8 @@ namespace AS_HATEOAS
         {
             services.AddControllers();
 
+            services.AddSwaggerGen();
+
             // services.AddNewtonSoftJson(
             //     opts => opts.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling);
         }
@@ -42,6 +44,16 @@ namespace AS_HATEOAS
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "AnimalShelver V1 HATEOAS");
+            });
 
             app.UseHttpsRedirection();
 
