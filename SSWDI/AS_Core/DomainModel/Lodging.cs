@@ -1,7 +1,5 @@
 ﻿using AS_Core.Enums;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AS_Core.DomainModel
 {
@@ -19,6 +17,6 @@ namespace AS_Core.DomainModel
 
         public AnimalType AnimalType { get; set; }
 
-        public List<Stay> Stays { get; set; }
+        public List<Stay> Stays { get; set; } = new List<Stay>();
     }
 }
