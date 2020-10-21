@@ -9,14 +9,16 @@ namespace AS_Services
     public class AnimalService : IAnimalService
     {
         private readonly IAnimalRepository _animalRepository;
+        private readonly IStayRepository _stayRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AnimalService"/> class.
         /// </summary>
         /// <param name="animalRepository"></param>
-        public AnimalService(IAnimalRepository animalRepository)
+        public AnimalService(IAnimalRepository animalRepository, IStayRepository stayRepository)
         {
             _animalRepository = animalRepository;
+            _stayRepository = stayRepository;
         }
 
         public void Add(Animal animal)
@@ -47,6 +49,18 @@ namespace AS_Services
         {
             // Add specific business logic here
             throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Finds related Stay location on Animal basis.
+        /// </summary>
+        /// <param name="ID">The ID of the Animal.</param>
+        /// <returns>The related stay to the animal.</returns>
+        public Stay FindRelatedStay(int ID)
+        {
+            Animal animal = _animalRepository.FindByID(ID);
+
+            return _stayRepository.FindByID(animal.StayID);
         }
     }
 }

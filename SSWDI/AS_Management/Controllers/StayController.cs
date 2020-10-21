@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using AS_Core.DomainModel;
 using AS_DomainServices;
+using AS_DomainServices.Repositories;
+using AS_Management.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AS_Management.Controllers
@@ -10,20 +12,28 @@ namespace AS_Management.Controllers
     public class StayController : Controller
     {
         private IStayRepository _stayRepository;
+        private IAnimalRepository _animalRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StayController"/> class.
         /// </summary>
         /// <param name="stayRepository"></param>
-        public StayController(IStayRepository stayRepository)
+        public StayController(IStayRepository stayRepository, IAnimalRepository animalRepository)
         {
             _stayRepository = stayRepository;
+            _animalRepository = animalRepository;
         }
 
         public IActionResult Index()
         {
             // TODO create custom viewModel
-            return View(_stayRepository.GetAll().ToList());
+            var vm = new StayViewModel()
+            {
+                Stays = _stayRepository.GetAll().ToList(),
+                Animals = _animalRepository.GetAll().ToList()
+            };
+
+            return View(vm);
         }
 
         [HttpGet]

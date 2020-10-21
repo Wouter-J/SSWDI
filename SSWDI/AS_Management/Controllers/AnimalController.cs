@@ -6,6 +6,7 @@ using AS_Core.DomainModel;
 using AS_DomainServices.Repositories;
 using AS_DomainServices.Services;
 using AS_EFShelterData;
+using AS_Management.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,21 +15,21 @@ namespace AS_Management.Controllers
 {
     public class AnimalController : Controller
     {
-        private readonly IAnimalService _animalRepository;
+        private readonly IAnimalService _animalService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AnimalController"/> class.
         /// </summary>
         /// <param name="animalRepository"></param>
-        public AnimalController(IAnimalService animalRepository)
+        public AnimalController(IAnimalService animalService)
         {
-            _animalRepository = animalRepository;
+            _animalService = animalService;
         }
 
         public IActionResult Index()
         {
             // TODO create custom viewModel
-            return View(_animalRepository.GetAll());
+            return View(_animalService.GetAll());
         }
 
         [HttpGet]
@@ -43,7 +44,7 @@ namespace AS_Management.Controllers
         {
             if (ModelState.IsValid)
             {
-                _animalRepository.Add(animal);
+                _animalService.Add(animal);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -53,7 +54,7 @@ namespace AS_Management.Controllers
         [HttpGet]
         public IActionResult Details(int ID)
         {
-            Animal animal = _animalRepository.FindByID(ID);
+            Animal animal = _animalService.FindByID(ID);
             return View(animal);
         }
 
@@ -61,7 +62,7 @@ namespace AS_Management.Controllers
         public IActionResult Edit(int ID)
         {
             // TODO: Add better ViewModel
-            Animal animal = _animalRepository.FindByID(ID);
+            Animal animal = _animalService.FindByID(ID);
             return View(animal);
         }
 
@@ -71,7 +72,7 @@ namespace AS_Management.Controllers
         {
             if (ModelState.IsValid)
             {
-                _animalRepository.SaveAnimal(animal);
+                _animalService.SaveAnimal(animal);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -81,7 +82,7 @@ namespace AS_Management.Controllers
         // GET: Animals/Delete/5
         public IActionResult Delete(int ID)
         {
-            Animal animal = _animalRepository.FindByID(ID);
+            Animal animal = _animalService.FindByID(ID);
             return View(animal);
         }
 
@@ -91,9 +92,21 @@ namespace AS_Management.Controllers
         public IActionResult DeleteConfirmed(int ID)
         {
             // TODO: Add validation
-            Animal animal = _animalRepository.FindByID(ID);
-            _animalRepository.Remove(animal);
+            Animal animal = _animalService.FindByID(ID);
+            _animalService.Remove(animal);
             return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Animals/ID
+        public IActionResult PlaceAnimal(int ID)
+        {
+            var vm = new AnimalViewModel()
+            {
+                Stay = _animalService.FindRelatedStay(ID),
+                Animal = _animalService.FindByID(ID)
+            };
+
+            return View(vm);
         }
 
         // POST: Animals/Create

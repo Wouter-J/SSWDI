@@ -15,5 +15,13 @@ namespace AS_DomainServices.Services
 
         // TODO: implement specific functions
         void SaveAnimal(Animal animal);
+
+        /// <summary>
+        /// Interface
+        /// Finds related Stay location on Animal basis.
+        /// </summary>
+        /// <param name="ID">The ID of the Animal.</param>
+        /// <returns>The related stay to the animal.</returns>
+        Stay FindRelatedStay(int ID);
     }
 }

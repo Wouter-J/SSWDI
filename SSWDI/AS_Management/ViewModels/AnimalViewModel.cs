@@ -6,6 +6,8 @@ namespace AS_Management.ViewModels
     {
         public Animal Animal { get; set; }
 
+        public Stay Stay { get; set; }
+
         public AnimalType AnimalType { get; set; }
     }
 }
