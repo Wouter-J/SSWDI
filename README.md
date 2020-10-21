@@ -2,7 +2,13 @@
 
 ## Status
 
-- <a href="https://codeclimate.com/github/Wouter-J/SSWDI/maintainability"><img src="https://api.codeclimate.com/v1/badges/359826177036cfbb7f4d/maintainability" /></a>
+- [![Build Status](https://dev.azure.com/AS-SWDI/AnimalShelter/_apis/build/status/AnimalShelter-ASP.NET%20Core-CI?branchName=master)](https://dev.azure.com/AS-SWDI/AnimalShelter/_build/latest?definitionId=1&branchName=master)
+
+## Services
+
+ - Management: https://as-wj.azurewebsites.net/
+ - API (v2): https://as-api-wj.azurewebsites.net/swagger
+ - Adoption:  https://as-adoption-wj.azurewebsites.net/
 
 ## AnimalShelter contains:
 
