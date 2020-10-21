@@ -9,27 +9,27 @@ namespace AS_Management.Controllers
 {
     public class LodgingController : Controller
     {
-        private ILodgingService _lodgingRepository;
+        private readonly ILodgingService _lodgingService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LodgingController"/> class.
         /// </summary>
         /// <param name="lodgingRepository"></param>
-        public LodgingController(ILodgingService lodgingRepository)
+        public LodgingController(ILodgingService lodgingService)
         {
-            _lodgingRepository = lodgingRepository;
+            _lodgingService = lodgingService;
         }
 
         public IActionResult Index()
         {
             // TODO create custom viewModel
-            return View(_lodgingRepository.GetAll().ToList());
+            return View(_lodgingService.GetAll().ToList());
         }
 
         [HttpGet]
         public IActionResult Details(int ID)
         {
-            Lodging lodging = _lodgingRepository.FindByID(ID);
+            Lodging lodging = _lodgingService.FindByID(ID);
             return View(lodging);
         }
 
@@ -45,7 +45,7 @@ namespace AS_Management.Controllers
         {
             if (ModelState.IsValid)
             {
-                _lodgingRepository.Add(lodging);
+                _lodgingService.Add(lodging);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -56,7 +56,7 @@ namespace AS_Management.Controllers
         public IActionResult Edit(int ID)
         {
             // TODO: Add better ViewModel
-            Lodging lodging = _lodgingRepository.FindByID(ID);
+            Lodging lodging = _lodgingService.FindByID(ID);
             return View(lodging);
         }
 
@@ -66,7 +66,7 @@ namespace AS_Management.Controllers
         {
             if (ModelState.IsValid)
             {
-                _lodgingRepository.SaveLodging(lodging);
+                _lodgingService.SaveLodging(lodging);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -76,7 +76,7 @@ namespace AS_Management.Controllers
         // GET: Lodgings/Delete/5
         public IActionResult Delete(int ID)
         {
-            Lodging lodging = _lodgingRepository.FindByID(ID);
+            Lodging lodging = _lodgingService.FindByID(ID);
             return View(lodging);
         }
 
@@ -86,8 +86,8 @@ namespace AS_Management.Controllers
         public IActionResult DeleteConfirmed(int ID)
         {
             // TODO: Add validation
-            Lodging lodging = _lodgingRepository.FindByID(ID);
-            _lodgingRepository.Remove(lodging);
+            Lodging lodging = _lodgingService.FindByID(ID);
+            _lodgingService.Remove(lodging);
             return RedirectToAction(nameof(Index));
         }
 

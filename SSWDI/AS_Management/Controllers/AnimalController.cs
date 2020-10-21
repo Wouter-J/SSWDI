@@ -21,7 +21,7 @@ namespace AS_Management.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="AnimalController"/> class.
         /// </summary>
-        /// <param name="animalRepository"></param>
+        /// <param name="animalService"></param>
         public AnimalController(IAnimalService animalService, ILodgingService lodgingService)
         {
             _animalService = animalService;

@@ -2,36 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using AS_Core.DomainModel;
-using AS_DomainServices;
+using AS_DomainServices.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AS_Management.Controllers
 {
     public class TreatmentController : Controller
     {
-        private ITreatmentRepository _treatmentRepository;
+        private readonly ITreatmentService _treatmentService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TreatmentController"/> class.
         /// </summary>
         /// <param name="treatmentRepository"></param>
-        public TreatmentController(ITreatmentRepository treatmentRepository)
+        public TreatmentController(ITreatmentService treatmentRepository)
         {
-            _treatmentRepository = treatmentRepository;
+            _treatmentService = treatmentRepository;
         }
 
         // GET: Treatment
         public IActionResult Index()
         {
             // TODO: Create custom viewModel
-            return View(_treatmentRepository.GetAll().ToList());
+            return View(_treatmentService.GetAll().ToList());
         }
 
         // GET: Treatment/Details/5
         [HttpGet]
         public IActionResult Details(int ID)
         {
-            Treatment treatment = _treatmentRepository.FindByID(ID);
+            Treatment treatment = _treatmentService.FindByID(ID);
 
             return View(treatment);
         }
@@ -51,7 +51,7 @@ namespace AS_Management.Controllers
         {
             if (ModelState.IsValid)
             {
-                _treatmentRepository.Add(treatment);
+                _treatmentService.Add(treatment);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -63,7 +63,7 @@ namespace AS_Management.Controllers
         public IActionResult Edit(int ID)
         {
             // TODO: Add better ViewModel
-            Treatment treatment = _treatmentRepository.FindByID(ID);
+            Treatment treatment = _treatmentService.FindByID(ID);
             return View(treatment);
         }
 
@@ -76,7 +76,7 @@ namespace AS_Management.Controllers
         {
             if (ModelState.IsValid)
             {
-                _treatmentRepository.SaveTreatment(treatment);
+                _treatmentService.SaveTreatment(treatment);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -86,7 +86,7 @@ namespace AS_Management.Controllers
         // GET: Treatment/Delete/5
         public IActionResult Delete(int ID)
         {
-            Treatment treatment = _treatmentRepository.FindByID(ID);
+            Treatment treatment = _treatmentService.FindByID(ID);
             return View(treatment);
         }
 
@@ -96,8 +96,8 @@ namespace AS_Management.Controllers
         public IActionResult DeleteConfirmed(int ID)
         {
             // TODO: Add validation
-            Treatment treatment = _treatmentRepository.FindByID(ID);
-            _treatmentRepository.Remove(treatment);
+            Treatment treatment = _treatmentService.FindByID(ID);
+            _treatmentService.Remove(treatment);
             return RedirectToAction(nameof(Index));
         }
     }

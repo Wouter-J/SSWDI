@@ -12,9 +12,8 @@ namespace AS_Management.Controllers
 {
     public class StayController : Controller
     {
-        //TODO: Use services instead of repo's
-        private IStayRepository _stayRepository;
-        private IAnimalRepository _animalRepository;
+        private readonly IStayService _stayService;
+        private readonly IAnimalService _animalService;
 
         private readonly ILodgingService _lodgingService;
 
@@ -22,10 +21,10 @@ namespace AS_Management.Controllers
         /// Initializes a new instance of the <see cref="StayController"/> class.
         /// </summary>
         /// <param name="stayRepository"></param>
-        public StayController(IStayRepository stayRepository, IAnimalRepository animalRepository)
+        public StayController(IStayService stayRepository, IAnimalService animalService)
         {
-            _stayRepository = stayRepository;
-            _animalRepository = animalRepository;
+            _stayService = stayRepository;
+            _animalService = animalService;
         }
 
         public IActionResult Index()
@@ -33,8 +32,8 @@ namespace AS_Management.Controllers
             // TODO create custom viewModel
             var vm = new StayViewModel()
             {
-                Stays = _stayRepository.GetAll().ToList(),
-                Animals = _animalRepository.GetAll().ToList()
+                Stays = _stayService.GetAll().ToList(),
+                Animals = _animalService.GetAll().ToList()
             };
 
             return View(vm);
@@ -43,7 +42,7 @@ namespace AS_Management.Controllers
         [HttpGet]
         public IActionResult Details(int ID)
         {
-            Stay stay = _stayRepository.FindByID(ID);
+            Stay stay = _stayService.FindByID(ID);
             return View(stay);
         }
 
@@ -59,7 +58,7 @@ namespace AS_Management.Controllers
         {
             if (ModelState.IsValid)
             {
-                _stayRepository.Add(stay);
+                _stayService.Add(stay);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -70,7 +69,7 @@ namespace AS_Management.Controllers
         public IActionResult Edit(int ID)
         {
             // TODO: Add better ViewModel
-            Stay stay = _stayRepository.FindByID(ID);
+            Stay stay = _stayService.FindByID(ID);
             return View(stay);
         }
 
@@ -80,7 +79,7 @@ namespace AS_Management.Controllers
         {
             if (ModelState.IsValid)
             {
-                _stayRepository.SaveStay(stay);
+                _stayService.SaveStay(stay);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -90,7 +89,7 @@ namespace AS_Management.Controllers
         // GET: Stays/Delete/5
         public IActionResult Delete(int ID)
         {
-            Stay stay = _stayRepository.FindByID(ID);
+            Stay stay = _stayService.FindByID(ID);
             return View(stay);
         }
 
@@ -100,8 +99,8 @@ namespace AS_Management.Controllers
         public IActionResult DeleteConfirmed(int ID)
         {
             // TODO: Add validation
-            Stay stay = _stayRepository.FindByID(ID);
-            _stayRepository.Remove(stay);
+            Stay stay = _stayService.FindByID(ID);
+            _stayService.Remove(stay);
             return RedirectToAction(nameof(Index));
         }
 
