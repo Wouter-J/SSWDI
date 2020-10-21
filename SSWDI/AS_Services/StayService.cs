@@ -1,6 +1,8 @@
 ﻿using AS_Core.DomainModel;
+using AS_Core.Enums;
 using AS_DomainServices;
 using AS_DomainServices.Services;
+using System.Collections.Generic;
 
 namespace AS_Services
 {
@@ -26,13 +28,13 @@ namespace AS_Services
             // Check if lodging has free space if new animal is added && animal is of correct type
             if (lodge.MaxCapacity != lodge.CurrentCapacity + 1 && lodge.AnimalType == animal.AnimalType)
             {
-                // err on lodge
+                // TODO: err on lodge
             }
 
             // Check if group lodging & castrated or not
             if (!animal.Castrated && lodge.LodgingType == LodgingType.Group)
             {
-                // err on animal
+                // TODO: err on animal
             }
 
             _stayRepository.Add(stay);
@@ -45,10 +47,10 @@ namespace AS_Services
             return _stayRepository.FindByID(ID);
         }
 
-        public Stay GetAll()
+        public IEnumerable<Stay> GetAll()
         {
             // Add specific business logic here
-            throw new System.NotImplementedException();
+            return _stayRepository.GetAll();
         }
 
         public void Remove(Stay stay)
@@ -57,7 +59,7 @@ namespace AS_Services
             _stayRepository.Remove(stay);
         }
 
-        public void SaveAnimal(Stay stay)
+        public void SaveStay(Stay stay)
         {
             // Add specific business logic here
             _stayRepository.SaveStay(stay);

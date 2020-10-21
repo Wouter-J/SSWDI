@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using AS_Core.DomainModel;
+using AS_Core.Enums;
 using AS_DomainServices;
 using AS_Services;
 using Moq;

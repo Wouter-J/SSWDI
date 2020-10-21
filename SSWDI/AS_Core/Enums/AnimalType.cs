@@ -1,4 +1,4 @@
-﻿namespace AS_Core.DomainModel
+﻿namespace AS_Core.Enums
 {
     public enum AnimalType
     {

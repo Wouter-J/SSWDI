@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using AS_Core.DomainModel;
+using AS_Core.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace AS_EFShelterData
@@ -15,6 +16,7 @@ namespace AS_EFShelterData
             {
                 ID = 1,
                 LodgingType = LodgingType.Group,
+                Description = "Grote opvang voor Honden ",
                 MaxCapacity = 100,
                 CurrentCapacity = 10,
                 AnimalType = AnimalType.Dog,
@@ -25,6 +27,7 @@ namespace AS_EFShelterData
             {
                 ID = 2,
                 LodgingType = LodgingType.Group,
+                Description = "Grote opvang voor Katten ",
                 MaxCapacity = 100,
                 CurrentCapacity = 10,
                 AnimalType = AnimalType.Cat,

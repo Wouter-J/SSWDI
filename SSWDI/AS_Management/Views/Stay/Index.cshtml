@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AS_Core.DomainModel.Stay>
+﻿@model AS_Management.ViewModels.StayViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -13,41 +13,72 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ArrivalDate)
+                @Html.DisplayNameFor(model => model.animal.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AdoptionDate)
+                @Html.DisplayNameFor(model => model.animal.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CanBeAdopted)
+                @Html.DisplayNameFor(model => model.animal.AnimalType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AdoptedBy)
+                @Html.DisplayNameFor(model => model.animal.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.stay.ArrivalDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.stay.AdoptionDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.stay.CanBeAdopted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.stay.AdoptedBy)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArrivalDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AdoptionDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CanBeAdopted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AdoptedBy)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
+        @foreach (var item in Model.Animals)
+        {
+            @if (item.Stays != null) // Prevent any animals with no stay to show up
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AnimalType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Age)
+                    </td>
+                        @foreach (var stay in item.Stays)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => stay.ArrivalDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => stay.AdoptionDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => stay.CanBeAdopted)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => stay.AdoptedBy)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@stay.ID">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@stay.ID">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@stay.ID">Delete</a>
+                            </td>
+                        }
+                </tr>
+            }
+        }
+        </tbody>
 </table>

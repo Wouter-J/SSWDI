@@ -1,12 +1,13 @@
-﻿using System;
+﻿using AS_Core.Enums;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AS_Core.DomainModel
 {
     public class Lodging
     {
         public int ID { get; set; }
+
+        public string Description { get; set; }
 
         public LodgingType LodgingType { get; set; }
 
@@ -16,6 +17,6 @@ namespace AS_Core.DomainModel
 
         public AnimalType AnimalType { get; set; }
 
-        public List<Stay> Stays { get; set; }
+        public List<Stay> Stays { get; set; } = new List<Stay>();
     }
 }

@@ -27,8 +27,8 @@ namespace AS_EFShelterData
                     .FirstOrDefault(a => a.ID == stay.ID);
                 if (DBStay != null)
                 {
-                    // Update specific stay fields; Only Adoption status for now
-                    DBStay.CanBeAdopted = stay.CanBeAdopted;
+                    // Update specific lodging fields; General save for now
+                    DBStay = stay;
                 }
             }
 

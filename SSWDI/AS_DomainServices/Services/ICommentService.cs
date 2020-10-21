@@ -1,9 +1,10 @@
-﻿using AS_Core.DomainModel;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace AS_DomainServices.Services
 {
-    public interface IStayService : IStayRepository
+    public interface ICommentService : ICommentRepository
     {
         // TODO: implement specific functions
     }

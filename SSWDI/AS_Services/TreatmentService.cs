@@ -1,6 +1,8 @@
 ﻿using AS_Core.DomainModel;
 using AS_DomainServices;
 using AS_DomainServices.Services;
+using System.Collections.Generic;
+using AS_Core.Enums;
 
 namespace AS_Services
 {
@@ -58,9 +60,9 @@ namespace AS_Services
             return _treatmentRepository.FindByID(ID);
         }
 
-        public Treatment GetAll()
+        public IEnumerable<Treatment> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _treatmentRepository.GetAll();
         }
 
         public void Remove(Treatment treatment)
