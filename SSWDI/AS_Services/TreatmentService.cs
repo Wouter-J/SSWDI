@@ -2,6 +2,7 @@
 using AS_DomainServices;
 using AS_DomainServices.Services;
 using System.Collections.Generic;
+using AS_Core.Enums;
 
 namespace AS_Services
 {

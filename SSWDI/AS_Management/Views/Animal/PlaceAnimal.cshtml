@@ -1,7 +1,7 @@
 ﻿@model AS_Management.ViewModels.AnimalViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Dier in verblijf plaatsen";
 }
 
 <h1>Edit</h1>
@@ -10,96 +10,53 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        @foreach (var item in Model.Lodgings)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaxCapacity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CurrentCapacity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnimalType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ID)
-            </td>
-        </tr>
-        }
+        <p>U gaat het volgende dier plaatsen:</p>
+        <table>
+            <tr>@Model.Animal.Name</tr>
+            <tr>@Model.Animal.Description</tr>
+            <tr>@Model.Animal.AnimalType</tr>
+            <tr>@Model.Animal.Age</tr>
+        </table>
 
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Animal.ID" />
-            <div class="form-group">
-                <label asp-for="Animal.Name" class="control-label"></label>
-                <input asp-for="Animal.Name" class="form-control" />
-                <span asp-validation-for="Animal.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Animal.Birthdate" class="control-label"></label>
-                <input asp-for="Animal.Birthdate" class="form-control" />
-                <span asp-validation-for="Animal.Birthdate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Animal.Age" class="control-label"></label>
-                <input asp-for="Animal.Age" class="form-control" />
-                <span asp-validation-for="Animal.Age" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Animal.EstimatedAge" class="control-label"></label>
-                <input asp-for="Animal.EstimatedAge" class="form-control" />
-                <span asp-validation-for="Animal.EstimatedAge" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Animal.Description" class="control-label"></label>
-                <input asp-for="Animal.Description" class="form-control" />
-                <span asp-validation-for="Animal.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Animal.AnimalType" class="control-label"></label>
-                <select asp-for="Animal.AnimalType" class="form-control"></select>
-                <span asp-validation-for="Animal.AnimalType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Animal.Race" class="control-label"></label>
-                <input asp-for="Animal.Race" class="form-control" />
-                <span asp-validation-for="Animal.Race" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Animal.Gender" class="control-label"></label>
-                <input asp-for="Animal.Gender" class="form-control" />
-                <span asp-validation-for="Animal.Gender" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Animal.Picture" class="control-label"></label>
-                <input asp-for="Animal.Picture" class="form-control" />
-                <span asp-validation-for="Animal.Picture" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Animal.DateOfDeath" class="control-label"></label>
-                <input asp-for="Animal.DateOfDeath" class="form-control" />
-                <span asp-validation-for="Animal.DateOfDeath" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Animal.Castrated" /> @Html.DisplayNameFor(model => model.Animal.Castrated)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Animal.ChildFriendly" class="control-label"></label>
-                <select asp-for="Animal.ChildFriendly" class="form-control"></select>
-                <span asp-validation-for="Animal.ChildFriendly" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Animal.ReasonGivenAway" class="control-label"></label>
-                <input asp-for="Animal.ReasonGivenAway" class="form-control" />
-                <span asp-validation-for="Animal.ReasonGivenAway" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+    <form asp-action="PlaceAnimal">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Animal.ID" />
+        <input type="hidden" asp-for="Stay.Animal" />
+        <div class="form-group">
+            <label asp-for="Stay.ArrivalDate" class="control-label"></label>
+            <input asp-for="Stay.ArrivalDate" class="form-control" />
+            <span asp-validation-for="Stay.ArrivalDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Stay.AdoptionDate" class="control-label"></label>
+            <input asp-for="Stay.AdoptionDate" class="form-control" />
+            <span asp-validation-for="Stay.AdoptionDate" class="text-danger"></span>
+        </div>
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="Stay.CanBeAdopted" /> @Html.DisplayNameFor(model => model.Stay.CanBeAdopted)
+            </label>
+        </div>
+        <div class="form-group">
+            <label asp-for="Stay.AdoptedBy" class="control-label"></label>
+            <input asp-for="Stay.AdoptedBy" class="form-control" />
+            <span asp-validation-for="Stay.AdoptedBy" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Beschikbare locaties</label>
+            <select asp-for="Lodge.ID" class="form-control">
+                <option value=""></option>
+                @foreach (var lodge in Model.Lodgings)
+                {
+                    <option value="@lodge.ID">@lodge.Description</option>
+                }
+            </select>
+            <span asp-validation-for="Stay.AdoptedBy" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
     </div>
 </div>
 

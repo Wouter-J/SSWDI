@@ -1,4 +1,5 @@
 ﻿using AS_Core.DomainModel;
+using AS_Core.Enums;
 using AS_DomainServices;
 using AS_DomainServices.Services;
 using System.Collections.Generic;

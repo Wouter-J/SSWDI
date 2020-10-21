@@ -40,42 +40,45 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Animals)
-{
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnimalType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            @foreach (var stay in item.Stays)
+        @foreach (var item in Model.Animals)
+        {
+            @if (item.Stays != null) // Prevent any animals with no stay to show up
             {
-                <td>
-                    @Html.DisplayFor(modelItem => stay.ArrivalDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => stay.AdoptionDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => stay.CanBeAdopted)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => stay.AdoptedBy)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@stay.ID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@stay.ID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@stay.ID">Delete</a>
-                </td>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AnimalType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Age)
+                    </td>
+                        @foreach (var stay in item.Stays)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => stay.ArrivalDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => stay.AdoptionDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => stay.CanBeAdopted)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => stay.AdoptedBy)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@stay.ID">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@stay.ID">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@stay.ID">Delete</a>
+                            </td>
+                        }
+                </tr>
             }
-        </tr>
-}
-    </tbody>
+        }
+        </tbody>
 </table>

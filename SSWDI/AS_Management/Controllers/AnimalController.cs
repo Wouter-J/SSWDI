@@ -17,15 +17,17 @@ namespace AS_Management.Controllers
     {
         private readonly IAnimalService _animalService;
         private readonly ILodgingService _lodgingService;
+        private readonly IStayService _stayService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AnimalController"/> class.
         /// </summary>
         /// <param name="animalService"></param>
-        public AnimalController(IAnimalService animalService, ILodgingService lodgingService)
+        public AnimalController(IAnimalService animalService, ILodgingService lodgingService, IStayService stayService)
         {
             _animalService = animalService;
             _lodgingService = lodgingService;
+            _stayService = stayService;
         }
 
         public IActionResult Index()
@@ -114,6 +116,42 @@ namespace AS_Management.Controllers
             };
 
             return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult PlaceAnimal(AnimalViewModel animalViewModel)
+        {
+            try
+            {
+                animalViewModel.Animal = _animalService.FindByID(animalViewModel.Animal.ID);
+                animalViewModel.Lodge = _lodgingService.FindByID(animalViewModel.Lodge.ID);
+
+                Stay stay = animalViewModel.Stay;
+                Lodging lodge = animalViewModel.Lodge;
+
+                // Setup new list so no nullref
+                lodge.Stays = new List<Stay>();
+
+                // Update capacity with the new animal.
+                lodge.CurrentCapacity = lodge.CurrentCapacity += 1;
+
+                // Add Animal to Animal list in Stay
+                stay.Animal = animalViewModel.Animal;
+
+                // Add stay to lodge
+                lodge.Stays.Add(stay);
+
+                _lodgingService.SaveLodging(lodge);
+                _stayService.SaveStay(stay);
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                Console.Write("Error: " + e); // TODO: Change this to logger service
+            }
+
+            return View(animalViewModel);
         }
 
         // POST: Animals/Create

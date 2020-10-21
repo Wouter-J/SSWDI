@@ -39,7 +39,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="AnimalType" class="control-label"></label>
-                <select asp-for="AnimalType" asp-items="Html.GetEnumSelectList<AS_Core.DomainModel.AnimalType>()" class="form-control">
+                <select asp-for="AnimalType" asp-items="Html.GetEnumSelectList<AS_Core.Enums.AnimalType>()" class="form-control">
 
                 </select>
                 <span asp-validation-for="AnimalType" class="text-danger"></span>
@@ -71,7 +71,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="ChildFriendly" class="control-label"></label>
-                <select asp-for="ChildFriendly" asp-items="Html.GetEnumSelectList<AS_Core.DomainModel.ChildFriendly>()" class="form-control">
+                <select asp-for="ChildFriendly" asp-items="Html.GetEnumSelectList<AS_Core.Enums.ChildFriendly>()" class="form-control">
 
                 </select>
                 <span asp-validation-for="ChildFriendly" class="text-danger"></span>

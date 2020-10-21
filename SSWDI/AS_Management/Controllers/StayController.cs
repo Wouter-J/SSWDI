@@ -21,9 +21,9 @@ namespace AS_Management.Controllers
         /// Initializes a new instance of the <see cref="StayController"/> class.
         /// </summary>
         /// <param name="stayRepository"></param>
-        public StayController(IStayService stayRepository, IAnimalService animalService)
+        public StayController(IStayService stayService, IAnimalService animalService)
         {
-            _stayService = stayRepository;
+            _stayService = stayService;
             _animalService = animalService;
         }
 

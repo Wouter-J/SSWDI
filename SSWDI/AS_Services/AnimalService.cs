@@ -50,17 +50,5 @@ namespace AS_Services
             // Add specific business logic here
             _animalRepository.SaveAnimal(animal);
         }
-
-        /// <summary>
-        /// Finds related Stay location on Animal basis.
-        /// </summary>
-        /// <param name="ID">The ID of the Animal.</param>
-        /// <returns>The related stay to the animal.</returns>
-        public Stay FindRelatedStay(int ID)
-        {
-            Animal animal = _animalRepository.FindByID(ID);
-
-            return _stayRepository.FindByID(animal.StayID);
-        }
     }
 }
