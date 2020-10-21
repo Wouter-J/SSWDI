@@ -16,14 +16,16 @@ namespace AS_Management.Controllers
     public class AnimalController : Controller
     {
         private readonly IAnimalService _animalService;
+        private readonly ILodgingService _lodgingService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AnimalController"/> class.
         /// </summary>
         /// <param name="animalRepository"></param>
-        public AnimalController(IAnimalService animalService)
+        public AnimalController(IAnimalService animalService, ILodgingService lodgingService)
         {
             _animalService = animalService;
+            _lodgingService = lodgingService;
         }
 
         public IActionResult Index()
@@ -97,12 +99,17 @@ namespace AS_Management.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Animals/ID
+        /// <summary>
+        /// Add animal to a Stay; LodgeLocation is added as well.
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult PlaceAnimal(int ID)
         {
             var vm = new AnimalViewModel()
             {
-                Stay = _animalService.FindRelatedStay(ID),
+                Lodgings = _lodgingService.ReturnAvailableLocations(ID), // Only get lodges with proper type & those that have space left.
                 Animal = _animalService.FindByID(ID)
             };
 

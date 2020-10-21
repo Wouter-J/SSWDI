@@ -4,6 +4,7 @@ using System.Linq;
 using AS_Core.DomainModel;
 using AS_DomainServices;
 using AS_DomainServices.Repositories;
+using AS_DomainServices.Services;
 using AS_Management.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,8 +12,11 @@ namespace AS_Management.Controllers
 {
     public class StayController : Controller
     {
+        //TODO: Use services instead of repo's
         private IStayRepository _stayRepository;
         private IAnimalRepository _animalRepository;
+
+        private readonly ILodgingService _lodgingService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StayController"/> class.

@@ -64,6 +64,9 @@ namespace AS_Management
 
             // Dependency Injection; Services
             services.AddTransient<IAnimalService, AnimalService>();
+            services.AddTransient<IStayService, StayService>();
+            services.AddTransient<ILodgingService, LodgingService>();
+            services.AddTransient<ICommentService, CommentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using AS_Core.DomainModel;
-using AS_DomainServices;
+using AS_DomainServices.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AS_Management.Controllers
 {
     public class LodgingController : Controller
     {
-        private ILodgingRepository _lodgingRepository;
+        private ILodgingService _lodgingRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LodgingController"/> class.
         /// </summary>
         /// <param name="lodgingRepository"></param>
-        public LodgingController(ILodgingRepository lodgingRepository)
+        public LodgingController(ILodgingService lodgingRepository)
         {
             _lodgingRepository = lodgingRepository;
         }

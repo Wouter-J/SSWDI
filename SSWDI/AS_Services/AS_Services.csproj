@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AS_DomainServices\AS_DomainServices.csproj" />
+    <ProjectReference Include="..\AS_EFShelterData\AS_EFShelterData.csproj" />
   </ItemGroup>
 
 </Project>

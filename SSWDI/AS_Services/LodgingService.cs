@@ -43,7 +43,7 @@ namespace AS_Services
         public void Remove(Lodging lodging)
         {
             // Add specific business logic here
-            throw new System.NotImplementedException();
+            _lodgingRepository.Remove(lodging);
         }
 
         /// <summary>
@@ -74,10 +74,10 @@ namespace AS_Services
             return freeLodges;
         }
 
-        public void SaveAnimal(Lodging lodging)
+        public void SaveLodging(Lodging lodging)
         {
             // Add specific business logic here
-            throw new System.NotImplementedException();
+            _lodgingRepository.SaveLodging(lodging);
         }
 
     }

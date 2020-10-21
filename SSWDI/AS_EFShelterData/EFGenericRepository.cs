@@ -13,7 +13,7 @@ namespace AS_EFShelterData
         /// <summary>
         /// Initializes a new instance of the <see cref="EFGenericRepository{TEntity}"/> class.
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context">ApplicationDbContext.</param>
         public EFGenericRepository(ApplicationDbContext context)
         {
             _context = context;

@@ -1,4 +1,5 @@
 ﻿using AS_Core.DomainModel;
+using System.Collections.Generic;
 
 namespace AS_Management.ViewModels
 {
@@ -9,5 +10,9 @@ namespace AS_Management.ViewModels
         public Stay Stay { get; set; }
 
         public AnimalType AnimalType { get; set; }
+
+        //public Lodging Lodge { get; set; }
+
+        public IEnumerable<Lodging> Lodgings { get; set; }
     }
 }

@@ -1,21 +1,11 @@
 ﻿using System.Collections.Generic;
 using AS_Core.DomainModel;
+using AS_DomainServices.Repositories;
 
 namespace AS_DomainServices.Services
 {
-    public interface IAnimalService
+    public interface IAnimalService : IAnimalRepository
     {
-        public IEnumerable<Animal> GetAll();
-
-        public Animal FindByID(int ID);
-
-        public void Add(Animal animal);
-
-        public void Remove(Animal animal);
-
-        // TODO: implement specific functions
-        void SaveAnimal(Animal animal);
-
         /// <summary>
         /// Interface
         /// Finds related Stay location on Animal basis.

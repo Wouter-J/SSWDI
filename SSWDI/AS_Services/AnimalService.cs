@@ -42,13 +42,13 @@ namespace AS_Services
         public void Remove(Animal animal)
         {
             // Add specific business logic here
-            throw new System.NotImplementedException();
+            _animalRepository.Remove(animal);
         }
 
         public void SaveAnimal(Animal animal)
         {
             // Add specific business logic here
-            throw new System.NotImplementedException();
+            _animalRepository.SaveAnimal(animal);
         }
 
         /// <summary>

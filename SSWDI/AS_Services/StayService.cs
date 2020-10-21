@@ -1,6 +1,7 @@
 ﻿using AS_Core.DomainModel;
 using AS_DomainServices;
 using AS_DomainServices.Services;
+using System.Collections.Generic;
 
 namespace AS_Services
 {
@@ -45,10 +46,10 @@ namespace AS_Services
             return _stayRepository.FindByID(ID);
         }
 
-        public Stay GetAll()
+        public IEnumerable<Stay> GetAll()
         {
             // Add specific business logic here
-            throw new System.NotImplementedException();
+            return _stayRepository.GetAll();
         }
 
         public void Remove(Stay stay)
@@ -57,7 +58,7 @@ namespace AS_Services
             _stayRepository.Remove(stay);
         }
 
-        public void SaveAnimal(Stay stay)
+        public void SaveStay(Stay stay)
         {
             // Add specific business logic here
             _stayRepository.SaveStay(stay);
