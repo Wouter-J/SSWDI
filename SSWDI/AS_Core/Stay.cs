@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AS_Core.DomainModel
 {
     public class Stay
     {
+        [Key]
         public int ID { get; set; }
 
         public int AnimalID { get; set; }
 
         [ForeignKey("AnimalID")]
+        [Required]
         public Animal Animal { get; set; }
 
         public DateTime ArrivalDate { get; set; }
@@ -21,6 +24,7 @@ namespace AS_Core.DomainModel
 
         public ICollection<Comment> Comments { get; set; }
 
+        [Required]
         public bool CanBeAdopted { get; set; }
 
         public string AdoptedBy { get; set; } // TODO: Make this a link to a User
