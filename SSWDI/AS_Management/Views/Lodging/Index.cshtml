@@ -16,6 +16,12 @@
                 @Html.DisplayNameFor(model => model.LodgingType)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentCapacity)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.MaxCapacity)
             </th>
             <th>
@@ -29,6 +35,12 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.LodgingType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentCapacity)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MaxCapacity)

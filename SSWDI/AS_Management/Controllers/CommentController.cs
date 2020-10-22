@@ -4,32 +4,34 @@ using System.Linq;
 using AS_Core.DomainModel;
 using AS_DomainServices;
 using Microsoft.AspNetCore.Mvc;
+using AS_DomainServices.Repositories;
+using AS_DomainServices.Services;
 
 namespace AS_Management.Controllers
 {
     public class CommentController : Controller
     {
-        private readonly ICommentRepository _commentRepository;
+        private readonly ICommentService _commentService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommentController"/> class.
         /// </summary>
         /// <param name="commentRepository"></param>
-        public CommentController(ICommentRepository commentRepository)
+        public CommentController(ICommentService commentRepository)
         {
-            _commentRepository = commentRepository;
+            _commentService = commentRepository;
         }
 
         public IActionResult Index()
         {
             // TODO create custom viewModel
-            return View(_commentRepository.GetAll().ToList());
+            return View(_commentService.GetAll().ToList());
         }
 
         [HttpGet]
         public IActionResult Details(int ID)
         {
-            Comment comment = _commentRepository.FindByID(ID);
+            Comment comment = _commentService.FindByID(ID);
             return View(comment);
         }
 
@@ -45,7 +47,7 @@ namespace AS_Management.Controllers
         {
             if (ModelState.IsValid)
             {
-                _commentRepository.Add(comment);
+                _commentService.Add(comment);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -56,7 +58,7 @@ namespace AS_Management.Controllers
         public IActionResult Edit(int ID)
         {
             // TODO: Add better ViewModel
-            Comment comment = _commentRepository.FindByID(ID);
+            Comment comment = _commentService.FindByID(ID);
             return View(comment);
         }
 
@@ -66,7 +68,7 @@ namespace AS_Management.Controllers
         {
             if (ModelState.IsValid)
             {
-                _commentRepository.SaveComment(comment);
+                _commentService.SaveComment(comment);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -76,7 +78,7 @@ namespace AS_Management.Controllers
         // GET: Comments/Delete/5
         public IActionResult Delete(int ID)
         {
-            Comment comment = _commentRepository.FindByID(ID);
+            Comment comment = _commentService.FindByID(ID);
             return View(comment);
         }
 
@@ -86,8 +88,8 @@ namespace AS_Management.Controllers
         public IActionResult DeleteConfirmed(int ID)
         {
             // TODO: Add validation
-            Comment comment = _commentRepository.FindByID(ID);
-            _commentRepository.Remove(comment);
+            Comment comment = _commentService.FindByID(ID);
+            _commentService.Remove(comment);
             return RedirectToAction(nameof(Index));
         }
 

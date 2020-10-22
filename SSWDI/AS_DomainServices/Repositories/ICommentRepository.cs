@@ -1,6 +1,6 @@
 ﻿using AS_Core.DomainModel;
 
-namespace AS_DomainServices
+namespace AS_DomainServices.Repositories
 {
     public interface ICommentRepository : IGenericRepository<Comment>
     {

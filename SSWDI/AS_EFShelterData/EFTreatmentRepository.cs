@@ -2,6 +2,7 @@
 using System.Linq;
 using AS_Core.DomainModel;
 using AS_DomainServices;
+using AS_DomainServices.Repositories;
 
 namespace AS_EFShelterData
 {
@@ -26,8 +27,7 @@ namespace AS_EFShelterData
                     .FirstOrDefault(a => a.ID == treatment.ID);
                 if (DBTreatment != null)
                 {
-                    // Update specific treatment fields; Only Description for now
-                    DBTreatment.Description = treatment.Description;
+                    _context.Entry<Treatment>(DBTreatment).CurrentValues.SetValues(treatment);
                 }
             }
 

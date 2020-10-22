@@ -28,8 +28,7 @@ namespace AS_EFShelterData
                     .FirstOrDefault(a => a.ID == animal.ID);
                 if (DBAnimal != null)
                 {
-                    // Update specific lodging fields; General save for now
-                    DBAnimal = animal;
+                    _context.Entry<Animal>(DBAnimal).CurrentValues.SetValues(animal);
                 }
             }
 

@@ -2,6 +2,7 @@
 using System.Linq;
 using AS_Core.DomainModel;
 using AS_DomainServices;
+using AS_DomainServices.Repositories;
 
 namespace AS_EFShelterData
 {

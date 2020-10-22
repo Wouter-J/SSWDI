@@ -3,6 +3,9 @@ using AS_Core.Enums;
 using AS_DomainServices;
 using AS_DomainServices.Services;
 using System.Collections.Generic;
+using AS_DomainServices.Repositories;
+using System;
+using System.Linq;
 
 namespace AS_Services
 {
@@ -61,8 +64,43 @@ namespace AS_Services
 
         public void SaveStay(Stay stay)
         {
-            // Add specific business logic here
+            // TODO: breaking DRY principle here; create seperate function
+            Lodging lodge = stay.LodgingLocation;
+            Animal animal = stay.Animal;
+
+            // Check if lodging has free space if new animal is added && animal is of correct type
+            if (lodge.MaxCapacity != lodge.CurrentCapacity + 1 && lodge.AnimalType == animal.AnimalType)
+            {
+                // throw new BusinessRuleExpection("Verblijf heeft maximum capaciteit behaald");
+                // TODO: err on lodge
+            }
+
+            // Check if group lodging & castrated or not
+            if (!animal.Castrated && lodge.LodgingType == LodgingType.Group)
+            {
+                // TODO: err on animal
+            }
+
             _stayRepository.SaveStay(stay);
+        }
+
+        /// <summary>
+        /// Finds related Stay object on bias of animal ID.
+        /// </summary>
+        /// <param name="ID">ID of Animal.</param>
+        public Stay FindRelatedStay(int ID)
+        {
+            IEnumerable<Stay> AllStays = _stayRepository.GetAll();
+
+            // Usinq LINQ to find relatedStay
+            var relatedStay = from Stay in AllStays
+                               where Stay.AnimalID == ID select Stay;
+
+            // TODO: Clean this up with a cast?
+            Stay stay = relatedStay.FirstOrDefault();
+
+            return stay;
+
         }
     }
 }

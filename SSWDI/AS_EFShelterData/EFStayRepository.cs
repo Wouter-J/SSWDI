@@ -2,6 +2,7 @@
 using System.Linq;
 using AS_Core.DomainModel;
 using AS_DomainServices;
+using AS_DomainServices.Repositories;
 
 namespace AS_EFShelterData
 {
@@ -27,8 +28,7 @@ namespace AS_EFShelterData
                     .FirstOrDefault(a => a.ID == stay.ID);
                 if (DBStay != null)
                 {
-                    // Update specific lodging fields; General save for now
-                    DBStay = stay;
+                    _context.Entry<Stay>(DBStay).CurrentValues.SetValues(stay);
                 }
             }
 

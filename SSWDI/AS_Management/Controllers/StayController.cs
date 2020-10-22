@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using AS_Core.DomainModel;
-using AS_DomainServices;
-using AS_DomainServices.Repositories;
 using AS_DomainServices.Services;
 using AS_Management.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -21,19 +18,20 @@ namespace AS_Management.Controllers
         /// Initializes a new instance of the <see cref="StayController"/> class.
         /// </summary>
         /// <param name="stayRepository"></param>
-        public StayController(IStayService stayService, IAnimalService animalService)
+        public StayController(IStayService stayService, IAnimalService animalService, ILodgingService lodgingService)
         {
             _stayService = stayService;
             _animalService = animalService;
+            _lodgingService = lodgingService;
         }
 
         public IActionResult Index()
         {
-            // TODO create custom viewModel
             var vm = new StayViewModel()
             {
                 Stays = _stayService.GetAll().ToList(),
-                Animals = _animalService.GetAll().ToList()
+                Animals = _animalService.GetAll().ToList(),
+                Lodges = _lodgingService.GetAll().ToList()
             };
 
             return View(vm);
@@ -68,22 +66,61 @@ namespace AS_Management.Controllers
         [HttpGet]
         public IActionResult Edit(int ID)
         {
-            // TODO: Add better ViewModel
-            Stay stay = _stayService.FindByID(ID);
-            return View(stay);
+            var stay = _stayService.FindByID(ID);
+            var vm = new StayViewModel()
+            {
+                Lodges = _lodgingService.ReturnAvailableLocations(stay.AnimalID), // Only get lodges with proper type & those that have space left.
+                Stay = stay,
+                CurrentLodge = _lodgingService.FindByID(stay.LodgingLocationID),
+                Animal = _animalService.FindByID(stay.AnimalID)
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Stay stay)
+        public IActionResult Edit(StayViewModel stayViewModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _stayService.SaveStay(stay);
+                // TODO: Move this to Service layer
+                stayViewModel.Animal = _animalService.FindByID(stayViewModel.Animal.ID);
+                stayViewModel.Lodge = _lodgingService.FindByID(stayViewModel.Lodge.ID);
+
+                Lodging currentLodge = _lodgingService.FindByID(stayViewModel.CurrentLodge.ID);
+                Stay Stay = stayViewModel.Stay;
+                Lodging Lodge = stayViewModel.Lodge;
+
+                // If animal moved
+                if (currentLodge.ID != Lodge.ID)
+                {
+                    // Decrease capacity at old lodge
+                    currentLodge.CurrentCapacity--; // TODO: make this calc work
+
+                    // Increase capacity at new lodge
+                    Lodge.CurrentCapacity++;
+
+                    currentLodge.Stays.Remove(Stay);
+
+                    _lodgingService.SaveLodging(currentLodge);
+                }
+
+                // Animal & Lodge update
+                Stay.Animal = stayViewModel.Animal;
+                Lodge.Stays.Add(Stay);
+
+                _lodgingService.SaveLodging(Lodge);
+                _stayService.SaveStay(Stay);
+
                 return RedirectToAction(nameof(Index));
             }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e); // TODO: Change this to logger service
+            }
 
-            return View(stay);
+            return View(stayViewModel);
         }
 
         // GET: Stays/Delete/5
