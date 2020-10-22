@@ -2,6 +2,7 @@
 using AS_DomainServices;
 using AS_DomainServices.Repositories;
 using AS_DomainServices.Services;
+using System;
 using System.Collections.Generic;
 
 namespace AS_Services
@@ -84,8 +85,12 @@ namespace AS_Services
             // Check if BirthDate has value, if so that becomes the Age.
             if (animal.Birthdate != null && animal.EstimatedAge == 0)
             {
-                // TODO: Calculate this properly; don't just send year
-                return animal.Birthdate.Year;
+                var today = DateTime.Today;
+
+                // Yes, we are not accounting for leap years here.
+                var age = today.Year - animal.Birthdate.Year + 1;
+
+                return age;
             }
 
             return -1;

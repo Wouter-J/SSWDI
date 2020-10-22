@@ -4,6 +4,7 @@ using AS_DomainServices;
 using AS_DomainServices.Services;
 using System.Collections.Generic;
 using AS_DomainServices.Repositories;
+using System;
 
 namespace AS_Services
 {
@@ -62,7 +63,23 @@ namespace AS_Services
 
         public void SaveStay(Stay stay)
         {
-            // Add specific business logic here
+            // TODO: breaking DRY principle here; create seperate function
+            Lodging lodge = stay.LodgingLocation;
+            Animal animal = stay.Animal;
+
+            // Check if lodging has free space if new animal is added && animal is of correct type
+            if (lodge.MaxCapacity != lodge.CurrentCapacity + 1 && lodge.AnimalType == animal.AnimalType)
+            {
+                // throw new BusinessRuleExpection("Verblijf heeft maximum capaciteit behaald");
+                // TODO: err on lodge
+            }
+
+            // Check if group lodging & castrated or not
+            if (!animal.Castrated && lodge.LodgingType == LodgingType.Group)
+            {
+                // TODO: err on animal
+            }
+
             _stayRepository.SaveStay(stay);
         }
     }

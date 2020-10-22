@@ -27,8 +27,7 @@ namespace AS_EFShelterData
                     .FirstOrDefault(a => a.ID == treatment.ID);
                 if (DBTreatment != null)
                 {
-                    // Update specific treatment fields; Only Description for now
-                    DBTreatment.Description = treatment.Description;
+                    _context.Entry<Treatment>(DBTreatment).CurrentValues.SetValues(treatment);
                 }
             }
 

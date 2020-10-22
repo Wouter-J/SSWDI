@@ -39,6 +39,7 @@ namespace AS_EFShelterData
         public void Remove(TEntity entity)
         {
             _context.Set<TEntity>().Remove(entity);
+            _context.SaveChanges();
         }
     }
 }

@@ -27,8 +27,7 @@ namespace AS_EFShelterData
                     .FirstOrDefault(a => a.ID == lodging.ID);
                 if (DBLodging != null)
                 {
-                    // Update specific lodging fields; General save for now
-                    DBLodging = lodging;
+                    _context.Entry<Lodging>(DBLodging).CurrentValues.SetValues(lodging);
                 }
             }
 
