@@ -28,22 +28,10 @@ namespace AS_Services
         /// <param name="animal">The animal object.</param>
         public void Add(Animal animal)
         {
-            // Check if both age(s) have a value.
-            if (animal.EstimatedAge != 0 && animal.Birthdate != null)
+            animal.Age = CalculateAge(animal);
+            if (animal.Age == -1)
             {
-                // TODO: Return err
-            }
-
-            // Check if EstimagedAge has value, if so that becomes the Age.
-            if (animal.EstimatedAge != 0 && animal.Birthdate == null)
-            {
-                animal.Age = animal.EstimatedAge;
-            }
-
-            // Check if BirthDate has value, if so that becomes the Age.
-            if (animal.Birthdate != null && animal.EstimatedAge == 0)
-            {
-                animal.Age = animal.Birthdate.Year;
+                // TODO: Return error; Age wrong
             }
 
             _animalRepository.Add(animal);
@@ -69,8 +57,38 @@ namespace AS_Services
 
         public void SaveAnimal(Animal animal)
         {
-            // Add specific business logic here
+            animal.Age = CalculateAge(animal);
+            if (animal.Age == -1)
+            {
+                // TODO: Return error; Age wrong
+            }
+
             _animalRepository.SaveAnimal(animal);
+        }
+
+        private int CalculateAge(Animal animal)
+        {
+            // Check if both age(s) have a value.
+            if (animal.EstimatedAge != 0 && animal.Birthdate != null)
+            {
+                // TODO: Return err
+                return -1;
+            }
+
+            // Check if EstimagedAge has value, if so that becomes the Age.
+            if (animal.EstimatedAge != 0 && animal.Birthdate == null)
+            {
+                return animal.EstimatedAge;
+            }
+
+            // Check if BirthDate has value, if so that becomes the Age.
+            if (animal.Birthdate != null && animal.EstimatedAge == 0)
+            {
+                // TODO: Calculate this properly; don't just send year
+                return animal.Birthdate.Year;
+            }
+
+            return -1;
         }
     }
 }
