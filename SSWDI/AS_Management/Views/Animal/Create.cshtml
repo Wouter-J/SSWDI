@@ -95,17 +95,15 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 <script>
-    //Only Birthday or Estimated age should be added.
-    // TODO: Make this work
-    $('Birthday').change(function () {
-        if ($(this).val() != '') {
-            $('EstimatedAge').prop('disabled', 'disabled');
-        }
-    });
-    $('EstimatedAge').change(function () {
-        if ($(this).val() != '') {
-            $('Birthday').prop('disabled', 'disabled');
-        }
-    });
+    //Only Birthday or Estimated age should be added; Service additionally checks this.
+    var birthday = document.getElementById("Birthdate");
+    var estimate = document.getElementById("EstimatedAge");
+
+    birthday.oninput = function () {
+        estimate.disabled = this.value != "";
+    }
+    estimate.oninput = function () {
+        birthday.disabled = this.value != "";
+    }
 </script>
 }

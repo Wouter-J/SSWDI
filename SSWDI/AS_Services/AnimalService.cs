@@ -28,18 +28,20 @@ namespace AS_Services
         /// <param name="animal">The animal object.</param>
         public void Add(Animal animal)
         {
-            if(animal.EstimatedAge != null && animal.Birthdate != null)
+            // Check if both age(s) have a value.
+            if (animal.EstimatedAge != 0 && animal.Birthdate != null)
             {
-                // Return err
+                // TODO: Return err
             }
 
-            //TODO: Fix checking nullable value
-            if(animal.EstimatedAge != null || animal.EstimatedAge == 0)
+            // Check if EstimagedAge has value, if so that becomes the Age.
+            if (animal.EstimatedAge != 0 && animal.Birthdate == null)
             {
                 animal.Age = animal.EstimatedAge;
             }
 
-            if (animal.Birthdate != null)
+            // Check if BirthDate has value, if so that becomes the Age.
+            if (animal.Birthdate != null && animal.EstimatedAge == 0)
             {
                 animal.Age = animal.Birthdate.Year;
             }
