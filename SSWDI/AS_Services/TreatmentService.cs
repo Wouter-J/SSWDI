@@ -3,20 +3,23 @@ using AS_DomainServices;
 using AS_DomainServices.Services;
 using System.Collections.Generic;
 using AS_Core.Enums;
+using AS_DomainServices.Repositories;
 
 namespace AS_Services
 {
     public class TreatmentService : ITreatmentService
     {
         private readonly ITreatmentRepository _treatmentRepository;
+        private readonly IAnimalRepository _animalRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TreatmentService"/> class.
         /// </summary>
         /// <param name="treatmentRepository"></param>
-        public TreatmentService(ITreatmentRepository treatmentRepository)
+        public TreatmentService(ITreatmentRepository treatmentRepository, IAnimalRepository animalRepository)
         {
             _treatmentRepository = treatmentRepository;
+            _animalRepository = animalRepository;
         }
 
         /// <summary>
@@ -48,6 +51,14 @@ namespace AS_Services
                 {
                     // Throw err
                 }
+            }
+
+            // Treatment of Type castration or Sterilasation updates the animal castration status
+            if (treatment.TreatmentType == TreatmentType.Castration || treatment.TreatmentType == TreatmentType.Sterilasation)
+            {
+                animal.Castrated = true;
+                _animalRepository.SaveAnimal(animal);
+
             }
 
             // If no error; treatment follows all business rules.

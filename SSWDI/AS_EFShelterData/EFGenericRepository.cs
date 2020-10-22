@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AS_Core;
 using AS_DomainServices;
+using AS_DomainServices.Repositories;
 
 namespace AS_EFShelterData
 {
