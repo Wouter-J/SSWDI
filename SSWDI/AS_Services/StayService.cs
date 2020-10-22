@@ -5,6 +5,7 @@ using AS_DomainServices.Services;
 using System.Collections.Generic;
 using AS_DomainServices.Repositories;
 using System;
+using System.Linq;
 
 namespace AS_Services
 {
@@ -81,6 +82,25 @@ namespace AS_Services
             }
 
             _stayRepository.SaveStay(stay);
+        }
+
+        /// <summary>
+        /// Finds related Stay object on bias of animal ID.
+        /// </summary>
+        /// <param name="ID">ID of Animal.</param>
+        public Stay FindRelatedStay(int ID)
+        {
+            IEnumerable<Stay> AllStays = _stayRepository.GetAll();
+
+            // Usinq LINQ to find relatedStay
+            var relatedStay = from Stay in AllStays
+                               where Stay.AnimalID == ID select Stay;
+
+            // TODO: Clean this up with a cast?
+            Stay stay = relatedStay.FirstOrDefault();
+
+            return stay;
+
         }
     }
 }

@@ -1,9 +1,10 @@
-﻿using AS_DomainServices.Repositories;
+﻿using AS_Core.DomainModel;
+using AS_DomainServices.Repositories;
 
 namespace AS_DomainServices.Services
 {
     public interface IStayService : IStayRepository
     {
-        // TODO: implement specific functions
+        Stay FindRelatedStay(int ID);
     }
 }

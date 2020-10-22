@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AS_Core.DomainModel;
 using AS_DomainServices.Services;
+using AS_Management.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AS_Management.Controllers
@@ -10,14 +11,18 @@ namespace AS_Management.Controllers
     public class TreatmentController : Controller
     {
         private readonly ITreatmentService _treatmentService;
+        private readonly IStayService _stayService;
+        private readonly IAnimalService _animalService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TreatmentController"/> class.
         /// </summary>
         /// <param name="treatmentRepository"></param>
-        public TreatmentController(ITreatmentService treatmentRepository)
+        public TreatmentController(ITreatmentService treatmentService, IStayService stayService, IAnimalService animalService)
         {
-            _treatmentService = treatmentRepository;
+            _treatmentService = treatmentService;
+            _animalService = animalService;
+            _stayService = stayService;
         }
 
         // GET: Treatment
@@ -39,7 +44,12 @@ namespace AS_Management.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            var vm = new TreatmentViewModel()
+            {
+                Animals = _animalService.GetAll().ToList()
+            };
+
+            return View(vm);
         }
 
         // POST: Treatment/Create
@@ -47,15 +57,21 @@ namespace AS_Management.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Treatment treatment)
+        public IActionResult Create(TreatmentViewModel TreatmentViewModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _treatmentService.Add(treatment);
+                // Find proper stay on Animal ID bias
+                TreatmentViewModel.Treatment.Stay = _stayService.FindRelatedStay(TreatmentViewModel.Animal.ID);
+
+                _treatmentService.Add(TreatmentViewModel.Treatment);
                 return RedirectToAction(nameof(Index));
+            } catch (Exception e)
+            {
+                Console.WriteLine("Error occured" + e); // TODO: use logger service for this
             }
 
-            return View(treatment);
+            return View(TreatmentViewModel);
         }
 
         // GET: Treatment/Edit/5

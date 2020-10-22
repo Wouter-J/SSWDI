@@ -67,6 +67,7 @@ namespace AS_Management
             services.AddTransient<IStayService, StayService>();
             services.AddTransient<ILodgingService, LodgingService>();
             services.AddTransient<ICommentService, CommentService>();
+            services.AddTransient<ITreatmentService, TreatmentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

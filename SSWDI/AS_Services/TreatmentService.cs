@@ -28,8 +28,10 @@ namespace AS_Services
         /// <param name="treatment">The treatment that needs to be added.</param>
         public void Add(Treatment treatment)
         {
-            Animal animal = treatment.Stay.Animal;
+            Animal animal = _animalRepository.FindByID(treatment.Stay.AnimalID);
             Stay stay = treatment.Stay;
+
+            // TODO: Make this a private func
 
             // Animal needs to be here & alive and not adopted
             if (treatment.Date < stay.ArrivalDate ||
