@@ -14,7 +14,8 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="LodgingType" class="control-label"></label>
-                <select asp-for="LodgingType" class="form-control"></select>
+                <select asp-for="LodgingType" asp-items="Html.GetEnumSelectList<AS_Core.Enums.LodgingType>()" class="form-control">
+                </select>
                 <span asp-validation-for="LodgingType" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -24,7 +25,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="AnimalType" class="control-label"></label>
-                <select asp-for="AnimalType" class="form-control"></select>
+                <select asp-for="AnimalType" asp-items="Html.GetEnumSelectList<AS_Core.Enums.AnimalType>()" class="form-control">
+                </select>
                 <span asp-validation-for="AnimalType" class="text-danger"></span>
             </div>
             <div class="form-group">

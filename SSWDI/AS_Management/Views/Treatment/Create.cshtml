@@ -19,7 +19,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="TreatmentType" class="control-label"></label>
-                <select asp-for="TreatmentType" class="form-control"></select>
+                <select asp-for="TreatmentType" asp-items="Html.GetEnumSelectList<AS_Core.Enums.TreatmentType>()" class="form-control">
+                </select>
                 <span asp-validation-for="TreatmentType" class="text-danger"></span>
             </div>
             <div class="form-group">
