@@ -19,7 +19,7 @@ namespace AS_Management.Controllers
         /// Initializes a new instance of the <see cref="TreatmentController"/> class.
         /// </summary>
         /// <param name="treatmentRepository"></param>
-        public TreatmentController(ITreatmentService treatmentService, IStayService stayService, 
+        public TreatmentController(ITreatmentService treatmentService, IStayService stayService,
             IAnimalService animalService, ILodgingService lodgingService)
         {
             _treatmentService = treatmentService;

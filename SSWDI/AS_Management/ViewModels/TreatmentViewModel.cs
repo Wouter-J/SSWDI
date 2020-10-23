@@ -1,6 +1,5 @@
 ﻿using AS_Core.DomainModel;
 using System.Collections.Generic;
-using AS_Core.Enums;
 
 namespace AS_Management.ViewModels
 {
