@@ -89,7 +89,5 @@ namespace AS_Services
             // Add specific business logic here
             _treatmentRepository.SaveTreatment(treatment);
         }
-
-
     }
 }

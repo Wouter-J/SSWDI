@@ -13,7 +13,5 @@ namespace AS_Management.ViewModels
         public Stay Stay { get; set; }
 
         public Treatment Treatment { get; set; }
-
-        public IEnumerable<Treatment> Treatments { get; set; }
     }
 }
