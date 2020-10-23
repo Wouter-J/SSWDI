@@ -123,7 +123,16 @@ namespace AS_Management.Controllers
         public IActionResult Delete(int ID)
         {
             Treatment treatment = _treatmentService.FindByID(ID);
-            return View(treatment);
+            Stay stay = _stayService.FindByID(treatment.StayID);
+
+            var vm = new TreatmentViewModel()
+            {
+                Animal = _animalService.FindByID(stay.AnimalID),
+                Treatment = treatment,
+                Stay = stay
+            };
+
+            return View(vm);
         }
 
         // POST: Treatment/Delete/5
