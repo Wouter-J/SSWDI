@@ -1,6 +1,5 @@
 ﻿using AS_Core.DomainModel;
 using System.Collections.Generic;
-using AS_Core.Enums;
 
 namespace AS_Management.ViewModels
 {
@@ -13,7 +12,5 @@ namespace AS_Management.ViewModels
         public Stay Stay { get; set; }
 
         public Treatment Treatment { get; set; }
-
-        public IEnumerable<Treatment> Treatments { get; set; }
     }
 }

@@ -6,26 +6,43 @@ using AS_DomainServices;
 using Microsoft.AspNetCore.Mvc;
 using AS_DomainServices.Repositories;
 using AS_DomainServices.Services;
+using AS_Management.ViewModels;
 
 namespace AS_Management.Controllers
 {
+    /// <summary>
+    /// Logic for Comments; Only accessible via an Animal.
+    /// </summary>
     public class CommentController : Controller
     {
         private readonly ICommentService _commentService;
+        private readonly IStayService _stayService;
+        private readonly IAnimalService _animalService;
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommentController"/> class.
         /// </summary>
-        /// <param name="commentRepository"></param>
-        public CommentController(ICommentService commentRepository)
+        /// <param name="commentService"></param>
+        /// <param name="stayService"></param>
+        /// <param name="animalService"></param>
+        public CommentController(ICommentService commentService, IStayService stayService,
+            IAnimalService animalService)
         {
-            _commentService = commentRepository;
+            _commentService = commentService;
+            _animalService = animalService;
+            _stayService = stayService;
         }
 
-        public IActionResult Index()
+        [Route("Index/{AnimalID:int}")]
+        public IActionResult Index(int AnimalID)
         {
-            // TODO create custom viewModel
-            return View(_commentService.GetAll().ToList());
+            var vm = new CommentViewModel
+            {
+                Comments = _commentService.GetRelatedComments(AnimalID),
+            };
+
+            return View(vm);
         }
 
         [HttpGet]
@@ -36,66 +53,39 @@ namespace AS_Management.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        [Route("Create/{AnimalID:int}")]
+        public IActionResult Create(int AnimalID)
         {
+            Console.WriteLine(AnimalID);
+            var vm = new CommentViewModel
+            {
+                Animal = _animalService.FindByID(AnimalID),
+                Stay = _stayService.FindRelatedStay(AnimalID)
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [Route("Create/{AnimalID:int}")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(CommentViewModel CommentViewModel)
+        {
+            try
+            {
+                // TODO: Cleanup
+                CommentViewModel.Comment.StayID = CommentViewModel.Stay.ID;
+                _commentService.Add(CommentViewModel.Comment);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error occured" + e); // TODO: use logger service for this
+            }
+
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Comment comment)
-        {
-            if (ModelState.IsValid)
-            {
-                _commentService.Add(comment);
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(comment);
-        }
-
-        [HttpGet]
-        public IActionResult Edit(int ID)
-        {
-            // TODO: Add better ViewModel
-            Comment comment = _commentService.FindByID(ID);
-            return View(comment);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(Comment comment)
-        {
-            if (ModelState.IsValid)
-            {
-                _commentService.SaveComment(comment);
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(comment);
-        }
-
-        // GET: Comments/Delete/5
-        public IActionResult Delete(int ID)
-        {
-            Comment comment = _commentService.FindByID(ID);
-            return View(comment);
-        }
-
-        // POST: Comments/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int ID)
-        {
-            // TODO: Add validation
-            Comment comment = _commentService.FindByID(ID);
-            _commentService.Remove(comment);
-            return RedirectToAction(nameof(Index));
-        }
-
-        // POST: Comments/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        // public async Task<IActionResult> Create([Bind("ID,Name,Birthdate,Age,EstimatedAge,Description,CommentType,Race,Gender,Picture,DateOfDeath,Castrated,ChildFriendly,ReasonGivenAway")] Comment comment)
+        // According to business rules Comments can only be created & obtained.
     }
 }

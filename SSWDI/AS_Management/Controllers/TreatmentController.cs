@@ -13,16 +13,19 @@ namespace AS_Management.Controllers
         private readonly ITreatmentService _treatmentService;
         private readonly IStayService _stayService;
         private readonly IAnimalService _animalService;
+        private readonly ILodgingService _lodgingService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TreatmentController"/> class.
         /// </summary>
         /// <param name="treatmentRepository"></param>
-        public TreatmentController(ITreatmentService treatmentService, IStayService stayService, IAnimalService animalService)
+        public TreatmentController(ITreatmentService treatmentService, IStayService stayService,
+            IAnimalService animalService, ILodgingService lodgingService)
         {
             _treatmentService = treatmentService;
             _animalService = animalService;
             _stayService = stayService;
+            _lodgingService = lodgingService;
         }
 
         // GET: Treatment
@@ -78,9 +81,16 @@ namespace AS_Management.Controllers
         [HttpGet]
         public IActionResult Edit(int ID)
         {
-            // TODO: Add better ViewModel
             Treatment treatment = _treatmentService.FindByID(ID);
-            return View(treatment);
+            Stay stay = _stayService.FindByID(treatment.StayID);
+            var vm = new TreatmentViewModel()
+            {
+                Animal = _animalService.FindByID(stay.AnimalID),
+                Treatment = treatment,
+                Stay = stay
+            };
+
+            return View(vm);
         }
 
         // POST: Treatment/Edit/5
@@ -88,22 +98,41 @@ namespace AS_Management.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Treatment treatment)
+        public IActionResult Edit(TreatmentViewModel TreatmentViewModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _treatmentService.SaveTreatment(treatment);
+                // Get content on bias of submitted ID's
+                Stay stay = _stayService.FindByID(TreatmentViewModel.Stay.ID);
+                TreatmentViewModel.Treatment.Stay = stay;
+                TreatmentViewModel.Treatment.StayID = stay.ID;
+
+                //_stayService.SaveStay(stay);
+                _treatmentService.SaveTreatment(TreatmentViewModel.Treatment);
                 return RedirectToAction(nameof(Index));
             }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error occured" + e); // TODO: use logger service for this
+            }
 
-            return View(treatment);
+            return View(TreatmentViewModel);
         }
 
         // GET: Treatment/Delete/5
         public IActionResult Delete(int ID)
         {
             Treatment treatment = _treatmentService.FindByID(ID);
-            return View(treatment);
+            Stay stay = _stayService.FindByID(treatment.StayID);
+
+            var vm = new TreatmentViewModel()
+            {
+                Animal = _animalService.FindByID(stay.AnimalID),
+                Treatment = treatment,
+                Stay = stay
+            };
+
+            return View(vm);
         }
 
         // POST: Treatment/Delete/5
