@@ -46,7 +46,9 @@ namespace AS_Management
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5; // Max amount of login attempts
             })
-            .AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
+            .AddEntityFrameworkStores<AppIdentityDbContext>()
+            .AddDefaultUI()
+            .AddDefaultTokenProviders();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
