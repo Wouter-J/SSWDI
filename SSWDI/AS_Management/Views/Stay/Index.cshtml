@@ -1,0 +1,84 @@
+﻿@model AS_Management.ViewModels.StayViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Animal.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Animal.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Animal.AnimalType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Animal.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stay.ArrivalDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stay.AdoptionDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stay.CanBeAdopted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stay.AdoptedBy)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Animals)
+        {
+            @if (item.Stays != null && item.DateOfDeath == null) // Prevent any animals with no stay or those that have died to show up.
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnimalType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            @foreach (var stay in item.Stays)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => stay.ArrivalDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => stay.AdoptionDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => stay.CanBeAdopted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => stay.AdoptedBy)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@stay.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@stay.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@stay.ID">Delete</a>
+                </td>
+            }
+        </tr>
+            }
+        }
+        </tbody>
+</table>

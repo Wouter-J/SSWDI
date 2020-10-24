@@ -1,27 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using AS_Core.DomainModel;
-using AS_Core.DomainServices;
-
+using AS_DomainServices;
+using AS_DomainServices.Repositories;
 
 namespace AS_EFShelterData
 {
-    class EFTreatmentRepository : ITreatmentRepository
+    public class EFTreatmentRepository : EFGenericRepository<Treatment>, ITreatmentRepository
     {
-        public Treatment AddTreatment(Treatment treatment)
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EFTreatmentRepository"/> class.
+        /// </summary>
+        /// <param name="context"></param>
+        public EFTreatmentRepository(ApplicationDbContext context) : base(context) { }
 
-        public IQueryable<Treatment> GetAll()
+        // TODO: Add specific functions here
+        public void SaveTreatment(Treatment treatment)
         {
-            throw new NotImplementedException();
-        }
+            if (treatment.ID == 0)
+            {
+                _context.Treatments.Add(treatment);
+            }
+            else
+            {
+                Treatment DBTreatment = _context.Treatments
+                    .FirstOrDefault(a => a.ID == treatment.ID);
+                if (DBTreatment != null)
+                {
+                    _context.Entry<Treatment>(DBTreatment).CurrentValues.SetValues(treatment);
+                }
+            }
 
-        public Treatment GetById(int id)
-        {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
     }
 }

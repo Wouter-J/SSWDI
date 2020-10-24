@@ -1,24 +1,26 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AS_DomainServices;
+using AS_DomainServices.Repositories;
+using AS_DomainServices.Services;
+using AS_EFShelterData;
+using AS_Identity;
+using AS_Services;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using AS_EFShelterData;
-using AS_Identity;
-
 namespace AS_Management
 {
     public class Startup
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,26 +33,41 @@ namespace AS_Management
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration["Data:AS_AnimalData:ConnectionString"])
+                    .EnableSensitiveDataLogging());
 
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration["Data:AS_Identity:ConnectionString"])
+                    .EnableSensitiveDataLogging());
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
-                options.SignIn.RequireConfirmedAccount = true;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                options.Lockout.MaxFailedAccessAttempts = 5; //Max amount of login attempts
+                options.Lockout.MaxFailedAccessAttempts = 5; // Max amount of login attempts
             })
-            .AddEntityFrameworkStores<AppIdentityDbContext>();
+            .AddEntityFrameworkStores<AppIdentityDbContext>()
+            .AddDefaultUI()
+            .AddDefaultTokenProviders();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddMvc();
             services.AddSession();
 
-            //TODO: Added Dependency Injection here
+            // Dependency Injection; Repos
+            services.AddTransient<IAnimalRepository, EFAnimalRepository>();
+            services.AddTransient<ICommentRepository, EFCommentRepository>();
+            services.AddTransient<ILodgingRepository, EFLodgingRepository>();
+            services.AddTransient<IStayRepository, EFStayRepository>();
+            services.AddTransient<ITreatmentRepository, EFTreatmentRepository>();
+
+            // Dependency Injection; Services
+            services.AddTransient<IAnimalService, AnimalService>();
+            services.AddTransient<IStayService, StayService>();
+            services.AddTransient<ILodgingService, LodgingService>();
+            services.AddTransient<ICommentService, CommentService>();
+            services.AddTransient<ITreatmentService, TreatmentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +84,7 @@ namespace AS_Management
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

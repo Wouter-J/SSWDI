@@ -1,0 +1,64 @@
+﻿@model AS_Management.ViewModels.TreatmentViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Treatment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            Behandeling aanpassen voor het volgende dier:
+            <p>@Model.Animal.Name</p>
+            <input type="hidden" asp-for="Treatment.ID" />
+            <input type="hidden" asp-for="Stay.ID" />
+            <input type="hidden" asp-for="Animal.ID" />
+            <div class="form-group">
+                <label asp-for="Treatment.Description" class="control-label"></label>
+                <input asp-for="Treatment.Description" class="form-control" />
+                <span asp-validation-for="Treatment.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Treatment.TreatmentType" class="control-label"></label>
+                <select asp-for="Treatment.TreatmentType" asp-items="Html.GetEnumSelectList<AS_Core.Enums.TreatmentType>()" class="form-control">
+                </select>
+                <span asp-validation-for="Treatment.TreatmentType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Treatment.Costs" class="control-label"></label>
+                <input asp-for="Treatment.Costs" class="form-control" />
+                <span asp-validation-for="Treatment.Costs" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Treatment.RequiredAge" class="control-label"></label>
+                <input asp-for="Treatment.RequiredAge" class="form-control" />
+                <span asp-validation-for="Treatment.RequiredAge" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Treatment.DoneBy" class="control-label"></label>
+                <input asp-for="Treatment.DoneBy" class="form-control" />
+                <span asp-validation-for="Treatment.DoneBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Treatment.Date" class="control-label"></label>
+                <input asp-for="Treatment.Date" class="form-control" />
+                <span asp-validation-for="Treatment.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

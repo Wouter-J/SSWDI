@@ -1,26 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using AS_Core.DomainModel;
-using AS_Core.DomainServices;
+using AS_DomainServices;
+using AS_DomainServices.Repositories;
 
 namespace AS_EFShelterData
 {
-    public class EFCommentRepository : ICommentRepository
+    public class EFCommentRepository : EFGenericRepository<Comment>, ICommentRepository
     {
-        public Comment AddComment(Comment comment)
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EFCommentRepository"/> class.
+        /// </summary>
+        /// <param name="context"></param>
+        public EFCommentRepository(ApplicationDbContext context) : base(context) { }
 
-        public IQueryable<Comment> GetAll()
+        // TODO: Add specific functions here
+        public void SaveComment(Comment comment)
         {
-            throw new NotImplementedException();
-        }
 
-        public Comment GetById(int id)
-        {
-            throw new NotImplementedException();
+            if (comment.ID == 0)
+            {
+                _context.Comments.Add(comment);
+            }
+            else
+            {
+                // Do nothing; Comments can't be updated
+            }
+
+            _context.SaveChanges();
         }
     }
 }

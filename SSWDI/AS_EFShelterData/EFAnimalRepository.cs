@@ -1,26 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using AS_Core.DomainModel;
-using AS_Core.DomainServices;
+using AS_DomainServices.Repositories;
 
 namespace AS_EFShelterData
 {
-    public class EFAnimalRepository : IAnimalRepository
+    public class EFAnimalRepository : EFGenericRepository<Animal>, IAnimalRepository
     {
-        public Animal AddAnimal(Animal Animal)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EFAnimalRepository"/> class.
+        /// </summary>
+        /// <param name="context"></param>
+        public EFAnimalRepository(ApplicationDbContext context) : base(context)
         {
-            throw new NotImplementedException();
         }
 
-        public IQueryable<Animal> GetAll()
+        // TODO: Add Specific functions here
+        public void SaveAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+            if (animal.ID == 0)
+            {
+                _context.Animals.Add(animal);
+            }
+            else
+            {
+                Animal DBAnimal = _context.Animals
+                    .FirstOrDefault(a => a.ID == animal.ID);
+                if (DBAnimal != null)
+                {
+                    _context.Entry<Animal>(DBAnimal).CurrentValues.SetValues(animal);
+                }
+            }
+
+            _context.SaveChanges();
         }
 
-        public Animal GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

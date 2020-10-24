@@ -2,7 +2,23 @@
 
 ## Status
 
-- <a href="https://codeclimate.com/github/Wouter-J/SSWDI/maintainability"><img src="https://api.codeclimate.com/v1/badges/359826177036cfbb7f4d/maintainability" /></a>
+- [![Build Status](https://dev.azure.com/AS-SWDI/AnimalShelter/_apis/build/status/AnimalShelter-ASP.NET%20Core-CI?branchName=master)](https://dev.azure.com/AS-SWDI/AnimalShelter/_build/latest?definitionId=1&branchName=master)
+
+## Services
+
+ - Management: https://as-wj.azurewebsites.net/
+ - API (v2): https://as-api-wj.azurewebsites.net/swagger
+ - Adoption:  https://as-adoption-wj.azurewebsites.net/
+
+## AnimalShelter contains:
+
+ - A UI for Management & Adoption of animals
+ - Two API's one on Lvl 2 (Verbs) and one on Lvl 3 (HATEOAS)
+	- This is done for seperation of concerns
+ - Clean Architecture (Domain Models, services, Repository - Interface pattern)
+ - Generic Repository for less repetition
+ - Seperate Identity instance
+
 
 ## User stories
 - US_01 Als vrijwilliger wil ik een nieuw dier kunnen inschrijven in het asiel, zodat het ter adoptie aan
@@ -26,3 +42,8 @@ opgenomen of nadat het dier overleden is.
 - BR_4. Bij een aantal behandelingen is een toelichting verplicht.
 - BR_5. Voor een dier moet ofwel de leeftijd uit worden gerekend aan de hand de
 geboortedatum of de geschatte leeftijd moet ingevuld zijn.
+
+
+## Sources used
+
+- https://wildermuth.com/2018/08/12/Seeding-Related-Entities-in-EF-Core-2-1-s-HasData()

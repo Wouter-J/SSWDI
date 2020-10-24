@@ -7,6 +7,28 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200929093513_InitialCreate.cs" />
     <Compile Remove="Migrations\20200929093513_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200929094226_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200929094226_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20201006131327_Added Seeddata.cs" />
+    <Compile Remove="Migrations\20201006131327_Added Seeddata.Designer.cs" />
+    <Compile Remove="Migrations\20201019135304_ManyToManyRemoved.cs" />
+    <Compile Remove="Migrations\20201019135304_ManyToManyRemoved.Designer.cs" />
+    <Compile Remove="Migrations\20201019135425_ManyToManyRemoved.cs" />
+    <Compile Remove="Migrations\20201019135425_ManyToManyRemoved.Designer.cs" />
+    <Compile Remove="Migrations\20201019135534_ManyToManyRemoved.cs" />
+    <Compile Remove="Migrations\20201019135534_ManyToManyRemoved.Designer.cs" />
+    <Compile Remove="Migrations\20201019135721_ManyToManyRemoved.cs" />
+    <Compile Remove="Migrations\20201019135721_ManyToManyRemoved.Designer.cs" />
+    <Compile Remove="Migrations\20201019135824_ManyToManyRemoved.cs" />
+    <Compile Remove="Migrations\20201019135824_ManyToManyRemoved.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,10 +42,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AS_Core\AS_Core.csproj" />
+    <ProjectReference Include="..\AS_DomainServices\AS_DomainServices.csproj" />
   </ItemGroup>
 
 </Project>

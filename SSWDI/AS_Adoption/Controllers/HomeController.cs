@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AS_Adoption.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using AS_Adoption.Models;
 
 namespace AS_Adoption.Controllers
 {
@@ -13,6 +13,10 @@ namespace AS_Adoption.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HomeController"/> class.
+        /// </summary>
+        /// <param name="logger"></param>
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;

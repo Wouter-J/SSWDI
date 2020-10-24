@@ -1,0 +1,39 @@
+﻿@model AS_Management.ViewModels.CommentViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment.WrittenBy)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Comments) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WrittenBy)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
