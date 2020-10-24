@@ -43,11 +43,11 @@ namespace AS_Management
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
-                options.SignIn.RequireConfirmedAccount = true;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5; // Max amount of login attempts
             })
             .AddEntityFrameworkStores<AppIdentityDbContext>()
+            .AddDefaultUI()
             .AddDefaultTokenProviders();
 
             services.AddControllersWithViews();

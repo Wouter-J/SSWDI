@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AS_Core.DomainModel;
 using AS_Core.Enums;
 using AS_DomainServices;
+using AS_DomainServices.Repositories;
 using AS_Services;
 using Moq;
 using Xunit;
@@ -70,9 +71,6 @@ namespace AS_ServiceTests
 
         [Fact]
         public void DogsAndCatsShouldNotGoIntoSameLodging() { }
-
-        [Fact]
-        public void MaxLodgingCapShouldNotBeOverwritten() { }
 
         [Fact]
         public void AnimalAgeShouldBeCalculatedProperly() { }
