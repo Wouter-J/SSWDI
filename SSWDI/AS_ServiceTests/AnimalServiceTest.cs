@@ -73,9 +73,6 @@ namespace AS_ServiceTests
         public void DogsAndCatsShouldNotGoIntoSameLodging() { }
 
         [Fact]
-        public void MaxLodgingCapShouldNotBeOverwritten() { }
-
-        [Fact]
         public void AnimalAgeShouldBeCalculatedProperly() { }
 
         [Fact]
