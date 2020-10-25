@@ -53,6 +53,12 @@ namespace AS_Management
             .AddDefaultUI()
             .AddDefaultTokenProviders();
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireVolunteer",
+                    policy => policy.RequireRole("Volunteer"));
+            });
+
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddMvc();

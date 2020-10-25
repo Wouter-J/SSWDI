@@ -22,6 +22,9 @@ namespace AS_Management.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
+
+        private RoleManager<IdentityRole> _roleManager;
+
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
@@ -34,13 +37,15 @@ namespace AS_Management.Areas.Identity.Pages.Account
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IUserService userService)
+            IUserService userService,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
             _userService = userService;
+            _roleManager = roleManager;
         }
 
         [BindProperty]
@@ -95,6 +100,10 @@ namespace AS_Management.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                // TODO: move this to Setup
+                var role = new IdentityRole("Volunteer");
+                await _roleManager.CreateAsync(role);
+
                 // TODO: Use mapper instead of this solution.
                 var user = new ApplicationUser {
                     UserName = Input.Email,
@@ -115,6 +124,10 @@ namespace AS_Management.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    var volunteerRole = await _roleManager.FindByNameAsync("Volunteer");
+
+                    await _userManager.AddToRoleAsync(user, volunteerRole.Name);
+
                     // Create Domain level user
                     _userService.Add(domainUser);
 
