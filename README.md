@@ -22,15 +22,15 @@
 
 ## User stories
 - US_01 Als vrijwilliger wil ik een nieuw dier kunnen inschrijven in het asiel, zodat het ter adoptie aan
-kan worden geboden.
+kan worden geboden. (DONE)
 - US_02 Als medewerker wil ik de status van een dier bij kunnen werken, zodat altijd de juiste
-informatie voor een toekomstige eigenaar inzichtelijk is.
+informatie voor een toekomstige eigenaar inzichtelijk is. (DONE)
 - US_03 Als klant wil ik een overzicht hebben van alle dieren die op dit moment adopteerbaar zijn,
-zodat ik weet of er een dier in de opvang zit die interessant voor mij kan zijn.
+zodat ik weet of er een dier in de opvang zit die interessant voor mij kan zijn. (WIP)
  - US_04 Als klant wil ik interesse kunnen tonen in een dier, zodat de vrijwilligers weten dat er een
-potentiële nieuwe eigenaar komt kijken.
+potentiële nieuwe eigenaar komt kijken.  (WIP)
 - US_05 Als klant wil ik een dier ter adoptie aan kunnen melden, zodat het asiel een afspraak met mij
-kan maken voor het afleveren van het dier.
+kan maken voor het afleveren van het dier. (DONE, apart from Identity in Adoption)
 
 ## Business rules
 
