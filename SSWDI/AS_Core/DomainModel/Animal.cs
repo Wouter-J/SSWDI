@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AS_Core.DomainModel
 {
@@ -45,5 +46,7 @@ namespace AS_Core.DomainModel
         public string ReasonGivenAway { get; set; } // Only employees should be able to read this
 
         public ICollection<Stay> Stays { get; set; } = new List<Stay>();
+
+        public string InterestedUser { get; set; } // TODO : Change this to user
     }
 }

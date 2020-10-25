@@ -1,0 +1,61 @@
+﻿@model AS_Management.ViewModels.AdoptionViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Comment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Adopt">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Animal.ID" />
+            <input type="hidden" asp-for="Stay.ID" />
+            <p>You want to adopt the following animal:</p>
+            <ul>
+                <li>Name: @Model.Animal.Name</li>
+                <li>Description: @Model.Animal.Description</li>
+                <li>Species: @Model.Animal.AnimalType</li>
+                <li>Age: @Model.Animal.Age</li>
+            </ul>
+            @if (Model.User != null)
+            {
+                <p>Your information is as follows: </p>
+                <input type="hidden" asp-for="User.Email" />
+                <li>Your First name: @Model.User.Firstname</li>
+                <li>Your Last name: @Model.User.Lastname</li>
+                <li>Your Email: @Model.User.Email</li>
+            }
+            else
+            {
+                <p>Please provide your information</p>
+                <div class="form-group">
+                    <label asp-for="User.Email" class="control-label"></label>
+                    <input asp-for="User.Email" class="form-control" />
+                    <span asp-validation-for="User.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="User.Firstname" class="control-label"></label>
+                    <input asp-for="User.Firstname" class="form-control" />
+                    <span asp-validation-for="User.Firstname" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="User.Lastname" class="control-label"></label>
+                    <input asp-for="User.Lastname" class="form-control" />
+                    <span asp-validation-for="User.Lastname" class="text-danger"></span>
+                </div>
+            }
+            <div class="form-group">
+                <br />
+                <input type="submit" value="Adopt" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

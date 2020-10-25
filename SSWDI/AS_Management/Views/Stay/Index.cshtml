@@ -74,6 +74,7 @@
                 <td>
                     <a asp-action="Edit" asp-route-id="@stay.ID">Edit</a> |
                     <a asp-action="Details" asp-route-id="@stay.ID">Details</a> |
+                    @Html.ActionLink("Adopteren", "Adopt", "Adoption", new { AnimalID = item.ID }, null)
                     <a asp-action="Delete" asp-route-id="@stay.ID">Delete</a>
                 </td>
             }

@@ -25,6 +25,8 @@ namespace AS_EFShelterData
 
         public DbSet<Treatment> Treatments { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -44,6 +46,17 @@ namespace AS_EFShelterData
             modelBuilder.Entity<Lodging>()
                 .HasMany(l => l.Stays)
                 .WithOne(s => s.LodgingLocation);
+
+            /*
+           // Link for adoption
+           modelBuilder.Entity<Stay>()
+               .HasOne(s => s.AdoptedBy);
+
+
+           modelBuilder.Entity<Animal>()
+               .HasOne(s => s.InterestedUser)
+               .WithMany(a => a.InterestInAnimals);
+           */
 
             // Uses ModelBuilderExtensions; Seed method
             modelBuilder.Seed();
