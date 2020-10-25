@@ -4,6 +4,7 @@ using AS_Core.DomainModel;
 using AS_Core.Enums;
 using AS_DomainServices;
 using AS_DomainServices.Repositories;
+using AS_DomainServices.Services;
 using AS_Services;
 using Moq;
 using Xunit;
@@ -21,7 +22,7 @@ namespace AS_ServiceTests
         {
             // Arrange
             var stayRepository = new Mock<IStayRepository>();
-            var stayService = new Mock<StayService>();
+            var stayService = new Mock<IStayService>();
 
             Animal dog = new Animal()
             {
@@ -61,7 +62,7 @@ namespace AS_ServiceTests
             };
 
             // Act
-            //stayService.Setup(_ => _.Add(stay));
+            stayService.Setup(_ => _.Add(stay));
 
             // Assert
             IEnumerable<Stay> stays = stayRepository.Object.GetAll();
