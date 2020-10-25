@@ -57,6 +57,8 @@ namespace AS_Management
             {
                 options.AddPolicy("RequireVolunteer",
                     policy => policy.RequireRole("Volunteer"));
+                options.AddPolicy("RequireCustomer",
+                    policy => policy.RequireRole("Customer"));
             });
 
             services.AddControllersWithViews();

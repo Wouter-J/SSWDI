@@ -101,8 +101,10 @@ namespace AS_Management.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 // TODO: move this to Setup
-                var role = new IdentityRole("Volunteer");
-                await _roleManager.CreateAsync(role);
+                var volunteer = new IdentityRole("Volunteer");
+                var customer = new IdentityRole("Customer");
+                await _roleManager.CreateAsync(volunteer);
+                await _roleManager.CreateAsync(customer);
 
                 // TODO: Use mapper instead of this solution.
                 var user = new ApplicationUser {
@@ -124,7 +126,7 @@ namespace AS_Management.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    var volunteerRole = await _roleManager.FindByNameAsync("Volunteer");
+                    var volunteerRole = await _roleManager.FindByNameAsync("Customer");
 
                     await _userManager.AddToRoleAsync(user, volunteerRole.Name);
 
