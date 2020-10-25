@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using AS_DomainServices.Repositories;
 using System;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AS_Services
 {
@@ -101,6 +102,18 @@ namespace AS_Services
 
             return stay;
 
+        }
+
+        /// <summary>
+        /// Adopts animal with the given stayID.
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public Stay AdoptAnimal(Stay stay)
+        {
+            _stayRepository.SaveStay(stay);
+
+            return stay;
         }
     }
 }

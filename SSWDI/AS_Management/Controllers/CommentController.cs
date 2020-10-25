@@ -86,14 +86,14 @@ namespace AS_Management.Controllers
                 // TODO: Cleanup
                 CommentViewModel.Comment.StayID = CommentViewModel.Stay.ID;
                 _commentService.Add(CommentViewModel.Comment);
-                return RedirectToAction(nameof(Index));
+                return Redirect("/Stay/Index");
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error occured" + e); // TODO: use logger service for this
             }
 
-            return View();
+            return Redirect("/Stay/Index");
         }
 
         // According to business rules Comments can only be created & obtained.

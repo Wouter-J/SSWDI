@@ -37,5 +37,20 @@ namespace AS_Services
         {
             _userRepository.Remove(user);
         }
+
+        public User FindByUsername(string Email)
+        {
+            IEnumerable<User> AllUsers = _userRepository.GetAll();
+
+            // Usinq LINQ to find relatedStay
+            var user = from User in AllUsers
+                            where User.Email == Email
+                       select User;
+
+            // TODO: Clean this up with a cast?
+            User FoundUser = user.FirstOrDefault();
+
+            return FoundUser;
+        }
     }
 }
