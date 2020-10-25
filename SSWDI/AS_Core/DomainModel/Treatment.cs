@@ -18,7 +18,7 @@ namespace AS_Core.DomainModel
         //[Column(TypeName = "decimal(18,4)")] // Will store 18 digits, with 4 of those after the decimal
         public int Costs { get; set; }
 
-        public int RequiredAge { get; set; }
+        public float RequiredAge { get; set; }
 
         [Required]
         public string DoneBy { get; set; } // TODO: Make this a link to the related Employee

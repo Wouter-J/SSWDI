@@ -138,8 +138,8 @@ namespace AS_EFShelterData
                 ID = 1,
                 Description = "Inenting voor ziekte x",
                 TreatmentType = TreatmentType.Vaccination,
-                Costs = 100.50M,
-                RequiredAge = 1,
+                Costs = 100,
+                RequiredAge = 0.6f,
                 DoneBy = "Some Person",
                 Date = DateTime.Now,
                 StayID = doggoStay.ID
@@ -150,8 +150,8 @@ namespace AS_EFShelterData
                 ID = 2,
                 Description = "Removed lasagna from stomach",
                 TreatmentType = TreatmentType.Operation,
-                Costs = 100.50M,
-                RequiredAge = 1,
+                Costs = 100,
+                RequiredAge = 0.6f,
                 DoneBy = "Some Person",
                 Date = DateTime.Now,
                 StayID = garfieldStay.ID
