@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using AS_Core.DomainModel;
+using AS_DomainServices.Services;
 
 namespace AS_Management.Areas.Identity.Pages.Account
 {
@@ -24,17 +26,21 @@ namespace AS_Management.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        // To Map Our domain user to Identity User
+        private readonly IUserService _userService;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _userService = userService;
         }
 
         [BindProperty]
@@ -50,6 +56,20 @@ namespace AS_Management.Areas.Identity.Pages.Account
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
+
+            [Required]
+            public string Firstname { get; set; }
+
+            public string Lastname { get; set; }
+
+            public DateTime BirthDay { get; set; }
+
+            // TODO : Add regex here
+            public string Cellphone { get; set; }
+
+            public string Address { get; set; }
+
+            public string PostalCode { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -69,16 +89,35 @@ namespace AS_Management.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null )
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                // TODO: Use mapper instead of this solution.
+                var user = new ApplicationUser {
+                    UserName = Input.Email,
+                    Email = Input.Email
+                };
+
+                var domainUser = new User
+                {
+                    Email = Input.Email,
+                    Firstname = Input.Firstname,
+                    Lastname = Input.Lastname,
+                    BirthDay = Input.BirthDay,
+                    Address = Input.Address,
+                    Cellphone = Input.Cellphone,
+                    PostalCode = Input.PostalCode
+                };
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    // Create Domain level user
+                    _userService.Add(domainUser);
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -102,6 +141,7 @@ namespace AS_Management.Areas.Identity.Pages.Account
                         return LocalRedirect(returnUrl);
                     }
                 }
+
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);

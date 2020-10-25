@@ -10,17 +10,13 @@ namespace AS_Core.DomainModel
         [Key]
         public int ID { get; set; }
 
-        public int CustomerID { get; set; }
-
+        [Required]
         public string Firstname { get; set; }
 
         public string Lastname { get; set; }
 
-        // Make sure this is uniqe; Linked to IdentityUser
+        [Required]
         public string Email { get; set; }
-
-        //TODO: Encrypt this (Or remove if not needed)
-        public string Password { get; set; }
 
         public string Cellphone { get; set; }
 

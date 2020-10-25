@@ -39,11 +39,9 @@ namespace AS_EFShelterData
             User Wouter = new User()
             {
                 ID = 1,
-                CustomerID = 1,
                 Firstname = "Wouter",
                 Lastname = "Jansen",
                 Email = "wouterjansen97@gmail.com",
-                Password = "12345678",
                 Cellphone = "0612345678",
                 BirthDay = new DateTime(1997, 04, 08),
                 Address = "Kloostergang 326",
