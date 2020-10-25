@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using AS_Core.DomainModel;
 using AS_DomainServices.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AS_Management.Controllers
 {
+    [Authorize(Policy = "RequireVolunteer")]
     public class LodgingController : Controller
     {
         private readonly ILodgingService _lodgingService;

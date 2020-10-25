@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace AS_Core.DomainModel
 {
     public class User
     {
-        public int CustomerID { get; set; }
+        [Key]
+        public int ID { get; set; }
 
-        public string Email { get; set; }
-
+        [Required]
         public string Firstname { get; set; }
 
         public string Lastname { get; set; }
 
-        public string Password { get; set; }
+        [Required]
+        public string Email { get; set; }
 
         public string Cellphone { get; set; }
 
@@ -23,5 +25,10 @@ namespace AS_Core.DomainModel
         public string Address { get; set; }
 
         public string PostalCode { get; set; }
+
+        // TODO: Add role
+        public IEnumerable<Animal> InterestInAnimals { get; set; } = new List<Animal>();
+
+        public IEnumerable<Stay> AnimalsAdopted { get; set; } = new List<Stay>();
     }
 }

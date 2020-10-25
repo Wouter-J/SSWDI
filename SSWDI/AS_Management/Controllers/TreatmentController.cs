@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using AS_Core.DomainModel;
 using AS_DomainServices.Services;
+using AS_Identity;
 using AS_Management.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AS_Management.Controllers
@@ -14,18 +17,21 @@ namespace AS_Management.Controllers
         private readonly IStayService _stayService;
         private readonly IAnimalService _animalService;
         private readonly ILodgingService _lodgingService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TreatmentController"/> class.
         /// </summary>
         /// <param name="treatmentRepository"></param>
         public TreatmentController(ITreatmentService treatmentService, IStayService stayService,
-            IAnimalService animalService, ILodgingService lodgingService)
+            IAnimalService animalService, ILodgingService lodgingService,
+            UserManager<ApplicationUser> userManager)
         {
             _treatmentService = treatmentService;
             _animalService = animalService;
             _stayService = stayService;
             _lodgingService = lodgingService;
+            _userManager = userManager;
         }
 
         // GET: Treatment
@@ -64,6 +70,11 @@ namespace AS_Management.Controllers
         {
             try
             {
+                //Get user name
+                var userName = User.FindFirstValue(ClaimTypes.Name);
+
+                TreatmentViewModel.Treatment.DoneBy = userName;
+
                 // Find proper stay on Animal ID bias
                 TreatmentViewModel.Treatment.Stay = _stayService.FindRelatedStay(TreatmentViewModel.Animal.ID);
 
