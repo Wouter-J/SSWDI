@@ -5,22 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200929093513_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200929093513_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200929094226_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200929094226_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20201006131327_Added Seeddata.cs" />
-    <Compile Remove="Migrations\20201006131327_Added Seeddata.Designer.cs" />
-    <Compile Remove="Migrations\20201019135304_ManyToManyRemoved.cs" />
-    <Compile Remove="Migrations\20201019135304_ManyToManyRemoved.Designer.cs" />
-    <Compile Remove="Migrations\20201019135425_ManyToManyRemoved.cs" />
-    <Compile Remove="Migrations\20201019135425_ManyToManyRemoved.Designer.cs" />
-    <Compile Remove="Migrations\20201019135534_ManyToManyRemoved.cs" />
-    <Compile Remove="Migrations\20201019135534_ManyToManyRemoved.Designer.cs" />
-    <Compile Remove="Migrations\20201019135721_ManyToManyRemoved.cs" />
-    <Compile Remove="Migrations\20201019135721_ManyToManyRemoved.Designer.cs" />
-    <Compile Remove="Migrations\20201019135824_ManyToManyRemoved.cs" />
-    <Compile Remove="Migrations\20201019135824_ManyToManyRemoved.Designer.cs" />
+    <Compile Remove="Migrations\20201025101117_AddedDomainuser.cs" />
+    <Compile Remove="Migrations\20201025101117_AddedDomainuser.Designer.cs" />
+    <Compile Remove="Migrations\20201025101536_AddedDomainuser.cs" />
+    <Compile Remove="Migrations\20201025101536_AddedDomainuser.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -45,6 +45,8 @@ namespace AS_Management
             {
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5; // Max amount of login attempts
+                // Email must be unique since we use this to link to Customer's domain model.
+                options.User.RequireUniqueEmail = true;
             })
             .AddEntityFrameworkStores<AppIdentityDbContext>()
             .AddDefaultUI()

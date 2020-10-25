@@ -54,7 +54,7 @@ namespace AS_ServiceTests
                 ArrivalDate = new DateTime(2019, 10, 18),
                 AdoptionDate = null,
                 CanBeAdopted = true,
-                AdoptedBy = string.Empty,
+                AdoptedBy = null,
                 LodgingLocation = coolLocation,
                 Comments = new List<Comment>(),
                 Treatments = new List<Treatment>(),

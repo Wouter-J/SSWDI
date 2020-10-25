@@ -36,6 +36,23 @@ namespace AS_EFShelterData
             };
             modelBuilder.Entity<Lodging>().HasData(lodge, lodge2);
 
+            User Wouter = new User()
+            {
+                ID = 1,
+                CustomerID = 1,
+                Firstname = "Wouter",
+                Lastname = "Jansen",
+                Email = "wouterjansen97@gmail.com",
+                Password = "12345678",
+                Cellphone = "0612345678",
+                BirthDay = new DateTime(1997, 04, 08),
+                Address = "Kloostergang 326",
+                PostalCode = "4201JA",
+                InterestInAnimals = new List<Animal>(),
+                AnimalsAdopted = new List<Stay>() { }
+            };
+            modelBuilder.Entity<User>().HasData(Wouter);
+
             Animal doggo = new Animal()
             {
                 ID = 1,
@@ -51,6 +68,7 @@ namespace AS_EFShelterData
                 Castrated = true,
                 ChildFriendly = ChildFriendly.Yes,
                 ReasonGivenAway = "Too good a boi",
+                InterestedUser = "wouterjansen97@gmail.com"
             };
 
             Animal garfield = new Animal()
@@ -77,7 +95,7 @@ namespace AS_EFShelterData
                 ArrivalDate = new DateTime(2019, 10, 18),
                 AdoptionDate = null,
                 CanBeAdopted = true,
-                AdoptedBy = string.Empty,
+                AdoptedBy = "wouterjansen97@gmail.com",
                 LodgingLocationID = lodge.ID,
                 AnimalID = doggo.ID,
                 Comments = new List<Comment>(),
@@ -90,7 +108,7 @@ namespace AS_EFShelterData
                 ArrivalDate = new DateTime(2019, 10, 18),
                 AdoptionDate = null,
                 CanBeAdopted = true,
-                AdoptedBy = string.Empty,
+                AdoptedBy = null,
                 AnimalID = garfield.ID,
                 LodgingLocationID = lodge2.ID,
                 Comments = new List<Comment>() { },

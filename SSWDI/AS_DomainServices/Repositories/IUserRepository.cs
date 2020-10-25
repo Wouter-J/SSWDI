@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AS_Core.DomainModel;
 
 namespace AS_DomainServices.Repositories
 {
-    class IUserRepository
+    public interface IUserRepository : IGenericRepository<User>
     {
+        // Add any specific functions here
     }
 }

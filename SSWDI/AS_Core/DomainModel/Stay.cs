@@ -20,9 +20,9 @@ namespace AS_Core.DomainModel
 
         public DateTime? AdoptionDate { get; set; }
 
-        public List<Treatment> Treatments { get; set; }
+        public List<Treatment> Treatments { get; set; } = new List<Treatment>();
 
-        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
         [Required]
         public bool CanBeAdopted { get; set; }
