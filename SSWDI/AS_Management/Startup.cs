@@ -83,7 +83,7 @@ namespace AS_Management
             services.AddTransient<IUserService, UserService>();
 
             // Map Domain User to Identity User TODO: Properly implement this
-            // services.AddAutoMapper(typeof(Startup)); 
+            // services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
