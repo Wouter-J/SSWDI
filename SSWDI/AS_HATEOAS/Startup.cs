@@ -53,6 +53,7 @@ namespace AS_HATEOAS
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "AnimalShelver V1 HATEOAS");
+                c.RoutePrefix = string.Empty;
             });
 
             app.UseHttpsRedirection();
