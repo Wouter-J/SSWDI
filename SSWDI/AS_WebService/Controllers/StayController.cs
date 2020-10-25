@@ -35,6 +35,7 @@ namespace AS_WebService.Controllers
                             .ToList();
 
             var serviceList = _stayService.GetAll();
+            animalFilters.CanBeAdopted = true;
 
             if (animalFilters.ChildFriendly != 0)
             {
@@ -49,6 +50,11 @@ namespace AS_WebService.Controllers
             if (animalFilters.Gender == 'M' || animalFilters.Gender == 'F')
             {
                 serviceList = serviceList.Where(stay => stay.Animal.Gender == animalFilters.Gender);
+            }
+
+            if (animalFilters.CanBeAdopted == true)
+            {
+                serviceList = serviceList.Where(stay => stay.CanBeAdopted == animalFilters.CanBeAdopted);
             }
 
             return Ok(serviceList.ToList());

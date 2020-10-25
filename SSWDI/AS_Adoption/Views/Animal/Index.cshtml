@@ -86,12 +86,9 @@
                     @Html.DisplayFor(modelItem => item.ReasonGivenAway)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID">Bewerken</a> |
                     <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-action="PlaceAnimal" asp-route-id="@item.ID">Plaatsen in verblijf</a> |
                     @Html.ActionLink("Reacties", "Index", "Comment", new { AnimalID = item.ID }, null) |
                     @Html.ActionLink("Reactie plaatsen", "Create", "Comment", new { AnimalID = item.ID }, null)
-                    <a asp-action="Delete" asp-route-id="@item.ID">Verwijderen</a>
                 </td>
             </tr>
         }

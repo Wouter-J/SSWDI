@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AS_Core.DomainModel;
+using AS_WebService.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -24,14 +25,16 @@ namespace AS_Adoption.Controllers
         public async Task<IActionResult> Index()
         {
             List<Animal> animalList = new List<Animal>();
+
             using (var httpClient = new HttpClient())
             {
-                using(var response = await httpClient.GetAsync(apiBaseUrl + "/animal"))
+                using (var response = await httpClient.GetAsync(apiBaseUrl + "/animal"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     animalList = JsonConvert.DeserializeObject<List<Animal>>(apiResponse);
                 }
             }
+
             return View(animalList);
         }
 
@@ -39,7 +42,5 @@ namespace AS_Adoption.Controllers
                //Name, animaltype (Dog/Cat), Gender, Castration & Reason
                //Check if any lodging has spaces before placement is allowed
 
-
-        // Add Filter (To API) so animals can be filtered on type, gender and if oke with kids
     }
 }

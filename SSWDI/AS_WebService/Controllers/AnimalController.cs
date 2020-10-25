@@ -1,11 +1,13 @@
 ﻿using AS_Core.DomainModel;
 using AS_DomainServices.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
 namespace AS_WebService.Controllers
 {
     [ApiController]
+    [Authorize(Policy = "Require")]
     [Route("/api/animal")]
     public class AnimalController : Controller
     {

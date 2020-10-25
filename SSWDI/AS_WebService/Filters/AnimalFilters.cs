@@ -17,5 +17,7 @@ namespace AS_WebService.Filters
         // Gender
         public char Gender { get; set; }
 
+        public bool CanBeAdopted { get; set; }
+
     }
 }
