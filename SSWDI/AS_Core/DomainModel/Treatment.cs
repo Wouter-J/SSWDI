@@ -15,8 +15,8 @@ namespace AS_Core.DomainModel
         [Required]
         public TreatmentType TreatmentType { get; set; }
 
-        [Column(TypeName = "decimal(18,4)")] // Will store 18 digits, with 4 of those after the decimal
-        public decimal Costs { get; set; }
+        //[Column(TypeName = "decimal(18,4)")] // Will store 18 digits, with 4 of those after the decimal
+        public int Costs { get; set; }
 
         public int RequiredAge { get; set; }
 
