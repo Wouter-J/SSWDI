@@ -1,0 +1,8 @@
+Management: https://as-wj.azurewebsites.net
+Adoption: https://as-adoption-wj.azurewebsites.net
+Api Lvl2: https://as-api-wj.azurewebsites.net
+
+User (Volunteer):
+wouterjansen97@gmail.com
+
+Password: 4!N#JZJgqvDK4H
