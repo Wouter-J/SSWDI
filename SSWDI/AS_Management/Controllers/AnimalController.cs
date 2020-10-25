@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AS_Management.Controllers
 {
-    [Authorize(Policy = "RequireCustomer")]
     public class AnimalController : Controller
     {
         private readonly IAnimalService _animalService;
