@@ -26,4 +26,8 @@
     <ProjectReference Include="..\AS_WebService\AS_WebService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
 </Project>

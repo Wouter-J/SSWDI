@@ -1,7 +1,12 @@
 ﻿using AS_Core.DomainModel;
 using AS_DomainServices.Services;
+using AS_EFShelterData;
+using AS_WebService.Filters;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AS_WebService.Controllers
 {
@@ -10,10 +15,12 @@ namespace AS_WebService.Controllers
     public class StayController : Controller
     {
         private readonly IStayService _stayService;
+        private readonly ApplicationDbContext _context;
 
-        public StayController(IStayService stayService)
+        public StayController(IStayService stayService, ApplicationDbContext context)
         {
             _stayService = stayService;
+            _context = context;
         }
 
         /// <summary>
@@ -21,9 +28,30 @@ namespace AS_WebService.Controllers
         /// These are animals placed and usually available for adoption.
         /// </summary>
         /// <returns>List of stays.</returns>
-        public IActionResult Index()
+        public IActionResult Index([FromQuery] AnimalFilters animalFilters )
         {
-            return Ok(_stayService.GetAll());
+            var context = _context.Stays
+                            .Include(Animal => Animal.Animal)
+                            .ToList();
+
+            var serviceList = _stayService.GetAll();
+
+            if (animalFilters.ChildFriendly != 0)
+            {
+                serviceList = serviceList.Where(stay => stay.Animal.ChildFriendly == animalFilters.ChildFriendly);
+            }
+
+            if (animalFilters.AnimalType != 0)
+            {
+                serviceList = serviceList.Where(stay => stay.Animal.AnimalType == animalFilters.AnimalType);
+            }
+
+            if (animalFilters.Gender == 'M' || animalFilters.Gender == 'F')
+            {
+                serviceList = serviceList.Where(stay => stay.Animal.Gender == animalFilters.Gender);
+            }
+
+            return Ok(serviceList.ToList());
         }
 
         [HttpGet("{id:int}")]
@@ -33,7 +61,7 @@ namespace AS_WebService.Controllers
             return Ok(stay);
         }
 
-        // Adopt Animal
+        // Adopt Animal. Implement properly
         [HttpPut("{id:int}")]
         public ActionResult<Stay> UpdateStay(int id, [FromBody] Stay stay)
         {

@@ -126,7 +126,7 @@ namespace AS_Management.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    var volunteerRole = await _roleManager.FindByNameAsync("Customer");
+                    var volunteerRole = await _roleManager.FindByNameAsync("Volunteer");
 
                     await _userManager.AddToRoleAsync(user, volunteerRole.Name);
 

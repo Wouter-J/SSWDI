@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using AS_DomainServices.Services;
+using AS_Core.DomainModel;
 
 namespace AS_Adoption.Areas.Identity.Pages.Account
 {
@@ -25,16 +27,21 @@ namespace AS_Adoption.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
+        private readonly IUserService _userService;
+        private RoleManager<IdentityRole> _roleManager;
+
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         [BindProperty]
@@ -50,6 +57,20 @@ namespace AS_Adoption.Areas.Identity.Pages.Account
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
+
+            [Required]
+            public string Firstname { get; set; }
+
+            public string Lastname { get; set; }
+
+            public DateTime BirthDay { get; set; }
+
+            // TODO : Add regex here
+            public string Cellphone { get; set; }
+
+            public string Address { get; set; }
+
+            public string PostalCode { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -75,10 +96,41 @@ namespace AS_Adoption.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+
+                // TODO: move this to Setup
+                var volunteer = new IdentityRole("Volunteer");
+                var customer = new IdentityRole("Customer");
+                await _roleManager.CreateAsync(volunteer);
+                await _roleManager.CreateAsync(customer);
+
+                // TODO: Use mapper instead of this solution.
+                var user = new ApplicationUser
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email
+                };
+
+                var domainUser = new User
+                {
+                    Email = Input.Email,
+                    Firstname = Input.Firstname,
+                    Lastname = Input.Lastname,
+                    BirthDay = Input.BirthDay,
+                    Address = Input.Address,
+                    Cellphone = Input.Cellphone,
+                    PostalCode = Input.PostalCode
+                };
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    var volunteerRole = await _roleManager.FindByNameAsync("Customer");
+
+                    await _userManager.AddToRoleAsync(user, volunteerRole.Name);
+
+                    // Create Domain level user
+                    _userService.Add(domainUser);
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
