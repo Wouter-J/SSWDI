@@ -7,7 +7,6 @@ using System;
 namespace AS_WebService.Controllers
 {
     [ApiController]
-    [Authorize(Policy = "Require")]
     [Route("/api/animal")]
     public class AnimalController : Controller
     {

@@ -14,8 +14,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using AS_DomainServices.Services;
-using AS_Core.DomainModel;
+//using AS_DomainServices.Services;
+//using AS_Core.DomainModel;
 
 namespace AS_Adoption.Areas.Identity.Pages.Account
 {
@@ -27,7 +27,7 @@ namespace AS_Adoption.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
-        private readonly IUserService _userService;
+        //private readonly IUserService _userService;
         private RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
@@ -109,7 +109,7 @@ namespace AS_Adoption.Areas.Identity.Pages.Account
                     UserName = Input.Email,
                     Email = Input.Email
                 };
-
+                /*
                 var domainUser = new User
                 {
                     Email = Input.Email,
@@ -120,16 +120,16 @@ namespace AS_Adoption.Areas.Identity.Pages.Account
                     Cellphone = Input.Cellphone,
                     PostalCode = Input.PostalCode
                 };
-
+                */
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
                     var volunteerRole = await _roleManager.FindByNameAsync("Customer");
 
-                    await _userManager.AddToRoleAsync(user, volunteerRole.Name);
+                    //await _userManager.AddToRoleAsync(user, volunteerRole.Name);
 
                     // Create Domain level user
-                    _userService.Add(domainUser);
+                    //_userService.Add(domainUser);
 
                     _logger.LogInformation("User created a new account with password.");
 
