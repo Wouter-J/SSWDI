@@ -45,5 +45,5 @@ geboortedatum of de geschatte leeftijd moet ingevuld zijn.
 
 
 ## Sources used
-
 - https://wildermuth.com/2018/08/12/Seeding-Related-Entities-in-EF-Core-2-1-s-HasData()
+- https://www.yogihosting.com/aspnet-core-consume-api/#create
