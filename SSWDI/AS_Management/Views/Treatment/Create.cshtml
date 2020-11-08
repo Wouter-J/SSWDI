@@ -12,9 +12,9 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <p>Dier voor behandeling:</p>
+            <p>Animal for treatment:</p>
             <div class="form-group">
-                <label class="control-label">Beschikbare dieren</label>
+                <label class="control-label">Available animal(s)</label>
                 <select asp-for="Animal.ID" class="form-control">
                     <option value=""></option>
                     @foreach (var animal in Model.Animals)
@@ -24,7 +24,7 @@
                 </select>
                 <span asp-validation-for="Stay.AdoptedBy" class="text-danger"></span>
             </div>
-            <p>Behandeling Details:</p>
+            <p>Treatment Details:</p>
             <div class="form-group">
                 <label asp-for="Treatment.Description" class="control-label"></label>
                 <input asp-for="Treatment.Description" class="form-control" />
