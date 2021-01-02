@@ -51,6 +51,11 @@ namespace AS_Services
             return _animalRepository.GetAll();
         }
 
+        public IEnumerable<Animal> GetAllAvailableAnimals()
+        {
+            return _animalRepository.GetAll().Where(a => a.DateOfDeath == null).ToList();
+        }
+
         public void Remove(Animal animal)
         {
             // Add specific business logic here

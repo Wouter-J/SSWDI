@@ -6,6 +6,6 @@ namespace AS_DomainServices.Services
 {
     public interface IAnimalService : IAnimalRepository
     {
-        // TODO: Implement specific functions here
+        public IEnumerable<Animal> GetAllAvailableAnimals();
     }
 }
