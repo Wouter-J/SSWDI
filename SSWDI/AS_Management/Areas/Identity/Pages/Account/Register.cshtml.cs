@@ -106,7 +106,6 @@ namespace AS_Management.Areas.Identity.Pages.Account
                 await _roleManager.CreateAsync(volunteer);
                 await _roleManager.CreateAsync(customer);
 
-                // TODO: Use mapper instead of this solution.
                 var user = new ApplicationUser {
                     UserName = Input.Email,
                     Email = Input.Email

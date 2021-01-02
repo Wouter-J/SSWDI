@@ -117,13 +117,12 @@ namespace AS_Management.Controllers
         {
             try
             {
-                // TODO: Move this to Service layer
                 animalViewModel.Animal = _animalService.FindByID(animalViewModel.Animal.ID);
                 animalViewModel.Lodge = _lodgingService.FindByID(animalViewModel.Lodge.ID);
 
                 Stay stay = animalViewModel.Stay;
                 Lodging lodge = animalViewModel.Lodge;
-
+                //Move to service logic
                 // Update capacity with the new animal.
                 lodge.CurrentCapacity = lodge.CurrentCapacity++;
 

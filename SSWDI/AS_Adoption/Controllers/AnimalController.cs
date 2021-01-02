@@ -27,7 +27,8 @@ namespace AS_Adoption.Controllers
         public async Task<IActionResult> Index()
         {
             List<Animal> animalList = new List<Animal>();
-
+            // Move to seperate repository; use seperate repository project
+            // HttpRepositry getAll();
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync(apiBaseUrl + "/api/animal"))
