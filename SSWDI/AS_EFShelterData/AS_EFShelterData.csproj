@@ -9,6 +9,8 @@
     <Compile Remove="Migrations\20201025101117_AddedDomainuser.Designer.cs" />
     <Compile Remove="Migrations\20201025101536_AddedDomainuser.cs" />
     <Compile Remove="Migrations\20201025101536_AddedDomainuser.Designer.cs" />
+    <Compile Remove="Migrations\20210119152918_Added ExtraAnimal field.cs" />
+    <Compile Remove="Migrations\20210119152918_Added ExtraAnimal field.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

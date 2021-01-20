@@ -4,7 +4,9 @@ using AS_DomainServices.Repositories;
 using AS_DomainServices.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AS_Services
 {
@@ -71,6 +73,34 @@ namespace AS_Services
             }
 
             _animalRepository.SaveAnimal(animal);
+        }
+
+        public async Task<string> SaveImage(Animal animal, string wwwRootPath)
+        {
+            // Upload image
+            //string wwwRootPath = _hostEnvironment.WebRootPath;
+
+            string fileName = Path.GetFileNameWithoutExtension(animal.ImageFile.FileName);
+            string extension = Path.GetExtension(animal.ImageFile.FileName);
+            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension; // Make the image name to always be unique
+            animal.ImageName = fileName;
+
+            string path = Path.Combine(wwwRootPath + "/images", fileName);
+            using (var fileStream = new FileStream(path, FileMode.Create))
+            {
+                await animal.ImageFile.CopyToAsync(fileStream);
+            }
+
+            return fileName;
+        }
+
+        public void RemoveImage(Animal animal, string wwwRootPath)
+        {
+            if (animal.ImageName != null)
+            {
+                var imagePath = Path.Combine(wwwRootPath, "images", animal.ImageName);
+                if (File.Exists(imagePath)) { File.Delete(imagePath); } // Removes image if it exists
+            }
         }
 
         private int CalculateAge(Animal animal)

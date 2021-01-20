@@ -39,4 +39,8 @@
     <ProjectReference Include="..\AS_Services\AS_Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>

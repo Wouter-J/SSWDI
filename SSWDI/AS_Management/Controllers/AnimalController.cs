@@ -1,8 +1,11 @@
 ﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using AS_Core.DomainModel;
 using AS_DomainServices.Services;
 using AS_Management.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AS_Management.Controllers
@@ -12,16 +15,18 @@ namespace AS_Management.Controllers
         private readonly IAnimalService _animalService;
         private readonly ILodgingService _lodgingService;
         private readonly IStayService _stayService;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AnimalController"/> class.
         /// </summary>
         /// <param name="animalService"></param>
-        public AnimalController(IAnimalService animalService, ILodgingService lodgingService, IStayService stayService)
+        public AnimalController(IAnimalService animalService, ILodgingService lodgingService, IStayService stayService, IWebHostEnvironment hostEnvironment)
         {
             _animalService = animalService;
             _lodgingService = lodgingService;
             _stayService = stayService;
+            _hostEnvironment = hostEnvironment;
         }
 
         public IActionResult Index()
@@ -38,11 +43,15 @@ namespace AS_Management.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Animal animal)
+        public async Task<IActionResult> Create(Animal animal)
         {
             if (ModelState.IsValid)
             {
+                // We need the wwwRootPath which is relative to the project, not the specific service.
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                animal.ImageName = await _animalService.SaveImage(animal, wwwRootPath);
                 _animalService.Add(animal);
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -66,10 +75,14 @@ namespace AS_Management.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Animal animal)
+        public async Task<IActionResult> Edit(Animal animal)
         {
             if (ModelState.IsValid)
-            {
+            {   
+                // We need the wwwRootPath which is relative to the project, not the specific service.
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                _animalService.RemoveImage(animal, wwwRootPath);
+                animal.ImageName = await _animalService.SaveImage(animal, wwwRootPath);
                 _animalService.SaveAnimal(animal);
                 return RedirectToAction(nameof(Index));
             }
@@ -91,6 +104,9 @@ namespace AS_Management.Controllers
         {
             // TODO: Add validation
             Animal animal = _animalService.FindByID(ID);
+            string wwwRootPath = _hostEnvironment.WebRootPath;
+            _animalService.RemoveImage(animal, wwwRootPath);
+
             _animalService.Remove(animal);
             return RedirectToAction(nameof(Index));
         }
@@ -144,10 +160,5 @@ namespace AS_Management.Controllers
 
             return View(animalViewModel);
         }
-
-        // POST: Animals/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        // public async Task<IActionResult> Create([Bind("ID,Name,Birthdate,Age,EstimatedAge,Description,AnimalType,Race,Gender,Picture,DateOfDeath,Castrated,ChildFriendly,ReasonGivenAway")] Animal animal)
     }
 }

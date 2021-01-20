@@ -1,4 +1,5 @@
 ﻿using AS_Core.Enums;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -33,6 +34,11 @@ namespace AS_Core.DomainModel
         public char Gender { get; set; } // M is male F is female
 
         public string Picture { get; set; }
+
+        public string ImageName { get; set; }
+
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
 
         public DateTime? DateOfDeath { get; set; }
 
