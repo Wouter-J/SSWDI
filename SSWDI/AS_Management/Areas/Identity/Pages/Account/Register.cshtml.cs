@@ -22,7 +22,7 @@ namespace AS_Management.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-
+        /*
         private RoleManager<IdentityRole> _roleManager;
 
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -165,5 +165,6 @@ namespace AS_Management.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
+        */
     }
 }

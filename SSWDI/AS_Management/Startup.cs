@@ -50,7 +50,7 @@ namespace AS_Management
                 options.User.RequireUniqueEmail = true;
             })
             .AddEntityFrameworkStores<AppIdentityDbContext>()
-            .AddDefaultUI()
+            // .AddDefaultUI()
             .AddDefaultTokenProviders();
 
             services.AddAuthorization(options =>
