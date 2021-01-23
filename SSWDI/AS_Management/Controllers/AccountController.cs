@@ -7,6 +7,7 @@ using AS_Core.DomainModel;
 using AS_DomainServices.Services;
 using AS_Identity;
 using AS_Management.ViewModels;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -22,15 +23,17 @@ namespace AS_Management.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, 
-            IUserService userService, RoleManager<IdentityRole> roleManager)
+            IUserService userService, RoleManager<IdentityRole> roleManager, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _userService = userService;
             _roleManager = roleManager;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -52,25 +55,12 @@ namespace AS_Management.Controllers
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
-            Console.WriteLine(model);
 
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-
-            if(ModelState.IsValid)
+            // TODO: Clean up if possible
+            if (ModelState.IsValid)
             {
-                // TODO: move this to Setup
-                var volunteer = new IdentityRole("Volunteer");
-                var customer = new IdentityRole("Customer");
-                await _roleManager.CreateAsync(volunteer);
-                await _roleManager.CreateAsync(customer);
-
-                var user = new ApplicationUser
-                {
-                    UserName = model.Email,
-                    Email = model.Email
-                };
-
                 var domainUser = new User
                 {
                     Email = model.Email,
@@ -81,37 +71,24 @@ namespace AS_Management.Controllers
                     Cellphone = model.Cellphone,
                     PostalCode = model.PostalCode
                 };
+                var mappedEntity = _mapper.Map<User, ApplicationUser>(domainUser);
 
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await _userService.HandleRegistration(domainUser, mappedEntity);
+
                 if (result.Succeeded)
                 {
-                    var volunteerRole = await _roleManager.FindByNameAsync("Volunteer");
-
-                    await _userManager.AddToRoleAsync(user, volunteerRole.Name);
-
-                    // Create Domain level user
-                    _userService.Add(domainUser);
-
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
-
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         return RedirectToPage("RegisterConfirmation", new { email = model.Email, returnUrl = returnUrl });
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        await _signInManager.SignInAsync(mappedEntity, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
                 }
 
-                foreach (var error in result.Errors)
+            foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
@@ -119,7 +96,6 @@ namespace AS_Management.Controllers
 
             // If we got this far, something failed, redisplay form
             return View("Areas/Identity/Pages/Account/Register.cshtml", model);
-            //return View(ViewBag)
         }
 
     }
