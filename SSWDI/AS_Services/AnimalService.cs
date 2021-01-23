@@ -78,8 +78,7 @@ namespace AS_Services
         public async Task<string> SaveImage(Animal animal, string wwwRootPath)
         {
             // Upload image
-            //string wwwRootPath = _hostEnvironment.WebRootPath;
-
+            
             string fileName = Path.GetFileNameWithoutExtension(animal.ImageFile.FileName);
             string extension = Path.GetExtension(animal.ImageFile.FileName);
             fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension; // Make the image name to always be unique
@@ -105,15 +104,10 @@ namespace AS_Services
 
         private int CalculateAge(Animal animal)
         {
-            // Check if both age(s) have a value.
-            if (animal.EstimatedAge != 0 && animal.Birthdate != null)
-            {
-                // TODO: Return err
-                return -1;
-            }
+
 
             // Check if EstimagedAge has value, if so that becomes the Age.
-            if (animal.EstimatedAge != 0 && animal.Birthdate == null)
+            if (animal.EstimatedAge != 0 && animal.Birthdate == DateTime.MinValue)
             {
                 return animal.EstimatedAge;
             }

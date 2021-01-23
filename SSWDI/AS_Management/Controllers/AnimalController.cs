@@ -47,9 +47,12 @@ namespace AS_Management.Controllers
         {
             if (ModelState.IsValid)
             {
-                // We need the wwwRootPath which is relative to the project, not the specific service.
-                string wwwRootPath = _hostEnvironment.WebRootPath;
-                animal.ImageName = await _animalService.SaveImage(animal, wwwRootPath);
+                if (animal.ImageFile != null)
+                {
+                    // We need the wwwRootPath which is relative to the project, not the specific service.
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    animal.ImageName = await _animalService.SaveImage(animal, wwwRootPath);
+                }
                 _animalService.Add(animal);
 
                 return RedirectToAction(nameof(Index));
@@ -78,11 +81,14 @@ namespace AS_Management.Controllers
         public async Task<IActionResult> Edit(Animal animal)
         {
             if (ModelState.IsValid)
-            {   
-                // We need the wwwRootPath which is relative to the project, not the specific service.
-                string wwwRootPath = _hostEnvironment.WebRootPath;
-                _animalService.RemoveImage(animal, wwwRootPath);
-                animal.ImageName = await _animalService.SaveImage(animal, wwwRootPath);
+            {
+                if (animal.ImageFile != null)
+                {
+                    // We need the wwwRootPath which is relative to the project, not the specific service.
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    _animalService.RemoveImage(animal, wwwRootPath);
+                    animal.ImageName = await _animalService.SaveImage(animal, wwwRootPath);
+                }
                 _animalService.SaveAnimal(animal);
                 return RedirectToAction(nameof(Index));
             }
