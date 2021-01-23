@@ -58,6 +58,7 @@ namespace AS_Management.Controllers
 
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             // TODO: Clean up if possible
             if (ModelState.IsValid)
             {

@@ -77,7 +77,7 @@ namespace AS_Management
             services.AddTransient<ILodgingRepository, EFLodgingRepository>();
             services.AddTransient<IStayRepository, EFStayRepository>();
             services.AddTransient<ITreatmentRepository, EFTreatmentRepository>();
-            services.AddTransient<IUserRepository, EFUserRepository>();
+            services.AddScoped<IUserRepository, EFUserRepository>();
 
             // Dependency Injection; Services
             services.AddTransient<IAnimalService, AnimalService>();
@@ -85,7 +85,7 @@ namespace AS_Management
             services.AddTransient<ILodgingService, LodgingService>();
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<ITreatmentService, TreatmentService>();
-            services.AddTransient<IUserService, UserService>();
+            services.AddScoped<IUserService, UserService>();
 
             // Mapping our ViewModel to the ApplicationUser
             var config = new MapperConfiguration(cfg =>
