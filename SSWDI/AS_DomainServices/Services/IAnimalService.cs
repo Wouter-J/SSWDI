@@ -12,5 +12,7 @@ namespace AS_DomainServices.Services
         public Task<string> SaveImage(Animal animal, string wwwRootPath);
 
         public void RemoveImage(Animal animal, string wwwRootPath);
+
+        public IEnumerable<Animal> GetRelatedAnimal(string user);
     }
 }

@@ -126,7 +126,7 @@ namespace AS_Adoption.Areas.Identity.Pages.Account
                 {
                     var volunteerRole = await _roleManager.FindByNameAsync("Customer");
 
-                    //await _userManager.AddToRoleAsync(user, volunteerRole.Name);
+                    await _userManager.AddToRoleAsync(user, volunteerRole.Name);
 
                     // Create Domain level user
                     //_userService.Add(domainUser);

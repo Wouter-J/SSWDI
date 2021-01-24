@@ -30,5 +30,28 @@ namespace AS_HttpData
             return animalList;
         }
 
+        public async Task<IEnumerable<Animal>> GetInterestedAnimal(System.Security.Claims.ClaimsPrincipal currentUser)
+        {
+            List<Animal> animalList = new List<Animal>();
+
+            using (var httpClient = new HttpClient())
+            {
+                // TODO: Find cleaner way to do this
+                var builder = new UriBuilder(apiBaseUrl + "/api/animal");
+                var query = HttpUtility.ParseQueryString(builder.Query);
+                query["User"] = currentUser.Identity.Name;
+                builder.Query = query.ToString();
+                string url = builder.ToString();
+
+                using (var response = await httpClient.GetAsync(url))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    animalList = JsonConvert.DeserializeObject<List<Animal>>(apiResponse);
+                }
+            }
+
+            return animalList;
+        }
+
     }
 }
