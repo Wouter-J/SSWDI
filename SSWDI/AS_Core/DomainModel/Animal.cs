@@ -31,7 +31,7 @@ namespace AS_Core.DomainModel
         public string Race { get; set; }
 
         [Required]
-        public char Gender { get; set; } // M is male F is female
+        public Gender Gender { get; set; }
 
         public string Picture { get; set; }
 

@@ -1,11 +1,32 @@
-﻿@model IEnumerable<AS_Core.DomainModel.Stay>
+﻿@model AS_Adoption.ViewModels.StayViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
-
+<div class="filters">
+    <form asp-action="Filter">
+        <div class="form-group">
+            @Html.DropDownListFor(m => m.AnimalType,
+                                   new SelectList(Enum.GetValues(typeof(AS_Core.Enums.AnimalType))),
+                                   new { @class = "form-control", required = "required" })
+        </div>
+        <div class="form-group">
+            @Html.DropDownListFor(m => m.Animal.ChildFriendly,
+                                   new SelectList(Enum.GetValues(typeof(AS_Core.Enums.ChildFriendly))),
+                                   new { @class = "form-control", required = "required" })
+        </div>
+        <div class="form-group">
+            @Html.DropDownListFor(m => m.Animal.Gender,
+                                   new SelectList(Enum.GetValues(typeof(AS_Core.Enums.Gender))),
+                                   new { @class = "form-control", required = "required" })
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Filter" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -46,7 +67,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Stays)
         {
             <tr>
                 <td>

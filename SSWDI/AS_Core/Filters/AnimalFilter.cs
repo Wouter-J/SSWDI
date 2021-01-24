@@ -10,7 +10,7 @@ namespace AS_Core.Filters
         public ChildFriendly ChildFriendly { get; set; }
 
         // Gender
-        public char Gender { get; set; }
+        public Gender Gender { get; set; }
 
         public bool CanBeAdopted { get; set; }
     }

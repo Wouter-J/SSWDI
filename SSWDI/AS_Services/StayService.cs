@@ -152,7 +152,7 @@ namespace AS_Services
                 stays = stays.Where(x => x.Animal.ChildFriendly == filter.ChildFriendly);
             }
 
-            if (filter.Gender == 'M' || filter.Gender == 'F')
+            if (filter.Gender != null)
             {
                 stays = stays.Where(x => x.Animal.Gender == filter.Gender);
             }
