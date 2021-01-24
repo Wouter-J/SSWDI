@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AS_Core.DomainModel;
 using AS_DomainServices;
 using AS_DomainServices.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace AS_EFShelterData
 {
@@ -13,6 +15,11 @@ namespace AS_EFShelterData
         /// </summary>
         /// <param name="context"></param>
         public EFStayRepository(ApplicationDbContext context) : base(context) { }
+
+        public IEnumerable<Stay> GetStayWithAnimal()
+        {
+            return  _context.Stays.Include(Animal => Animal.Animal).ToList();
+        }
 
         // TODO: Add specific functions here
         public void SaveStay(Stay stay)

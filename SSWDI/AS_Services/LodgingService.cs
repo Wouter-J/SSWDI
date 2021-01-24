@@ -62,14 +62,14 @@ namespace AS_Services
             foreach (var lodge in lodges)
             {
                 // Check if group lodging & castrated or Individual group
-                if ((animal.Castrated && lodge.LodgingType == LodgingType.Group) || lodge.LodgingType == LodgingType.Individual)
-                {
+                //if ((animal.Castrated && lodge.LodgingType == LodgingType.Group) || lodge.LodgingType == LodgingType.Individual)
+                //{
                     // Check if lodging has free space if new animal is added && animal is of correct type
-                    if (lodge.CurrentCapacity + 1 != lodge.MaxCapacity && lodge.AnimalType == animal.AnimalType)
-                    {
+                    //if (lodge.CurrentCapacity + 1 != lodge.MaxCapacity && lodge.AnimalType == animal.AnimalType)
+                    //{
                         freeLodges.Add(lodge);
-                    }
-                }
+                    //}
+                //}
             }
 
             return freeLodges;

@@ -70,7 +70,7 @@
                 @Html.DisplayFor(modelItem => item.Gender)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Picture)
+                <img src="@("~/images/" + item.ImageName)" asp-append-version="true" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateOfDeath)

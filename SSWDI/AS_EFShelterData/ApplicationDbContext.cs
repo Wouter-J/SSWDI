@@ -31,6 +31,11 @@ namespace AS_EFShelterData
         {
             base.OnModelCreating(modelBuilder);
 
+            // Make sure email is unique
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
             // One to One / One to Many relations
             modelBuilder.Entity<Stay>()
                 .HasMany(s => s.Treatments)

@@ -1,14 +1,19 @@
+using AS_Core.DomainModel;
 using AS_DomainServices.Repositories;
 using AS_DomainServices.Services;
 using AS_EFShelterData;
+using AS_Identity;
 using AS_Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using System;
 
 namespace AS_WebService
 {
@@ -33,6 +38,30 @@ namespace AS_WebService
                     Configuration["Data:AS_AnimalData:ConnectionString"])
                     .EnableSensitiveDataLogging());
 
+            services.AddDbContext<AppIdentityDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration["Data:AS_Identity:ConnectionString"])
+                    .EnableSensitiveDataLogging());
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5; // Max amount of login attempts
+                // Email must be unique since we use this to link to Customer's domain model.
+                options.User.RequireUniqueEmail = true;
+            })
+            .AddEntityFrameworkStores<AppIdentityDbContext>()
+            // .AddDefaultUI()
+            .AddDefaultTokenProviders();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireVolunteer",
+                    policy => policy.RequireRole("Volunteer"));
+                options.AddPolicy("RequireCustomer",
+                    policy => policy.RequireRole("Customer"));
+            });
+
             services.AddControllers();
             services.AddMvc();
             services.AddSwaggerGen();
@@ -56,6 +85,11 @@ namespace AS_WebService
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<ITreatmentService, TreatmentService>();
             services.AddTransient<IUserService, UserService>();
+
+            // Mapping our ViewModel to the ApplicationUser
+            var config = new MapperConfiguration(cfg =>
+                cfg.CreateMap<User, ApplicationUser>()
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

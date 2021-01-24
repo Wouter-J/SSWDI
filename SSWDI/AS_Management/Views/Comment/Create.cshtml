@@ -15,12 +15,12 @@
             <input type="hidden" asp-for="Comment.ID" />
             <input type="hidden" asp-for="Animal.ID" />
             <input type="hidden" asp-for="Stay.ID" />
-            <p>U plaatst een reactie op het volgende dier:</p>
+            <p>You are placing a comment on the following animal:</p>
             <ul>
-                <li>Naam: @Model.Animal.Name</li>
-                <li>Beschrijving: @Model.Animal.Description</li>
-                <li>Soort: @Model.Animal.AnimalType</li>
-                <li>Leeftijd: @Model.Animal.Age</li>
+                <li>Name: @Model.Animal.Name</li>
+                <li>Description: @Model.Animal.Description</li>
+                <li>Type: @Model.Animal.AnimalType</li>
+                <li>Age: @Model.Animal.Age</li>
             </ul>
             <div class="form-group">
                 <label asp-for="Comment.Content" class="control-label"></label>

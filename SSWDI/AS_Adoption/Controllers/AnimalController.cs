@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using AS_Core.DomainModel;
-using AS_WebService.Filters;
+using AS_HttpData;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +17,7 @@ namespace AS_Adoption.Controllers
     {
         private readonly IConfiguration _configuration;
         private string apiBaseUrl = "";
+        private readonly AnimalHttpService animalHttpService = new AnimalHttpService();
 
         public AnimalController(IConfiguration configuration)
         {
@@ -26,16 +27,10 @@ namespace AS_Adoption.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<Animal> animalList = new List<Animal>();
-
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync(apiBaseUrl + "/api/animal"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    animalList = JsonConvert.DeserializeObject<List<Animal>>(apiResponse);
-                }
-            }
+            // List<Animal> animalList = new List<Animal>();
+            // Move to seperate repository; use seperate repository project
+            // HttpRepositry getAll();
+            IEnumerable<Animal> animalList = await animalHttpService.HttpIndex();
 
             return View(animalList);
         }

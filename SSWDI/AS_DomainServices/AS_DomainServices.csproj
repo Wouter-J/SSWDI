@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AS_Core\AS_Core.csproj" />
+    <ProjectReference Include="..\AS_Identity\AS_Identity.csproj" />
   </ItemGroup>
 
 </Project>

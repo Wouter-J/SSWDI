@@ -1,10 +1,13 @@
 ﻿using AS_Core.DomainModel;
+using AS_Core.Filters;
 using AS_DomainServices;
 using AS_DomainServices.Repositories;
 using AS_DomainServices.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AS_Services
 {
@@ -51,6 +54,11 @@ namespace AS_Services
             return _animalRepository.GetAll();
         }
 
+        public IEnumerable<Animal> GetAllAvailableAnimals()
+        {
+            return _animalRepository.GetAll().Where(a => a.DateOfDeath == null).ToList();
+        }
+
         public void Remove(Animal animal)
         {
             // Add specific business logic here
@@ -68,17 +76,36 @@ namespace AS_Services
             _animalRepository.SaveAnimal(animal);
         }
 
-        private int CalculateAge(Animal animal)
+        public async Task<string> SaveImage(Animal animal, string wwwRootPath)
         {
-            // Check if both age(s) have a value.
-            if (animal.EstimatedAge != 0 && animal.Birthdate != null)
+            // Upload image
+            string fileName = Path.GetFileNameWithoutExtension(animal.ImageFile.FileName);
+            string extension = Path.GetExtension(animal.ImageFile.FileName);
+            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension; // Make the image name to always be unique
+            animal.ImageName = fileName;
+
+            string path = Path.Combine(wwwRootPath + "/images", fileName);
+            using (var fileStream = new FileStream(path, FileMode.Create))
             {
-                // TODO: Return err
-                return -1;
+                await animal.ImageFile.CopyToAsync(fileStream);
             }
 
+            return fileName;
+        }
+
+        public void RemoveImage(Animal animal, string wwwRootPath)
+        {
+            if (animal.ImageName != null)
+            {
+                var imagePath = Path.Combine(wwwRootPath, "images", animal.ImageName);
+                if (File.Exists(imagePath)) { File.Delete(imagePath); } // Removes image if it exists
+            }
+        }
+
+        public int CalculateAge(Animal animal)
+        {
             // Check if EstimagedAge has value, if so that becomes the Age.
-            if (animal.EstimatedAge != 0 && animal.Birthdate == null)
+            if (animal.EstimatedAge != 0 && animal.Birthdate == DateTime.MinValue)
             {
                 return animal.EstimatedAge;
             }

@@ -3,7 +3,6 @@ using AS_DomainServices.Repositories;
 using AS_DomainServices.Services;
 using AS_EFShelterData;
 using AS_Identity;
-using AS_Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -58,7 +57,6 @@ namespace AS_Adoption
             services.AddRazorPages();
             services.AddMvc();
             services.AddSession();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

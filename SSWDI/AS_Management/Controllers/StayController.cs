@@ -56,7 +56,14 @@ namespace AS_Management.Controllers
         {
             if (ModelState.IsValid)
             {
-                _stayService.Add(stay);
+                try
+                {
+                    _stayService.Add(stay);
+                } catch (InvalidOperationException e)
+                {
+                    return View(stay);
+                }
+                
                 return RedirectToAction(nameof(Index));
             }
 
@@ -84,43 +91,15 @@ namespace AS_Management.Controllers
         {
             try
             {
-                // TODO: Move this to Service layer
-                stayViewModel.Animal = _animalService.FindByID(stayViewModel.Animal.ID);
-                stayViewModel.Lodge = _lodgingService.FindByID(stayViewModel.Lodge.ID);
-
-                Lodging currentLodge = _lodgingService.FindByID(stayViewModel.CurrentLodge.ID);
-                Stay Stay = stayViewModel.Stay;
-                Lodging Lodge = stayViewModel.Lodge;
-
-                // If animal moved
-                if (currentLodge.ID != Lodge.ID)
-                {
-                    // Decrease capacity at old lodge
-                    currentLodge.CurrentCapacity--; // TODO: make this calc work
-
-                    // Increase capacity at new lodge
-                    Lodge.CurrentCapacity++;
-
-                    currentLodge.Stays.Remove(Stay);
-
-                    _lodgingService.SaveLodging(currentLodge);
-                }
-
-                // Animal & Lodge update
-                Stay.Animal = stayViewModel.Animal;
-                Lodge.Stays.Add(Stay);
-
-                _lodgingService.SaveLodging(Lodge);
-                _stayService.SaveStay(Stay);
+                _stayService.PlaceAnimal(stayViewModel.Stay, stayViewModel.Lodge);
 
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error: " + e); // TODO: Change this to logger service
+                ViewBag.Message = "Error: " + e.Message;
+                return Edit(stayViewModel.Stay.ID);
             }
-
-            return View(stayViewModel);
         }
 
         // GET: Stays/Delete/5

@@ -10,53 +10,51 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <p>U gaat het volgende dier plaatsen:</p>
+        <p>The following animal will be placed:</p>
         <table>
             <tr>@Model.Animal.Name</tr>
-            <tr>@Model.Animal.Description</tr>
-            <tr>@Model.Animal.AnimalType</tr>
-            <tr>@Model.Animal.Age</tr>
         </table>
 
-    <form asp-action="PlaceAnimal">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="Animal.ID" />
-        <input type="hidden" asp-for="Stay.Animal" />
-        <div class="form-group">
-            <label asp-for="Stay.ArrivalDate" class="control-label"></label>
-            <input asp-for="Stay.ArrivalDate" class="form-control" />
-            <span asp-validation-for="Stay.ArrivalDate" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Stay.AdoptionDate" class="control-label"></label>
-            <input asp-for="Stay.AdoptionDate" class="form-control" />
-            <span asp-validation-for="Stay.AdoptionDate" class="text-danger"></span>
-        </div>
-        <div class="form-group form-check">
-            <label class="form-check-label">
-                <input class="form-check-input" asp-for="Stay.CanBeAdopted" /> @Html.DisplayNameFor(model => model.Stay.CanBeAdopted)
-            </label>
-        </div>
-        <div class="form-group">
-            <label asp-for="Stay.AdoptedBy" class="control-label"></label>
-            <input asp-for="Stay.AdoptedBy" class="form-control" />
-            <span asp-validation-for="Stay.AdoptedBy" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label class="control-label">Beschikbare locaties</label>
-            <select asp-for="Lodge.ID" class="form-control">
-                <option value=""></option>
-                @foreach (var lodge in Model.Lodgings)
-                {
-                    <option value="@lodge.ID">@lodge.Description</option>
-                }
-            </select>
-            <span asp-validation-for="Stay.AdoptedBy" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-primary" />
-        </div>
-    </form>
+        <form asp-action="PlaceAnimal">
+            <p style="color: red; font-size: 16px;">@ViewBag.Message</p>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Animal.ID" />
+            <input type="hidden" asp-for="Stay.Animal" />
+            <div class="form-group">
+                <label asp-for="Stay.ArrivalDate" class="control-label"></label>
+                <input asp-for="Stay.ArrivalDate" class="form-control" />
+                <span asp-validation-for="Stay.ArrivalDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Stay.AdoptionDate" class="control-label"></label>
+                <input asp-for="Stay.AdoptionDate" class="form-control" />
+                <span asp-validation-for="Stay.AdoptionDate" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Stay.CanBeAdopted" /> @Html.DisplayNameFor(model => model.Stay.CanBeAdopted)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Stay.AdoptedBy" class="control-label"></label>
+                <input asp-for="Stay.AdoptedBy" class="form-control" />
+                <span asp-validation-for="Stay.AdoptedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Beschikbare locaties</label>
+                <select asp-for="Lodge.ID" class="form-control">
+                    <option value=""></option>
+                    @foreach (var lodge in Model.Lodgings)
+                    {
+                        <option value="@lodge.ID">@lodge.Description</option>
+                    }
+                </select>
+                <span asp-validation-for="Stay.AdoptedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
 </div>
 

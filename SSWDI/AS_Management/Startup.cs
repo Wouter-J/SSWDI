@@ -1,9 +1,11 @@
 using System;
+using AS_Core.DomainModel;
 using AS_DomainServices;
 using AS_DomainServices.Repositories;
 using AS_DomainServices.Services;
 using AS_EFShelterData;
 using AS_Identity;
+using AS_Management.ViewModels;
 using AS_Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
@@ -50,7 +52,7 @@ namespace AS_Management
                 options.User.RequireUniqueEmail = true;
             })
             .AddEntityFrameworkStores<AppIdentityDbContext>()
-            .AddDefaultUI()
+            // .AddDefaultUI()
             .AddDefaultTokenProviders();
 
             services.AddAuthorization(options =>
@@ -66,13 +68,16 @@ namespace AS_Management
             services.AddMvc();
             services.AddSession();
 
+            // Map Domain User to Identity User TODO: Properly implement this
+            services.AddAutoMapper(typeof(Startup));
+
             // Dependency Injection; Repos
             services.AddTransient<IAnimalRepository, EFAnimalRepository>();
             services.AddTransient<ICommentRepository, EFCommentRepository>();
             services.AddTransient<ILodgingRepository, EFLodgingRepository>();
             services.AddTransient<IStayRepository, EFStayRepository>();
             services.AddTransient<ITreatmentRepository, EFTreatmentRepository>();
-            services.AddTransient<IUserRepository, EFUserRepository>();
+            services.AddScoped<IUserRepository, EFUserRepository>();
 
             // Dependency Injection; Services
             services.AddTransient<IAnimalService, AnimalService>();
@@ -80,10 +85,12 @@ namespace AS_Management
             services.AddTransient<ILodgingService, LodgingService>();
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<ITreatmentService, TreatmentService>();
-            services.AddTransient<IUserService, UserService>();
+            services.AddScoped<IUserService, UserService>();
 
-            // Map Domain User to Identity User TODO: Properly implement this
-            // services.AddAutoMapper(typeof(Startup));
+            // Mapping our ViewModel to the ApplicationUser
+            var config = new MapperConfiguration(cfg =>
+                cfg.CreateMap<User, ApplicationUser>()
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
