@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AS_Core.DomainModel;
-using AS_WebService.Filters;
+using AS_Core.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -22,7 +22,7 @@ namespace AS_Adoption.Controllers
             apiBaseUrl = _configuration.GetValue<string>("WebAPIBaseUrl");
         }
 
-        public async Task<IActionResult> IndexAsync([FromQuery] AnimalFilters animalFilters)
+        public async Task<IActionResult> IndexAsync([FromQuery] AnimalFilter animalFilters)
         {
             List<Stay> stayList = new List<Stay>();
             animalFilters.CanBeAdopted = true;

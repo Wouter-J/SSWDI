@@ -1,4 +1,5 @@
 ﻿using AS_Core.DomainModel;
+using AS_Core.Filters;
 using AS_DomainServices;
 using AS_DomainServices.Repositories;
 using AS_DomainServices.Services;
@@ -78,7 +79,6 @@ namespace AS_Services
         public async Task<string> SaveImage(Animal animal, string wwwRootPath)
         {
             // Upload image
-            
             string fileName = Path.GetFileNameWithoutExtension(animal.ImageFile.FileName);
             string extension = Path.GetExtension(animal.ImageFile.FileName);
             fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension; // Make the image name to always be unique
@@ -104,8 +104,6 @@ namespace AS_Services
 
         private int CalculateAge(Animal animal)
         {
-
-
             // Check if EstimagedAge has value, if so that becomes the Age.
             if (animal.EstimatedAge != 0 && animal.Birthdate == DateTime.MinValue)
             {

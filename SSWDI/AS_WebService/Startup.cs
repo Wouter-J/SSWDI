@@ -39,9 +39,9 @@ namespace AS_WebService
                     .EnableSensitiveDataLogging());
 
             services.AddDbContext<AppIdentityDbContext>(options =>
-    options.UseSqlServer(
-        Configuration["Data:AS_Identity:ConnectionString"])
-        .EnableSensitiveDataLogging());
+                options.UseSqlServer(
+                    Configuration["Data:AS_Identity:ConnectionString"])
+                    .EnableSensitiveDataLogging());
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {

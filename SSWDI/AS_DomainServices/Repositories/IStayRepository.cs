@@ -1,4 +1,5 @@
 ﻿using AS_Core.DomainModel;
+using System.Collections.Generic;
 
 namespace AS_DomainServices.Repositories
 {
@@ -6,5 +7,11 @@ namespace AS_DomainServices.Repositories
     {
         // TODO: Add specific functions here
         void SaveStay(Stay stay);
+
+        /// <summary>
+        /// Will get all stays with their related animal
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<Stay> GetStayWithAnimal();
     }
 }

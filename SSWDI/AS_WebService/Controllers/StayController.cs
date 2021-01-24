@@ -1,7 +1,7 @@
 ﻿using AS_Core.DomainModel;
+using AS_Core.Filters;
 using AS_DomainServices.Services;
 using AS_EFShelterData;
-using AS_WebService.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,11 +15,13 @@ namespace AS_WebService.Controllers
     public class StayController : Controller
     {
         private readonly IStayService _stayService;
+        private readonly IAnimalService _animalService;
         private readonly ApplicationDbContext _context;
 
-        public StayController(IStayService stayService, ApplicationDbContext context)
+        public StayController(IStayService stayService, ApplicationDbContext context, IAnimalService animalService)
         {
             _stayService = stayService;
+            _animalService = animalService;
             _context = context;
         }
 
@@ -29,36 +31,11 @@ namespace AS_WebService.Controllers
         /// </summary>
         /// <returns>List of stays.</returns>
         [HttpGet]
-        public IActionResult Index([FromQuery] AnimalFilters animalFilters )
+        public IActionResult Index([FromQuery] AnimalFilter animalFilters )
         {
-            var context = _context.Stays
-                            .Include(Animal => Animal.Animal)
-                            .ToList();
+            var animalList = _stayService.GetAllWithFilter(animalFilters);
 
-            var serviceList = _stayService.GetAll();
-            animalFilters.CanBeAdopted = true;
-
-            if (animalFilters.ChildFriendly != 0)
-            {
-                serviceList = serviceList.Where(stay => stay.Animal.ChildFriendly == animalFilters.ChildFriendly);
-            }
-
-            if (animalFilters.AnimalType != 0)
-            {
-                serviceList = serviceList.Where(stay => stay.Animal.AnimalType == animalFilters.AnimalType);
-            }
-
-            if (animalFilters.Gender == 'M' || animalFilters.Gender == 'F')
-            {
-                serviceList = serviceList.Where(stay => stay.Animal.Gender == animalFilters.Gender);
-            }
-
-            if (animalFilters.CanBeAdopted == true)
-            {
-                serviceList = serviceList.Where(stay => stay.CanBeAdopted == animalFilters.CanBeAdopted);
-            }
-
-            return Ok(serviceList.ToList());
+            return Ok(animalList.ToList());
         }
 
         [HttpGet("{id:int}")]
