@@ -21,6 +21,7 @@ namespace AS_WebService.Controllers
         /// All Comments that are available.
         /// </summary>
         /// <returns>List of comments.</returns>
+        [HttpGet]
         public IActionResult Index()
         {
             return Ok(_commentService.GetAll());

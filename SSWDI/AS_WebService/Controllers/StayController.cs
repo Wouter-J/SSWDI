@@ -28,6 +28,7 @@ namespace AS_WebService.Controllers
         /// These are animals placed and usually available for adoption.
         /// </summary>
         /// <returns>List of stays.</returns>
+        [HttpGet]
         public IActionResult Index([FromQuery] AnimalFilters animalFilters )
         {
             var context = _context.Stays

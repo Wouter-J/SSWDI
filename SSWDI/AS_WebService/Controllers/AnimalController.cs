@@ -22,6 +22,7 @@ namespace AS_WebService.Controllers
         /// These are all animals available, this does not mean that they are all available for adoption.
         /// </summary>
         /// <returns>List of animals.</returns>
+        [HttpGet]
         public IActionResult Index()
         {
             return Ok(_animalService.GetAll());
