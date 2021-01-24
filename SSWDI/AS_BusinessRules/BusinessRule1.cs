@@ -6,6 +6,7 @@ using AS_Core.Enums;
 using AS_DomainServices;
 using AS_DomainServices.Repositories;
 using AS_DomainServices.Services;
+using AS_Management.Controllers;
 using AS_Services;
 using Moq;
 using Xunit;
@@ -67,10 +68,9 @@ namespace AS_BusinessRules
 
 
             //Assert
-            //List<Stay> list = stayService.Object.GetAll() as List<Stay>;
             IEnumerable<Stay> stays = stayRepository.Object.GetAll();
             Assert.NotNull(stays);
-            //Assert.Equal(1, stays.Count()); //TODO: Create bigger list & Assert equal (number, list)
+            //Assert.Equal(1, stays.Count());
         }
 
         [Fact]
@@ -79,6 +79,8 @@ namespace AS_BusinessRules
             //Arrange
             Mock<IStayRepository> stayRepository = new Mock<IStayRepository>();
             Mock<IStayService> stayService = new Mock<IStayService>();
+            Mock<IAnimalService> animalService = new Mock<IAnimalService>();
+            Mock<ILodgingService> lodgingService = new Mock<ILodgingService>();
 
             Animal dog = new Animal()
             {
@@ -118,7 +120,9 @@ namespace AS_BusinessRules
             };
 
             //Act
-            stayService.Setup(_ => _.Add(stay));
+            stayService.Setup(ser => ser.PlaceAnimal(stay, fullLocation));
+
+            stayService.Object.PlaceAnimal(stay, fullLocation);
 
             //Assert
             IEnumerable<Stay> stays = stayRepository.Object.GetAll();

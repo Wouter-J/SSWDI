@@ -51,7 +51,7 @@ namespace AS_EFShelterData
             };
             modelBuilder.Entity<User>().HasData(Wouter);
 
-            Animal doggo = new Animal()
+            modelBuilder.Entity<Animal>().HasData(new
             {
                 ID = 1,
                 Name = "Doggo",
@@ -59,15 +59,15 @@ namespace AS_EFShelterData
                 Age = 2,
                 EstimatedAge = 2,
                 Description = "Good boi",
+                Gender = Gender.Male,
                 AnimalType = AnimalType.Dog,
                 Race = "Best Bois",
                 Picture = "Goodboi.png",
-                DateOfDeath = null,
                 Castrated = true,
                 ChildFriendly = ChildFriendly.Yes,
                 ReasonGivenAway = "Too good a boi",
-                InterestedUser = "wouterjansen97@gmail.com"
-            };
+                InderestedUserID = Wouter.ID
+            });
 
             Animal garfield = new Animal()
             {
@@ -77,6 +77,7 @@ namespace AS_EFShelterData
                 Age = 2,
                 EstimatedAge = 2,
                 Description = "Good boi",
+                Gender = Gender.Female,
                 AnimalType = AnimalType.Cat,
                 Race = "Garfields",
                 Picture = "Garfield.png",
@@ -85,7 +86,7 @@ namespace AS_EFShelterData
                 ChildFriendly = ChildFriendly.Yes,
                 ReasonGivenAway = "Ate too much lasagna",
             };
-            modelBuilder.Entity<Animal>().HasData(doggo, garfield);
+            modelBuilder.Entity<Animal>().HasData(garfield);
 
             Stay doggoStay = new Stay()
             {
@@ -95,7 +96,7 @@ namespace AS_EFShelterData
                 CanBeAdopted = true,
                 AdoptedBy = "wouterjansen97@gmail.com",
                 LodgingLocationID = lodge.ID,
-                AnimalID = doggo.ID,
+                AnimalID = 1,
                 Comments = new List<Comment>(),
                 Treatments = new List<Treatment>(),
             };

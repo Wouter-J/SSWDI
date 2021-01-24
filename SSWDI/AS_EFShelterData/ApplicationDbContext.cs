@@ -52,6 +52,10 @@ namespace AS_EFShelterData
                 .HasMany(l => l.Stays)
                 .WithOne(s => s.LodgingLocation);
 
+            modelBuilder.Entity<User>()
+                .HasMany(a => a.InterestInAnimals)
+                .WithOne(u => u.InterestedUser);
+
             /*
            // Link for adoption
            modelBuilder.Entity<Stay>()

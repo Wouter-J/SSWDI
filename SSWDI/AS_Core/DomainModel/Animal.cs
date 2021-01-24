@@ -53,6 +53,7 @@ namespace AS_Core.DomainModel
 
         public ICollection<Stay> Stays { get; set; } = new List<Stay>();
 
-        public string InterestedUser { get; set; } // TODO : Change this to user
+        [ForeignKey("InderestedUserID")]
+        public User InterestedUser { get; set; }
     }
 }
