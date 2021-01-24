@@ -67,7 +67,7 @@ namespace AS_ServiceTests
             // Assert
             IEnumerable<Stay> stays = stayRepository.Object.GetAll();
 
-            Assert.NotEmpty(stays);
+            Assert.NotNull(stays);
         }
 
         [Fact]
