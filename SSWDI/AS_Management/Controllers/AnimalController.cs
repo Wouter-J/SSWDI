@@ -128,7 +128,9 @@ namespace AS_Management.Controllers
             var vm = new AnimalViewModel()
             {
                 Lodgings = _lodgingService.ReturnAvailableLocations(ID), // Only get lodges with proper type & those that have space left.
-                Animal = _animalService.FindByID(ID)
+                Animal = _animalService.FindByID(ID),
+                Stay = _stayService.FindByID(ID),
+                Lodge = _lodgingService.FindByID(ID)
             };
 
             return View(vm);
@@ -139,32 +141,16 @@ namespace AS_Management.Controllers
         {
             try
             {
-                animalViewModel.Animal = _animalService.FindByID(animalViewModel.Animal.ID);
-                animalViewModel.Lodge = _lodgingService.FindByID(animalViewModel.Lodge.ID);
-
-                Stay stay = animalViewModel.Stay;
-                Lodging lodge = animalViewModel.Lodge;
-                //Move to service logic
-                // Update capacity with the new animal.
-                lodge.CurrentCapacity = lodge.CurrentCapacity++;
-
-                // Add Animal to Animal list in Stay
-                stay.Animal = animalViewModel.Animal;
-
-                // Add stay to lodge
-                lodge.Stays.Add(stay);
-
-                _lodgingService.SaveLodging(lodge);
-                _stayService.SaveStay(stay);
+                animalViewModel.Stay.AnimalID = animalViewModel.Animal.ID;
+                _stayService.PlaceAnimal(animalViewModel.Stay, animalViewModel.Lodge);
 
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)
             {
-                Console.Write("Error: " + e); // TODO: Change this to logger service
+                ViewBag.Message = "Error: " + e.Message;
+                return PlaceAnimal(animalViewModel.Animal.ID);
             }
-
-            return View(animalViewModel);
         }
     }
 }

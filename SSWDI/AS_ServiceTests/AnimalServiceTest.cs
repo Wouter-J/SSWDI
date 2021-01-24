@@ -45,7 +45,7 @@ namespace AS_ServiceTests
                 LodgingType = LodgingType.Group,
                 MaxCapacity = 100,
                 CurrentCapacity = 10,
-                AnimalType = AnimalType.Cat,
+                AnimalType = AnimalType.Dog,
                 Stays = new List<Stay>() { },
             };
 
@@ -71,7 +71,56 @@ namespace AS_ServiceTests
         }
 
         [Fact]
-        public void DogsAndCatsShouldNotGoIntoSameLodging() { }
+        public void DogsAndCatsShouldNotGoIntoSameLodging() 
+        {
+            // Arrange
+            var stayRepository = new Mock<IStayRepository>();
+            var stayService = new Mock<IStayService>();
+
+            Animal dog = new Animal()
+            {
+                Name = "Doggo",
+                Birthdate = new DateTime(2018, 10, 18),
+                Age = 2,
+                EstimatedAge = 2,
+                Description = "Good boi",
+                AnimalType = AnimalType.Dog,
+                Race = "Best Bois",
+                Picture = "Goodboi.png",
+                DateOfDeath = null,
+                Castrated = true,
+                ChildFriendly = ChildFriendly.Yes,
+                ReasonGivenAway = "Too good a boi",
+            };
+
+            Lodging catLocation = new Lodging()
+            {
+                LodgingType = LodgingType.Group,
+                MaxCapacity = 100,
+                CurrentCapacity = 10,
+                AnimalType = AnimalType.Cat,
+                Stays = new List<Stay>() { },
+            };
+
+            Stay stay = new Stay()
+            {
+                Animal = dog,
+                ArrivalDate = new DateTime(2019, 10, 18),
+                AdoptionDate = null,
+                CanBeAdopted = true,
+                AdoptedBy = null,
+                LodgingLocation = catLocation,
+                Comments = new List<Comment>(),
+                Treatments = new List<Treatment>(),
+            };
+
+            // Act
+            stayService.Setup(_ => _.Add(stay));
+            IEnumerable<Stay> stays = stayRepository.Object.GetAll();
+
+            // Assert
+            Assert.Null(stays);
+        }
 
         [Fact]
         public void AnimalAgeShouldBeCalculatedProperly() { }

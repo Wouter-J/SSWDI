@@ -13,5 +13,6 @@ namespace AS_DomainServices.Services
         Stay AdoptAnimal(Stay stay);
 
         public IEnumerable<Stay> GetAllWithFilter(AnimalFilter filter = null);
+        Stay PlaceAnimal(Stay stay, Lodging lodge);
     }
 }

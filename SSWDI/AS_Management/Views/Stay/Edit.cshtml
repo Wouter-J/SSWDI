@@ -11,12 +11,13 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
+            <p style="color: red; font-size: 16px;">@ViewBag.Message</p>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Stay.ID" />
             <input type="hidden" asp-for="Animal.ID" />
             <input type="hidden" asp-for="CurrentLodge.ID" />
             <div class="form-group">
-                <p>Dit is het verblijf voor het volgende dier: </p>
+                <p>This is the location of the following animal: </p>
                 @Model.Animal.Name
             </div>
             <div class="form-group">
@@ -40,12 +41,12 @@
                 <span asp-validation-for="Stay.AdoptedBy" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <p>Op dit moment bevindt het dier zich in deze locatie: </p>
+                <p>At this moment the animal resides here: </p>
                 @Model.CurrentLodge.Description
             </div>
             <div class="form-group">
-                <p>Als u een dier wilt verplaatsen kies dan een van de beschikbare locaties.</p>
-                <label class="control-label">Beschikbare locaties</label>
+                <p>If you want to move said animal, please pick a location below</p>
+                <label class="control-label">Available locations</label>
                 <select asp-for="Lodge.ID" class="form-control">
                     <option value=""></option>
                     @foreach (var lodge in Model.Lodges)
