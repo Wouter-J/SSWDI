@@ -102,7 +102,7 @@ namespace AS_Services
             }
         }
 
-        private int CalculateAge(Animal animal)
+        public int CalculateAge(Animal animal)
         {
             // Check if EstimagedAge has value, if so that becomes the Age.
             if (animal.EstimatedAge != 0 && animal.Birthdate == DateTime.MinValue)
