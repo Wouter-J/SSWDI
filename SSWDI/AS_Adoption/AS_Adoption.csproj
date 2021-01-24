@@ -25,9 +25,8 @@
   <ItemGroup>
     <ProjectReference Include="..\AS_Core\AS_Core.csproj" />
     <ProjectReference Include="..\AS_EFShelterData\AS_EFShelterData.csproj" />
+    <ProjectReference Include="..\AS_HttpData\AS_HttpData.csproj" />
     <ProjectReference Include="..\AS_Identity\AS_Identity.csproj" />
-    <ProjectReference Include="..\AS_Services\AS_Services.csproj" />
-    <ProjectReference Include="..\AS_WebService\AS_WebService.csproj" />
   </ItemGroup>
 
 </Project>

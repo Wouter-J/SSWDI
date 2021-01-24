@@ -8,6 +8,7 @@ using AS_Adoption.ViewModels;
 using AS_Core.DomainModel;
 using AS_Core.Filters;
 using AS_DomainServices.Services;
+using AS_HttpData;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -18,6 +19,7 @@ namespace AS_Adoption.Controllers
     {
         private readonly IConfiguration _configuration;
         private string apiBaseUrl = "";
+        private readonly StayHttpService _stayHttpService = new StayHttpService();
 
         public StayController(IConfiguration configuration)
         {
@@ -28,7 +30,7 @@ namespace AS_Adoption.Controllers
         public async Task<IActionResult> IndexAsync([FromQuery] AnimalFilter animalFilters)
         {
             var vm = new StayViewModel();
-
+            /*
             using (var httpClient = new HttpClient())
             {
                 // TODO: Fix this
@@ -38,6 +40,8 @@ namespace AS_Adoption.Controllers
                     vm.Stays = JsonConvert.DeserializeObject<List<Stay>>(apiResponse);
                 }
             }
+            */
+            vm.Stays = await _stayHttpService.HandleFilter(animalFilters);
 
             return View(vm);
         }
@@ -46,32 +50,16 @@ namespace AS_Adoption.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Filter(StayViewModel stay)
         {
+            var vm = new StayViewModel();
+
             AnimalFilter filter = new AnimalFilter
             {
-                AnimalType = stay.AnimalType,
                 Gender = stay.Gender,
+                AnimalType = stay.AnimalType,
                 ChildFriendly = stay.ChildFriendly
             };
 
-            var vm = new StayViewModel();
-
-            using (var httpClient = new HttpClient())
-            {
-                var builder = new UriBuilder(apiBaseUrl + "/api/stay");
-                var query = HttpUtility.ParseQueryString(builder.Query);
-                query["AnimalType"] = stay.AnimalType.ToString();
-                query["Gender"] = stay.Gender.ToString();
-                query["ChildFriendly"] = stay.ChildFriendly.ToString();
-                builder.Query = query.ToString();
-                string url = builder.ToString();
-                
-                // TODO: Fix this
-                using (var response = await httpClient.GetAsync(url))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    vm.Stays = JsonConvert.DeserializeObject<List<Stay>>(apiResponse);
-                }
-            }
+            vm.Stays = await _stayHttpService.HandleFilter(filter);
 
             return View("Views/Stay/Index.cshtml", vm);
         }
