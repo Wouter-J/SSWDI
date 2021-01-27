@@ -3,6 +3,7 @@ using AS_DomainServices.Services;
 using System.Collections.Generic;
 using AS_Core.Enums;
 using AS_DomainServices.Repositories;
+using System;
 
 namespace AS_Services
 {
@@ -27,43 +28,25 @@ namespace AS_Services
         /// <param name="treatment">The treatment that needs to be added.</param>
         public void Add(Treatment treatment)
         {
-            Animal animal = _animalRepository.FindByID(treatment.Stay.AnimalID);
-            Stay stay = treatment.Stay;
-
-            // TODO: Make this a private func
-
-            // Animal needs to be here & alive and not adopted
-            if (treatment.Date < stay.ArrivalDate ||
-                stay.AdoptionDate != null || animal.DateOfDeath != null)
+            try
             {
-                // return err
-            }
+                ValidateTreatment(treatment);
+                Animal animal = _animalRepository.FindByID(treatment.Stay.AnimalID);
 
-            // RequiredAge needs to be lower then animal age
-            if (treatment.RequiredAge > animal.Age)
-            {
-                // return err
-            }
-
-            // Vaccination, operation, Chipping & Euthanasia need a description
-            if (treatment.Description == null)
-            {
-                if (treatment.TreatmentType != TreatmentType.Castration || treatment.TreatmentType != TreatmentType.Sterilasation)
+                // Treatment of Type castration or Sterilasation updates the animal castration status
+                if (treatment.TreatmentType == TreatmentType.Castration || treatment.TreatmentType == TreatmentType.Sterilasation)
                 {
-                    // Throw err
+                    animal.Castrated = true;
+                    _animalRepository.SaveAnimal(animal);
                 }
-            }
 
-            // Treatment of Type castration or Sterilasation updates the animal castration status
-            if (treatment.TreatmentType == TreatmentType.Castration || treatment.TreatmentType == TreatmentType.Sterilasation)
+                // If no error; treatment follows all business rules.
+                _treatmentRepository.Add(treatment);
+
+            } catch (InvalidOperationException e)
             {
-                animal.Castrated = true;
-                _animalRepository.SaveAnimal(animal);
-
+                throw e;
             }
-
-            // If no error; treatment follows all business rules.
-            _treatmentRepository.Add(treatment);
         }
 
         public Treatment FindByID(int ID)
@@ -87,6 +70,39 @@ namespace AS_Services
         {
             // Add specific business logic here
             _treatmentRepository.SaveTreatment(treatment);
+        }
+
+        private void ValidateTreatment(Treatment treatment)
+        {
+            Animal animal = _animalRepository.FindByID(treatment.Stay.AnimalID);
+            Stay stay = treatment.Stay;
+
+            // Animal needs to be here and not adopted
+            if (treatment.Date < stay.ArrivalDate || stay.AdoptionDate != null )
+            {
+                throw new InvalidOperationException("Animal needs to be at location");
+            }
+
+            // Animal needs to be alive
+            if(animal.DateOfDeath > DateTime.MinValue)
+            {
+                throw new InvalidOperationException("Animal must be alive in order to perform treatment");
+            }
+
+            // RequiredAge needs to be lower then animal age
+            if (treatment.RequiredAge > animal.Age)
+            {
+                throw new InvalidOperationException("Animal needs to be older to have this treatment");
+            }
+
+            // Vaccination, operation, Chipping & Euthanasia need a description
+            if (treatment.Description == null)
+            {
+                if (treatment.TreatmentType != TreatmentType.Castration || treatment.TreatmentType != TreatmentType.Sterilasation)
+                {
+                    throw new InvalidOperationException("Vaccination, operation, chipping & euthanasia need a description");
+                }
+            }
         }
     }
 }

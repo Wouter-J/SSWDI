@@ -204,8 +204,6 @@ namespace AS_Services
             // Check if lodging has free space if new animal is added && animal is of correct type
             if (lodge.MaxCapacity < lodge.CurrentCapacity + 1)
             {
-                // throw new BusinessRuleExpection("Verblijf heeft maximum capaciteit behaald");
-                // TODO: err on lodge
                 throw new InvalidOperationException("Lodge is at max capacity");
             }
 
@@ -217,7 +215,6 @@ namespace AS_Services
             // Check if group lodging & castrated or not
             if (!animal.Castrated && lodge.LodgingType == LodgingType.Group)
             {
-                // TODO: err on animal
                 throw new InvalidOperationException("Can't place non-castrated animal in a group location");
             }
         }
