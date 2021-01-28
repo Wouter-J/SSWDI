@@ -28,7 +28,7 @@ namespace AS_BusinessRules
 
             IStayService stayService = new StayService(stayRepository.Object, lodgingRepository.Object, animalRepository.Object);
 
-            Animal dog = new Animal()
+            Animal dog = new Animal
             {
                 ID = 1,
                 Name = "Doggo",
@@ -44,7 +44,7 @@ namespace AS_BusinessRules
                 ChildFriendly = ChildFriendly.Yes,
                 ReasonGivenAway = "Too good a boi",
             };
-            Lodging coolLocation = new Lodging()
+            Lodging coolLocation = new Lodging
             {
                 ID = 1,
                 LodgingType = LodgingType.Group,
@@ -53,7 +53,7 @@ namespace AS_BusinessRules
                 AnimalType = AnimalType.Dog,
                 Stays = new List<Stay>() { },
             };
-            Stay stay = new Stay()
+            Stay stay = new Stay
             {
                 ID = 1,
                 Animal = dog,
@@ -91,7 +91,7 @@ namespace AS_BusinessRules
             Mock<ILodgingRepository> lodgingRepository = new Mock<ILodgingRepository>();
             Mock<IAnimalRepository> animalRepository = new Mock<IAnimalRepository>();
 
-            Animal dog = new Animal()
+            Animal dog = new Animal
             {
                 ID = 1,
                 Name = "Doggo",
@@ -107,7 +107,7 @@ namespace AS_BusinessRules
                 ChildFriendly = ChildFriendly.Yes,
                 ReasonGivenAway = "Too good a boi",
             };
-            Lodging fullLocation = new Lodging()
+            Lodging fullLocation = new Lodging
             {
                 ID = 1,
                 LodgingType = LodgingType.Group,
@@ -116,7 +116,7 @@ namespace AS_BusinessRules
                 AnimalType = AnimalType.Cat,
                 Stays = new List<Stay>() { },
             };
-            Stay stay = new Stay()
+            Stay stay = new Stay
             {
                 ID = 1,
                 Animal = dog,

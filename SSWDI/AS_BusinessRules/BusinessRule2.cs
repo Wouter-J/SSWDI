@@ -27,7 +27,7 @@ namespace AS_BusinessRules
 
             IStayService stayService = new StayService(stayRepository.Object, lodgingRepository.Object, animalRepository.Object);
 
-            Animal castratedDog = new Animal()
+            Animal castratedDog = new Animal
             {
                 ID = 1,
                 Name = "Doggo",
@@ -42,7 +42,7 @@ namespace AS_BusinessRules
                 ChildFriendly = ChildFriendly.Yes,
                 ReasonGivenAway = "Too good a boi",
             };
-            Lodging dogGroupLocation = new Lodging()
+            Lodging dogGroupLocation = new Lodging
             {
                 ID = 1,
                 LodgingType = LodgingType.Group,
@@ -51,7 +51,7 @@ namespace AS_BusinessRules
                 AnimalType = AnimalType.Dog,
                 Stays = new List<Stay>() { },
             };
-            Stay stay = new Stay()
+            Stay stay = new Stay
             {
                 ID = 1,
                 Animal = castratedDog,
@@ -92,7 +92,7 @@ namespace AS_BusinessRules
 
             IStayService stayService = new StayService(stayRepository.Object, lodgingRepository.Object, animalRepository.Object);
 
-            Animal notCastratedDog = new Animal()
+            Animal notCastratedDog = new Animal
             {
                 ID = 1,
                 Name = "Doggo",
@@ -107,7 +107,7 @@ namespace AS_BusinessRules
                 ChildFriendly = ChildFriendly.Yes,
                 ReasonGivenAway = "Too good a boi",
             };
-            Lodging dogGroupLocation = new Lodging()
+            Lodging dogGroupLocation = new Lodging
             {
                 ID = 1,
                 LodgingType = LodgingType.Group,
@@ -116,7 +116,7 @@ namespace AS_BusinessRules
                 AnimalType = AnimalType.Dog,
                 Stays = new List<Stay>() { },
             };
-            Stay stay = new Stay()
+            Stay stay = new Stay
             {
                 ID = 1,
                 Animal = notCastratedDog,
@@ -156,7 +156,7 @@ namespace AS_BusinessRules
 
             IStayService stayService = new StayService(stayRepository.Object, lodgingRepository.Object, animalRepository.Object);
 
-            Animal notCastratedDog = new Animal()
+            Animal notCastratedDog = new Animal
             {
                 ID = 1,
                 Name = "Doggo",
@@ -171,7 +171,7 @@ namespace AS_BusinessRules
                 ChildFriendly = ChildFriendly.Yes,
                 ReasonGivenAway = "Too good a boi",
             };
-            Lodging individualDogLodge = new Lodging()
+            Lodging individualDogLodge = new Lodging
             {
                 ID = 1,
                 LodgingType = LodgingType.Individual,
@@ -180,7 +180,7 @@ namespace AS_BusinessRules
                 AnimalType = AnimalType.Dog,
                 Stays = new List<Stay>() { },
             };
-            Stay stay = new Stay()
+            Stay stay = new Stay
             {
                 ID = 1,
                 Animal = notCastratedDog,

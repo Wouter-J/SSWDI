@@ -25,7 +25,7 @@ namespace AS_BusinessRules
 
             ITreatmentService treatmentService = new TreatmentService(treatmentRepository.Object, animalRepository.Object);
 
-            Animal dog = new Animal()
+            Animal dog = new Animal
             {
                 ID = 1,
                 Name = "Doggo",
@@ -40,7 +40,7 @@ namespace AS_BusinessRules
                 ChildFriendly = ChildFriendly.Yes,
                 ReasonGivenAway = "Too good a boi",
             };
-            Lodging dogGroupLocation = new Lodging()
+            Lodging dogGroupLocation = new Lodging
             {
                 ID = 1,
                 LodgingType = LodgingType.Group,
@@ -49,7 +49,7 @@ namespace AS_BusinessRules
                 AnimalType = AnimalType.Dog,
                 Stays = new List<Stay>() { },
             };
-            Stay stay = new Stay()
+            Stay stay = new Stay
             {
                 ID = 1,
                 Animal = dog,
@@ -63,7 +63,7 @@ namespace AS_BusinessRules
                 Comments = new List<Comment>(),
                 Treatments = new List<Treatment>(),
             };
-            Treatment vaccination = new Treatment()
+            Treatment vaccination = new Treatment
             {
                 ID = 1,
                 TreatmentType = TreatmentType.Vaccination,
@@ -96,7 +96,7 @@ namespace AS_BusinessRules
 
             ITreatmentService treatmentService = new TreatmentService(treatmentRepository.Object, animalRepository.Object);
 
-            Animal dog = new Animal()
+            Animal dog = new Animal
             {
                 ID = 1,
                 Name = "Doggo",
@@ -111,7 +111,7 @@ namespace AS_BusinessRules
                 ChildFriendly = ChildFriendly.Yes,
                 ReasonGivenAway = "Too good a boi",
             };
-            Lodging dogGroupLocation = new Lodging()
+            Lodging dogGroupLocation = new Lodging
             {
                 ID = 1,
                 LodgingType = LodgingType.Group,
@@ -120,7 +120,7 @@ namespace AS_BusinessRules
                 AnimalType = AnimalType.Dog,
                 Stays = new List<Stay>() { },
             };
-            Stay stay = new Stay()
+            Stay stay = new Stay
             {
                 ID = 1,
                 Animal = dog,
@@ -134,7 +134,7 @@ namespace AS_BusinessRules
                 Comments = new List<Comment>(),
                 Treatments = new List<Treatment>(),
             };
-            Treatment vaccination = new Treatment()
+            Treatment vaccination = new Treatment
             {
                 ID = 1,
                 TreatmentType = TreatmentType.Chipping,
@@ -167,7 +167,7 @@ namespace AS_BusinessRules
 
             ITreatmentService treatmentService = new TreatmentService(treatmentRepository.Object, animalRepository.Object);
 
-            Animal dog = new Animal()
+            Animal dog = new Animal
             {
                 ID = 1,
                 Name = "Doggo",
@@ -182,7 +182,7 @@ namespace AS_BusinessRules
                 ChildFriendly = ChildFriendly.Yes,
                 ReasonGivenAway = "Too good a boi",
             };
-            Lodging dogGroupLocation = new Lodging()
+            Lodging dogGroupLocation = new Lodging
             {
                 ID = 1,
                 LodgingType = LodgingType.Group,
@@ -191,7 +191,7 @@ namespace AS_BusinessRules
                 AnimalType = AnimalType.Dog,
                 Stays = new List<Stay>() { },
             };
-            Stay stay = new Stay()
+            Stay stay = new Stay
             {
                 ID = 1,
                 Animal = dog,
@@ -205,7 +205,7 @@ namespace AS_BusinessRules
                 Comments = new List<Comment>(),
                 Treatments = new List<Treatment>(),
             };
-            Treatment vaccination = new Treatment()
+            Treatment vaccination = new Treatment
             {
                 ID = 1,
                 TreatmentType = TreatmentType.Operation,
@@ -238,7 +238,7 @@ namespace AS_BusinessRules
 
             ITreatmentService treatmentService = new TreatmentService(treatmentRepository.Object, animalRepository.Object);
 
-            Animal dog = new Animal()
+            Animal dog = new Animal
             {
                 ID = 1,
                 Name = "Doggo",
@@ -253,7 +253,7 @@ namespace AS_BusinessRules
                 ChildFriendly = ChildFriendly.Yes,
                 ReasonGivenAway = "Too good a boi",
             };
-            Lodging dogGroupLocation = new Lodging()
+            Lodging dogGroupLocation = new Lodging
             {
                 ID = 1,
                 LodgingType = LodgingType.Group,
@@ -262,7 +262,7 @@ namespace AS_BusinessRules
                 AnimalType = AnimalType.Dog,
                 Stays = new List<Stay>() { },
             };
-            Stay stay = new Stay()
+            Stay stay = new Stay
             {
                 ID = 1,
                 Animal = dog,
@@ -276,7 +276,7 @@ namespace AS_BusinessRules
                 Comments = new List<Comment>(),
                 Treatments = new List<Treatment>(),
             };
-            Treatment vaccination = new Treatment()
+            Treatment vaccination = new Treatment
             {
                 ID = 1,
                 TreatmentType = TreatmentType.Euthanasia,

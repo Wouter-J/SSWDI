@@ -24,7 +24,7 @@ namespace AS_BusinessRules
             Mock<IAnimalRepository> animalRepository = new Mock<IAnimalRepository>();
 
             IAnimalService animalService = new AnimalService(animalRepository.Object);
-            Animal dog = new Animal()
+            Animal dog = new Animal
             {
                 ID = 1,
                 Name = "Doggo",
@@ -61,7 +61,7 @@ namespace AS_BusinessRules
             Mock<IAnimalRepository> animalRepository = new Mock<IAnimalRepository>();
 
             IAnimalService animalService = new AnimalService(animalRepository.Object);
-            Animal dog = new Animal()
+            Animal dog = new Animal
             {
                 ID = 1,
                 Name = "Doggo",
@@ -98,7 +98,7 @@ namespace AS_BusinessRules
             Mock<IAnimalRepository> animalRepository = new Mock<IAnimalRepository>();
 
             IAnimalService animalService = new AnimalService(animalRepository.Object);
-            Animal dog = new Animal()
+            Animal dog = new Animal
             {
                 ID = 1,
                 Name = "Doggo",
@@ -133,7 +133,7 @@ namespace AS_BusinessRules
             Mock<IAnimalRepository> animalRepository = new Mock<IAnimalRepository>();
 
             IAnimalService animalService = new AnimalService(animalRepository.Object);
-            Animal dog = new Animal()
+            Animal dog = new Animal
             {
                 ID = 1,
                 Name = "Doggo",
