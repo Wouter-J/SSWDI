@@ -14,16 +14,14 @@ namespace AS_Services
     public class AnimalService : IAnimalService
     {
         private readonly IAnimalRepository _animalRepository;
-        private readonly IStayRepository _stayRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AnimalService"/> class.
         /// </summary>
         /// <param name="animalRepository"></param>
-        public AnimalService(IAnimalRepository animalRepository, IStayRepository stayRepository)
+        public AnimalService(IAnimalRepository animalRepository)
         {
             _animalRepository = animalRepository;
-            _stayRepository = stayRepository;
         }
 
         /// <summary>
@@ -33,13 +31,20 @@ namespace AS_Services
         /// <param name="animal">The animal object.</param>
         public void Add(Animal animal)
         {
-            animal.Age = CalculateAge(animal);
-            if (animal.Age == -1)
+            try
             {
-                // TODO: Return error; Age wrong
-            }
 
-            _animalRepository.Add(animal);
+                animal.Age = CalculateAge(animal);
+                if (animal.Age == -1)
+                {
+                    throw new InvalidOperationException("Age can't be less then 0");
+                }
+
+                _animalRepository.Add(animal);
+            } catch (InvalidOperationException e)
+            {
+                throw e;
+            }
         }
 
         public Animal FindByID(int ID)
@@ -72,13 +77,21 @@ namespace AS_Services
 
         public void SaveAnimal(Animal animal)
         {
-            animal.Age = CalculateAge(animal);
-            if (animal.Age == -1)
+            try
             {
-                // TODO: Return error; Age wrong
-            }
 
-            _animalRepository.SaveAnimal(animal);
+                animal.Age = CalculateAge(animal);
+                if (animal.Age == -1)
+                {
+                    throw new InvalidOperationException("Age can't be less then 0");
+                }
+
+                _animalRepository.SaveAnimal(animal);
+            }
+            catch (InvalidOperationException e)
+            {
+                throw e;
+            }
         }
 
         public async Task<string> SaveImage(Animal animal, string wwwRootPath)
@@ -107,8 +120,18 @@ namespace AS_Services
             }
         }
 
-        public int CalculateAge(Animal animal)
+        private int CalculateAge(Animal animal)
         {
+            if (animal.Age < 0) {
+                throw new InvalidOperationException("Age can't be less then 0");
+            }
+
+            // If both EstimagedAge and Birthdate are filled in; return error
+            if (animal.EstimatedAge != 0 && animal.Birthdate > DateTime.MinValue)
+            {
+                throw new InvalidOperationException("Animal can't have estimated age & birthday");
+            }
+
             // Check if EstimagedAge has value, if so that becomes the Age.
             if (animal.EstimatedAge != 0 && animal.Birthdate == DateTime.MinValue)
             {
@@ -125,7 +148,7 @@ namespace AS_Services
 
                 return age;
             }
-
+            // In case anything goes wrong; return -1; will be caught be service.
             return -1;
         }
     }
