@@ -74,33 +74,41 @@ namespace AS_Services
 
         private void ValidateTreatment(Treatment treatment)
         {
-            Animal animal = _animalRepository.FindByID(treatment.Stay.AnimalID);
-            Stay stay = treatment.Stay;
-
-            // Animal needs to be here and not adopted
-            if (treatment.Date < stay.ArrivalDate || stay.AdoptionDate != null )
+            if (treatment.Stay == null)
             {
-                throw new InvalidOperationException("Animal needs to be at location");
-            }
-
-            // Animal needs to be alive
-            if(animal.DateOfDeath > DateTime.MinValue)
+                throw new InvalidOperationException("Animal needs to be placed");
+            } else
             {
-                throw new InvalidOperationException("Animal must be alive in order to perform treatment");
-            }
+                // TODO: Cleanup if possible
 
-            // RequiredAge needs to be lower then animal age
-            if (treatment.RequiredAge > animal.Age)
-            {
-                throw new InvalidOperationException("Animal needs to be older to have this treatment");
-            }
+                Animal animal = _animalRepository.FindByID(treatment.Stay.AnimalID);
+                Stay stay = treatment.Stay;
 
-            // Vaccination, operation, Chipping & Euthanasia need a description
-            if (treatment.Description == null)
-            {
-                if (treatment.TreatmentType != TreatmentType.Castration || treatment.TreatmentType != TreatmentType.Sterilasation)
+                // Animal needs to be here and not adopted
+                if (treatment.Date < stay.ArrivalDate || stay.AdoptionDate != null)
                 {
-                    throw new InvalidOperationException("Vaccination, operation, chipping & euthanasia need a description");
+                    throw new InvalidOperationException("Animal needs to be at location");
+                }
+
+                // Animal needs to be alive
+                if (animal.DateOfDeath > DateTime.MinValue)
+                {
+                    throw new InvalidOperationException("Animal must be alive in order to perform treatment");
+                }
+
+                // RequiredAge needs to be lower then animal age
+                if (treatment.RequiredAge > animal.Age)
+                {
+                    throw new InvalidOperationException("Animal needs to be older to have this treatment");
+                }
+
+                // Vaccination, operation, Chipping & Euthanasia need a description
+                if (treatment.Description == null)
+                {
+                    if (treatment.TreatmentType != TreatmentType.Castration || treatment.TreatmentType != TreatmentType.Sterilasation)
+                    {
+                        throw new InvalidOperationException("Vaccination, operation, chipping & euthanasia need a description");
+                    }
                 }
             }
         }

@@ -63,7 +63,6 @@ namespace AS_Management.Controllers
                 {
                     return View(stay);
                 }
-                
                 return RedirectToAction(nameof(Index));
             }
 

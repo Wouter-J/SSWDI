@@ -80,12 +80,11 @@ namespace AS_Management.Controllers
 
                 _treatmentService.Add(TreatmentViewModel.Treatment);
                 return RedirectToAction(nameof(Index));
-            } catch (Exception e)
+            } catch (InvalidOperationException e)
             {
-                Console.WriteLine("Error occured" + e); // TODO: use logger service for this
+                // throw e;
+                return View(TreatmentViewModel);
             }
-
-            return View(TreatmentViewModel);
         }
 
         // GET: Treatment/Edit/5
