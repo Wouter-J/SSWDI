@@ -105,9 +105,21 @@ namespace AS_Services
                 // Vaccination, operation, Chipping & Euthanasia need a description
                 if (treatment.Description == null)
                 {
-                    if (treatment.TreatmentType != TreatmentType.Castration || treatment.TreatmentType != TreatmentType.Sterilasation)
+                    if (treatment.TreatmentType == TreatmentType.Chipping)
                     {
-                        throw new InvalidOperationException("Vaccination, operation, chipping & euthanasia need a description");
+                        throw new InvalidOperationException("Chipping needs a description");
+                    }
+                    if (treatment.TreatmentType == TreatmentType.Vaccination)
+                    {
+                        throw new InvalidOperationException("Vaccination needs a description");
+                    }
+                    if (treatment.TreatmentType == TreatmentType.Operation)
+                    {
+                        throw new InvalidOperationException("Operation needs a description");
+                    }
+                    if (treatment.TreatmentType == TreatmentType.Euthanasia)
+                    {
+                        throw new InvalidOperationException("Euthanasia needs a description");
                     }
                 }
             }
