@@ -147,10 +147,5 @@ namespace AS_BusinessRules
             Assert.Equal("AS_Services", ex.Source); // Make sure the error is actually thrown in the service, not somewhere else
             Assert.Equal("Lodge is at max capacity", ex.Message);
         }
-
-        // Calls Repo
-        // Update
-        // Delete
-        // Index / Read
     }
 }
