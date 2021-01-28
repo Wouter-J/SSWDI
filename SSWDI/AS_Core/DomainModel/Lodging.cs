@@ -1,10 +1,13 @@
 ﻿using AS_Core.Enums;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AS_Core.DomainModel
 {
     public class Lodging
     {
+        [Required]
+        [Key]
         public int ID { get; set; }
 
         public string Description { get; set; }

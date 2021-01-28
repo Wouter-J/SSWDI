@@ -7,6 +7,7 @@ namespace AS_Core.DomainModel
     public class Comment
     {
         [Key]
+        [Required]
         public int ID { get; set; }
 
         [Required]

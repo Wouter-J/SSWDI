@@ -63,12 +63,12 @@ namespace AS_Services
         {
             return _animalRepository.GetAll().Where(a => a.DateOfDeath == null).ToList();
         }
-
+        /*
         public IEnumerable<Animal> GetRelatedAnimal(string user)
         {
-            return _animalRepository.GetAll().Where(a => a.InterestedUser.Email == user).ToList();
+            return _animalRepository.GetAll().Where(a => a == user).ToList();
         }
-
+        */
         public void Remove(Animal animal)
         {
             // Add specific business logic here

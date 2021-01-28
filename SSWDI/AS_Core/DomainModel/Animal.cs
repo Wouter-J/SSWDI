@@ -10,6 +10,7 @@ namespace AS_Core.DomainModel
     public class Animal
     {
         [Key]
+        [Required]
         public int ID { get; set; }
 
         [Required]
@@ -53,7 +54,11 @@ namespace AS_Core.DomainModel
 
         public ICollection<Stay> Stays { get; set; } = new List<Stay>();
 
-        [ForeignKey("InderestedUserID")]
-        public User InterestedUser { get; set; }
+        // [ForeignKey("InderestedUserID")]
+        // public User InterestedUser { get; set; }
+
+        //public IEnumerable<User> Users { get; set; } = new List<User>();
+
+        public IEnumerable<InterestedAnimal> InterestedAnimals { get; set; } = new List<InterestedAnimal>();
     }
 }

@@ -13,6 +13,6 @@ namespace AS_DomainServices.Services
 
         public void RemoveImage(Animal animal, string wwwRootPath);
 
-        public IEnumerable<Animal> GetRelatedAnimal(string user);
+        // public IEnumerable<Animal> GetRelatedAnimal(string user);
     }
 }

@@ -27,6 +27,8 @@ namespace AS_EFShelterData
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<InterestedAnimal> InterestedAnimals { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -52,20 +54,28 @@ namespace AS_EFShelterData
                 .HasMany(l => l.Stays)
                 .WithOne(s => s.LodgingLocation);
 
+
+
+            // Many to many relations; EF 5.0 update
+            /*
             modelBuilder.Entity<User>()
                 .HasMany(a => a.InterestInAnimals)
-                .WithOne(u => u.InterestedUser);
+                .WithMany(p => p.InterestedAnimals)
+                .UsingEntity<InterestedAnimal>( );
+            */
+            // Many-toMany EF 3.8
+            modelBuilder.Entity<InterestedAnimal>()
+                .HasKey(x => new { x.AnimalID, x.UserID });
 
-            /*
-           // Link for adoption
-           modelBuilder.Entity<Stay>()
-               .HasOne(s => s.AdoptedBy);
+            modelBuilder.Entity<InterestedAnimal>()
+                .HasOne(x => x.User)
+                .WithMany(y => y.InterestedAnimals)
+                .HasForeignKey(y => y.AnimalID);
 
-
-           modelBuilder.Entity<Animal>()
-               .HasOne(s => s.InterestedUser)
-               .WithMany(a => a.InterestInAnimals);
-           */
+            modelBuilder.Entity<InterestedAnimal>()
+                .HasOne(x => x.Animal)
+                .WithMany(y => y.InterestedAnimals)
+                .HasForeignKey(y => y.UserID);
 
             // Uses ModelBuilderExtensions; Seed method
             modelBuilder.Seed();
