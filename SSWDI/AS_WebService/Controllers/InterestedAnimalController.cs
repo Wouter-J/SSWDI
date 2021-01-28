@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AS_WebService.Controllers
 {
+    [ApiController]
+    [Route("/api/interest")]
     public class InterestedAnimalController : Controller
     {
         private readonly IInterestedAnimalService _interestedAnimalService;
@@ -16,6 +18,7 @@ namespace AS_WebService.Controllers
             _interestedAnimalService = interestedAnimalService;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return Ok(_interestedAnimalService.GetAll());

@@ -27,6 +27,7 @@ namespace AS_WebService.Controllers
         {
             return Ok(_animalService.GetAll());
         }
+
         /*
         [HttpGet("/user")]
         public IActionResult GetRelatedAnimal([FromQuery] string user)

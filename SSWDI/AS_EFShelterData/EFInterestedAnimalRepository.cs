@@ -1,5 +1,6 @@
 ﻿using AS_Core.DomainModel;
 using AS_DomainServices.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,14 @@ namespace AS_EFShelterData
         /// </summary>
         /// <param name="context"></param>
         public EFInterestedAnimalRepository(ApplicationDbContext context) : base(context) { }
+
+        public override IEnumerable<InterestedAnimal> GetAll()
+        {
+            // Include related animal & User
+            return _context.InterestedAnimals
+                        .Include(x => x.Animal)
+                        .Include(x => x.User);
+        }
 
         public void SaveInterestedAnimal(InterestedAnimal animal)
         {

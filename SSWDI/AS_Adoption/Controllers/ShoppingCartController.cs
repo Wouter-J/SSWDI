@@ -15,7 +15,7 @@ namespace AS_Adoption.Controllers
     {
         private readonly IConfiguration _configuration;
         private string apiBaseUrl = "";
-        private readonly AnimalHttpService animalHttpService = new AnimalHttpService();
+        private readonly InterestHttpService interestHttpService = new InterestHttpService();
 
         public ShoppingCartController(IConfiguration configuration)
         {
@@ -27,9 +27,9 @@ namespace AS_Adoption.Controllers
         {
             System.Security.Claims.ClaimsPrincipal currentUser = this.User;
 
-            IEnumerable<Animal> animalList = await animalHttpService.GetInterestedAnimal(currentUser);
+            IEnumerable<InterestedAnimal> interestList = await interestHttpService.GetInterestedAnimal(currentUser);
 
-            return View(animalList);
+            return View(interestList);
         }
     }
 }
