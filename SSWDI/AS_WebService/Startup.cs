@@ -77,6 +77,7 @@ namespace AS_WebService
             services.AddTransient<IStayRepository, EFStayRepository>();
             services.AddTransient<ITreatmentRepository, EFTreatmentRepository>();
             services.AddTransient<IUserRepository, EFUserRepository>();
+            services.AddTransient<IInterestedAnimalRepository, EFInterestedAnimalRepository>();
 
             // Dependency Injection; Services
             services.AddTransient<IAnimalService, AnimalService>();
@@ -85,6 +86,7 @@ namespace AS_WebService
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<ITreatmentService, TreatmentService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IInterestedAnimalService, InterestedAnimalService>();
 
             // Mapping our ViewModel to the ApplicationUser
             var config = new MapperConfiguration(cfg =>

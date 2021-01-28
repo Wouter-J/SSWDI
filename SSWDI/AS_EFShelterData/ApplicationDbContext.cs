@@ -63,6 +63,7 @@ namespace AS_EFShelterData
                 .WithMany(p => p.InterestedAnimals)
                 .UsingEntity<InterestedAnimal>( );
             */
+
             // Many-toMany EF 3.8
             modelBuilder.Entity<InterestedAnimal>()
                 .HasKey(x => new { x.AnimalID, x.UserID });

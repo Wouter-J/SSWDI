@@ -6,6 +6,8 @@ namespace AS_Core.DomainModel
 {
     public class InterestedAnimal
     {
+        public int ID { get; set; }
+
         public int AnimalID { get; set; }
 
         public Animal Animal { get; set; }
