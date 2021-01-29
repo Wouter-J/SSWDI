@@ -8,6 +8,7 @@ namespace AS_Core.DomainModel
     public class Treatment
     {
         [Key]
+        [Required]
         public int ID { get; set; }
 
         public string Description { get; set; }

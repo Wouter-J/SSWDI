@@ -3,10 +3,12 @@ using System.Linq;
 using AS_Core.DomainModel;
 using AS_DomainServices.Services;
 using AS_Management.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AS_Management.Controllers
 {
+    [Authorize(Policy = "RequireVolunteer")]
     public class StayController : Controller
     {
         private readonly IStayService _stayService;
@@ -63,7 +65,6 @@ namespace AS_Management.Controllers
                 {
                     return View(stay);
                 }
-                
                 return RedirectToAction(nameof(Index));
             }
 

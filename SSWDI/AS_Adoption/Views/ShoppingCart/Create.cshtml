@@ -1,0 +1,48 @@
+﻿@model AS_Adoption.ViewModels.InterestViewModel;
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Animal</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <p style="color: red; font-size: 16px;">@ViewBag.Message</p>
+            <p>Showing interest in the following animal:</p>
+            <table>
+                <tr>Name: @Model.Animal.Name</tr>
+                <br />
+                <tr>Description: @Model.Animal.Description</tr>
+                <br />
+                <tr>Kind of animal: @Model.Animal.AnimalType</tr>
+                <br />
+                <tr>Race: @Model.Animal.Race</tr>
+                <br />
+                <tr>Gender: @Model.Animal.Gender</tr>
+                <br />
+                <tr>Image: @Model.Animal.ImageFile</tr>
+                <br />
+                <tr>ChildFriendly: @Model.Animal.ChildFriendly</tr>
+                <br />
+            </table>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" style="display: none;">
+                <label asp-for="Animal.ID" class="control-label"></label>
+                <input display="hidden" asp-for="Animal.ID" class="form-control" p />
+                <span asp-validation-for="Animal.ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Show interest" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

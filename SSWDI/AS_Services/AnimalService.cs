@@ -1,4 +1,5 @@
 ﻿using AS_Core.DomainModel;
+using AS_Core.Enums;
 using AS_Core.Filters;
 using AS_DomainServices;
 using AS_DomainServices.Repositories;
@@ -14,16 +15,16 @@ namespace AS_Services
     public class AnimalService : IAnimalService
     {
         private readonly IAnimalRepository _animalRepository;
-        private readonly IStayRepository _stayRepository;
+        private readonly ILodgingRepository _lodgingRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AnimalService"/> class.
         /// </summary>
         /// <param name="animalRepository"></param>
-        public AnimalService(IAnimalRepository animalRepository, IStayRepository stayRepository)
+        public AnimalService(IAnimalRepository animalRepository, ILodgingRepository lodgingRepository)
         {
             _animalRepository = animalRepository;
-            _stayRepository = stayRepository;
+            _lodgingRepository = lodgingRepository;
         }
 
         /// <summary>
@@ -33,13 +34,28 @@ namespace AS_Services
         /// <param name="animal">The animal object.</param>
         public void Add(Animal animal)
         {
-            animal.Age = CalculateAge(animal);
-            if (animal.Age == -1)
+            try
             {
-                // TODO: Return error; Age wrong
-            }
 
-            _animalRepository.Add(animal);
+                animal.Age = CalculateAge(animal);
+                if (animal.Age == -1)
+                {
+                    throw new InvalidOperationException("Age can't be less then 0");
+                }
+
+                IEnumerable<Lodging> freeLodges = ReturnAvailableLocations(animal);
+                if(freeLodges.Count() >= 1)
+                {
+                    _animalRepository.Add(animal);
+                } else
+                {
+                    throw new InvalidOperationException("No Available Lodges");
+                }
+
+            } catch (InvalidOperationException e)
+            {
+                throw e;
+            }
         }
 
         public Animal FindByID(int ID)
@@ -58,12 +74,12 @@ namespace AS_Services
         {
             return _animalRepository.GetAll().Where(a => a.DateOfDeath == null).ToList();
         }
-
+        /*
         public IEnumerable<Animal> GetRelatedAnimal(string user)
         {
-            return _animalRepository.GetAll().Where(a => a.InterestedUser.Email == user).ToList();
+            return _animalRepository.GetAll().Where(a => a == user).ToList();
         }
-
+        */
         public void Remove(Animal animal)
         {
             // Add specific business logic here
@@ -72,13 +88,21 @@ namespace AS_Services
 
         public void SaveAnimal(Animal animal)
         {
-            animal.Age = CalculateAge(animal);
-            if (animal.Age == -1)
+            try
             {
-                // TODO: Return error; Age wrong
-            }
 
-            _animalRepository.SaveAnimal(animal);
+                animal.Age = CalculateAge(animal);
+                if (animal.Age == -1)
+                {
+                    throw new InvalidOperationException("Age can't be less then 0");
+                }
+
+                _animalRepository.SaveAnimal(animal);
+            }
+            catch (InvalidOperationException e)
+            {
+                throw e;
+            }
         }
 
         public async Task<string> SaveImage(Animal animal, string wwwRootPath)
@@ -107,8 +131,45 @@ namespace AS_Services
             }
         }
 
-        public int CalculateAge(Animal animal)
+        /// <summary>
+        /// Returns all available lodging locations on basis of Animal.
+        /// Automatically check if one more animal would fit; and other business rules.
+        /// </summary>
+        /// <param name="ID">ID of the animal.</param>
+        /// <returns>Available Lodges.</returns>
+        public IEnumerable<Lodging> ReturnAvailableLocations(Animal animal)
         {
+            var lodges = _lodgingRepository.GetAll();
+            var freeLodges = new List<Lodging>();
+
+            foreach (var lodge in lodges)
+            {
+                // Check if group lodging & castrated or Individual group
+                if ((animal.Castrated && lodge.LodgingType == LodgingType.Group) || lodge.LodgingType == LodgingType.Individual)
+                {
+                    // Check if lodging has free space if new animal is added && animal is of correct type
+                    if (lodge.CurrentCapacity + 1 != lodge.MaxCapacity && lodge.AnimalType == animal.AnimalType)
+                    {
+                        freeLodges.Add(lodge);
+                    }
+                }
+            }
+
+            return freeLodges;
+        }
+
+        private int CalculateAge(Animal animal)
+        {
+            if (animal.Age < 0) {
+                throw new InvalidOperationException("Age can't be less then 0");
+            }
+
+            // If both EstimagedAge and Birthdate are filled in; return error
+            if (animal.EstimatedAge != 0 && animal.Birthdate > DateTime.MinValue)
+            {
+                throw new InvalidOperationException("Animal can't have estimated age & birthday");
+            }
+
             // Check if EstimagedAge has value, if so that becomes the Age.
             if (animal.EstimatedAge != 0 && animal.Birthdate == DateTime.MinValue)
             {
@@ -125,7 +186,7 @@ namespace AS_Services
 
                 return age;
             }
-
+            // In case anything goes wrong; return -1; will be caught be service.
             return -1;
         }
     }

@@ -6,7 +6,6 @@ using AS_Core.Enums;
 using AS_DomainServices;
 using AS_DomainServices.Repositories;
 using AS_DomainServices.Services;
-using AS_Management.Controllers;
 using AS_Services;
 using Moq;
 using Xunit;
@@ -22,12 +21,16 @@ namespace AS_BusinessRules
         [Fact]
         public void AnimalCanBeAddedToLodge() 
         {
-            //Arrange
+            // Arrange
             Mock<IStayRepository> stayRepository = new Mock<IStayRepository>();
-            Mock<IStayService> stayService = new Mock<IStayService>();
+            Mock<ILodgingRepository> lodgingRepository = new Mock<ILodgingRepository>();
+            Mock<IAnimalRepository> animalRepository = new Mock<IAnimalRepository>();
 
-            Animal dog = new Animal()
+            IStayService stayService = new StayService(stayRepository.Object, lodgingRepository.Object, animalRepository.Object);
+
+            Animal dog = new Animal
             {
+                ID = 1,
                 Name = "Doggo",
                 Birthdate = new DateTime(2018, 10, 18),
                 Age = 2,
@@ -41,36 +44,43 @@ namespace AS_BusinessRules
                 ChildFriendly = ChildFriendly.Yes,
                 ReasonGivenAway = "Too good a boi",
             };
-
-            Lodging coolLocation = new Lodging()
+            Lodging coolLocation = new Lodging
             {
+                ID = 1,
                 LodgingType = LodgingType.Group,
                 MaxCapacity = 100,
                 CurrentCapacity = 10,
-                AnimalType = AnimalType.Cat,
+                AnimalType = AnimalType.Dog,
                 Stays = new List<Stay>() { },
             };
-
-            Stay stay = new Stay()
+            Stay stay = new Stay
             {
+                ID = 1,
                 Animal = dog,
+                AnimalID = dog.ID,
                 ArrivalDate = new DateTime(2019, 10, 18),
                 AdoptionDate = null,
                 CanBeAdopted = true,
                 AdoptedBy = null,
                 LodgingLocation = coolLocation,
+                LodgingLocationID = coolLocation.ID,
                 Comments = new List<Comment>(),
                 Treatments = new List<Treatment>(),
             };
 
-            //Act
-            stayService.Setup(_ => _.Add(stay));
+            // Setup for ValidateStay
+            lodgingRepository.Setup(e => e.FindByID(coolLocation.ID))
+                .Returns(coolLocation);
 
+            animalRepository.Setup(e => e.FindByID(dog.ID))
+                .Returns(dog);
+
+            // Act
+            stayService.Add(stay);
 
             //Assert
-            IEnumerable<Stay> stays = stayRepository.Object.GetAll();
-            Assert.NotNull(stays);
-            //Assert.Equal(1, stays.Count());
+            stayRepository.Verify(x => x.Add(stay), Times.Once());
+            stayRepository.Verify(x => x.Add(stay));
         }
 
         [Fact]
@@ -78,12 +88,12 @@ namespace AS_BusinessRules
         {
             //Arrange
             Mock<IStayRepository> stayRepository = new Mock<IStayRepository>();
-            Mock<IStayService> stayService = new Mock<IStayService>();
-            Mock<IAnimalService> animalService = new Mock<IAnimalService>();
-            Mock<ILodgingService> lodgingService = new Mock<ILodgingService>();
+            Mock<ILodgingRepository> lodgingRepository = new Mock<ILodgingRepository>();
+            Mock<IAnimalRepository> animalRepository = new Mock<IAnimalRepository>();
 
-            Animal dog = new Animal()
+            Animal dog = new Animal
             {
+                ID = 1,
                 Name = "Doggo",
                 Birthdate = new DateTime(2018, 10, 18),
                 Age = 2,
@@ -97,37 +107,45 @@ namespace AS_BusinessRules
                 ChildFriendly = ChildFriendly.Yes,
                 ReasonGivenAway = "Too good a boi",
             };
-
-            Lodging fullLocation = new Lodging()
+            Lodging fullLocation = new Lodging
             {
+                ID = 1,
                 LodgingType = LodgingType.Group,
                 MaxCapacity = 100,
                 CurrentCapacity = 100,
                 AnimalType = AnimalType.Cat,
                 Stays = new List<Stay>() { },
             };
-
-            Stay stay = new Stay()
+            Stay stay = new Stay
             {
+                ID = 1,
                 Animal = dog,
+                AnimalID = dog.ID,
                 ArrivalDate = new DateTime(2019, 10, 18),
                 AdoptionDate = null,
                 CanBeAdopted = true,
                 AdoptedBy = null,
                 LodgingLocation = fullLocation,
+                LodgingLocationID = fullLocation.ID,
                 Comments = new List<Comment>(),
                 Treatments = new List<Treatment>(),
             };
 
-            //Act
-            stayService.Setup(ser => ser.PlaceAnimal(stay, fullLocation));
+            lodgingRepository.Setup(e => e.FindByID(fullLocation.ID))
+                .Returns(fullLocation);
 
-            stayService.Object.PlaceAnimal(stay, fullLocation);
+            animalRepository.Setup(e => e.FindByID(dog.ID))
+                .Returns(dog);
 
-            //Assert
-            IEnumerable<Stay> stays = stayRepository.Object.GetAll();
+            stayRepository.Setup(e => e.FindByID(stay.ID))
+                .Returns(stay);
+            IStayService stayService = new StayService(stayRepository.Object, lodgingRepository.Object, animalRepository.Object);
 
-            Assert.Empty(stays);
+            var ex = Assert.Throws<InvalidOperationException>(() => stayService.PlaceAnimal(stay, fullLocation));
+
+            // Assert
+            Assert.Equal("AS_Services", ex.Source); // Make sure the error is actually thrown in the service, not somewhere else
+            Assert.Equal("Lodge is at max capacity", ex.Message);
         }
     }
 }

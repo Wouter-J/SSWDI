@@ -23,8 +23,9 @@ namespace AS_HttpData
                 var builder = new UriBuilder(apiBaseUrl + "/api/stay");
                 var query = HttpUtility.ParseQueryString(builder.Query);
                 query["AnimalType"] = filter.AnimalType.ToString();
-                query["Gender"] = filter.Gender.ToString();
                 query["ChildFriendly"] = filter.ChildFriendly.ToString();
+                query["Gender"] = filter.Gender.ToString();
+                query["CanBeAdopted"] = true.ToString();
                 builder.Query = query.ToString();
                 string url = builder.ToString();
 

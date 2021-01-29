@@ -57,9 +57,6 @@ namespace AS_EFShelterData.Migrations
                     b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("InderestedUserID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -76,8 +73,6 @@ namespace AS_EFShelterData.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("InderestedUserID");
-
                     b.ToTable("Animals");
 
                     b.HasData(
@@ -92,7 +87,6 @@ namespace AS_EFShelterData.Migrations
                             Description = "Good boi",
                             EstimatedAge = 2,
                             Gender = 0,
-                            InderestedUserID = 1,
                             Name = "Doggo",
                             Picture = "Goodboi.png",
                             Race = "Best Bois",
@@ -148,7 +142,7 @@ namespace AS_EFShelterData.Migrations
                         {
                             ID = 1,
                             Content = "Cool doggo",
-                            Date = new DateTime(2021, 1, 24, 21, 4, 33, 774, DateTimeKind.Local).AddTicks(7249),
+                            Date = new DateTime(2021, 1, 28, 20, 0, 24, 51, DateTimeKind.Local).AddTicks(4901),
                             StayID = 1,
                             WrittenBy = "Barry"
                         },
@@ -156,10 +150,28 @@ namespace AS_EFShelterData.Migrations
                         {
                             ID = 2,
                             Content = "Ate all the lasagna",
-                            Date = new DateTime(2021, 1, 24, 21, 4, 33, 779, DateTimeKind.Local).AddTicks(5409),
+                            Date = new DateTime(2021, 1, 28, 20, 0, 24, 57, DateTimeKind.Local).AddTicks(1477),
                             StayID = 2,
                             WrittenBy = "Barry"
                         });
+                });
+
+            modelBuilder.Entity("AS_Core.DomainModel.InterestedAnimal", b =>
+                {
+                    b.Property<int>("AnimalID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AnimalID", "UserID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("InterestedAnimals");
                 });
 
             modelBuilder.Entity("AS_Core.DomainModel.Lodging", b =>
@@ -307,7 +319,7 @@ namespace AS_EFShelterData.Migrations
                         {
                             ID = 1,
                             Costs = 100,
-                            Date = new DateTime(2021, 1, 24, 21, 4, 33, 780, DateTimeKind.Local).AddTicks(658),
+                            Date = new DateTime(2021, 1, 28, 20, 0, 24, 57, DateTimeKind.Local).AddTicks(6677),
                             Description = "Inenting voor ziekte x",
                             DoneBy = "Some Person",
                             RequiredAge = 0.6f,
@@ -318,7 +330,7 @@ namespace AS_EFShelterData.Migrations
                         {
                             ID = 2,
                             Costs = 100,
-                            Date = new DateTime(2021, 1, 24, 21, 4, 33, 780, DateTimeKind.Local).AddTicks(1927),
+                            Date = new DateTime(2021, 1, 28, 20, 0, 24, 58, DateTimeKind.Local).AddTicks(3273),
                             Description = "Removed lasagna from stomach",
                             DoneBy = "Some Person",
                             RequiredAge = 0.6f,
@@ -351,6 +363,9 @@ namespace AS_EFShelterData.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("InterestCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("Lastname")
                         .HasColumnType("nvarchar(max)");
 
@@ -373,16 +388,10 @@ namespace AS_EFShelterData.Migrations
                             Cellphone = "0612345678",
                             Email = "wouterjansen97@gmail.com",
                             Firstname = "Wouter",
+                            InterestCount = 0,
                             Lastname = "Jansen",
                             PostalCode = "4201JA"
                         });
-                });
-
-            modelBuilder.Entity("AS_Core.DomainModel.Animal", b =>
-                {
-                    b.HasOne("AS_Core.DomainModel.User", "InterestedUser")
-                        .WithMany("InterestInAnimals")
-                        .HasForeignKey("InderestedUserID");
                 });
 
             modelBuilder.Entity("AS_Core.DomainModel.Comment", b =>
@@ -390,6 +399,21 @@ namespace AS_EFShelterData.Migrations
                     b.HasOne("AS_Core.DomainModel.Stay", "Stay")
                         .WithMany("Comments")
                         .HasForeignKey("StayID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AS_Core.DomainModel.InterestedAnimal", b =>
+                {
+                    b.HasOne("AS_Core.DomainModel.Animal", "Animal")
+                        .WithMany("InterestedAnimals")
+                        .HasForeignKey("AnimalID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AS_Core.DomainModel.User", "User")
+                        .WithMany("InterestedAnimals")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -28,6 +29,47 @@ namespace AS_HttpData
             }
 
             return animalList;
+        }
+
+        public async Task<Animal> HttpGetByID(int ID)
+        {
+            Animal animal = new Animal();
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync(apiBaseUrl + "/api/animal/" + ID))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    animal = JsonConvert.DeserializeObject<Animal>(apiResponse);
+                }
+            }
+
+            return animal;
+        }
+
+        public async Task<Animal> Add(Animal animal)
+        {
+            try
+            {
+                Animal recievedAnimal = new Animal();
+
+                using (var httpClient = new HttpClient())
+                {
+                    // Transform our object to JSON
+                    StringContent content = new StringContent(JsonConvert.SerializeObject(animal), Encoding.UTF8, "application/json");
+
+                    using (var response = await httpClient.PostAsync(apiBaseUrl + "/api/animal", content))
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        recievedAnimal = JsonConvert.DeserializeObject<Animal>(apiResponse);
+                    }
+                }
+
+                return recievedAnimal;
+            } catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public async Task<IEnumerable<Animal>> GetInterestedAnimal(System.Security.Claims.ClaimsPrincipal currentUser)

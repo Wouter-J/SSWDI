@@ -189,6 +189,19 @@ namespace AS_ServiceTests
         [Fact]
         public void SterrilisationShouldBeAddedWithTreatment() { }
 
+        [Fact]
+        public void AnimalIndexReturnsAnimals() { }
 
+        [Fact]
+        public void AnimalEditUpdatesAnimal() { }
+
+        [Fact]
+        public void AnimalEditProperlyUpdatesAge() { }
+
+        [Fact]
+        public void AnimalDeleteRemovesAnimal() { }
+
+        [Fact]
+        public void AnimalServiceProperlyCallsRepo() { }
     }
 }

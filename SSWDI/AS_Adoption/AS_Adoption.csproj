@@ -24,9 +24,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AS_Core\AS_Core.csproj" />
+    <ProjectReference Include="..\AS_DomainServices\AS_DomainServices.csproj" />
     <ProjectReference Include="..\AS_EFShelterData\AS_EFShelterData.csproj" />
     <ProjectReference Include="..\AS_HttpData\AS_HttpData.csproj" />
     <ProjectReference Include="..\AS_Identity\AS_Identity.csproj" />
+    <ProjectReference Include="..\AS_Services\AS_Services.csproj" />
   </ItemGroup>
 
 </Project>

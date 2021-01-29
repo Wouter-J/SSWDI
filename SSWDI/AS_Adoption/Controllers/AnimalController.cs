@@ -36,31 +36,32 @@ namespace AS_Adoption.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Policy = "RequireCustomer")]
+        [Authorize(Policy = "VolunteerOrCustomer")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        //[Authorize(Policy = "RequireCustomer")]
+        [Authorize(Policy = "VolunteerOrCustomer")]
         public async Task<IActionResult> Create(Animal animal)
         {
-            Animal recievedAnimal = new Animal();
-
-            using (var httpClient = new HttpClient())
+            if (animal.ReasonGivenAway == null)
             {
-                // Transform our object to JSON
-                StringContent content = new StringContent(JsonConvert.SerializeObject(animal), Encoding.UTF8, "application/json");
-
-                using (var response = await httpClient.PostAsync(apiBaseUrl + "/api/animal", content))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    recievedAnimal = JsonConvert.DeserializeObject<Animal>(apiResponse);
-                }
+                ViewBag.Message = "Please submit a reason why you are giving the animal away";
+                return View(animal);
             }
 
-            return View(recievedAnimal);
+            try
+            {
+                await animalHttpService.Add(animal);
+            } catch (InvalidOperationException e)
+            {
+                ViewBag.Message = e;
+                return View(animal);
+            }
+
+            return View("/Views/Home/Index.cshtml");
         }
     }
 }

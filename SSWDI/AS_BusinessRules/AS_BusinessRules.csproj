@@ -17,7 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\AS_Core\AS_Core.csproj" />
     <ProjectReference Include="..\AS_DomainServices\AS_DomainServices.csproj" />
-    <ProjectReference Include="..\AS_Management\AS_Management.csproj" />
     <ProjectReference Include="..\AS_Services\AS_Services.csproj" />
   </ItemGroup>
 

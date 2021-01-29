@@ -46,7 +46,7 @@ namespace AS_EFShelterData
                 BirthDay = new DateTime(1997, 04, 08),
                 Address = "Kloostergang 326",
                 PostalCode = "4201JA",
-                InterestInAnimals = new List<Animal>(),
+                InterestedAnimals = new List<InterestedAnimal>(),
                 AnimalsAdopted = new List<Stay>() { }
             };
             modelBuilder.Entity<User>().HasData(Wouter);

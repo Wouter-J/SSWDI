@@ -3,6 +3,7 @@ using AS_DomainServices.Repositories;
 using AS_DomainServices.Services;
 using AS_EFShelterData;
 using AS_Identity;
+using AS_Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -51,12 +52,21 @@ namespace AS_Adoption
                     policy => policy.RequireRole("Volunteer"));
                 options.AddPolicy("RequireCustomer",
                     policy => policy.RequireRole("Customer"));
+                options.AddPolicy("VolunteerOrCustomer",
+                    policy => policy.RequireRole("Customer", "Volunteer"));
             });
 
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddMvc();
             services.AddSession();
+
+            // TODO: Proper link to user reference via httpservice
+            // Dependency Injection; Repos
+            // services.AddTransient<IUserRepository, EFUserRepository>();
+
+            // Dependency Injection; Services
+            // services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

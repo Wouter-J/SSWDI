@@ -17,7 +17,7 @@ namespace AS_Management.Controllers
     /// <summary>
     /// Logic for Comments; Only accessible via an Animal.
     /// </summary>
-    [Authorize(Policy = "RequireVolunteer")]
+    [Authorize(Policy = "VolunteerOrCustomer")]
     public class CommentController : Controller
     {
         private readonly ICommentService _commentService;

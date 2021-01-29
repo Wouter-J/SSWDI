@@ -8,6 +8,7 @@ namespace AS_Core.DomainModel
     public class User
     {
         [Key]
+        [Required]
         public int ID { get; set; }
 
         [Required]
@@ -25,10 +26,12 @@ namespace AS_Core.DomainModel
         public string Address { get; set; }
 
         public string PostalCode { get; set; }
+        public IEnumerable<Stay> AnimalsAdopted { get; set; } = new List<Stay>();
 
         // TODO: Add role
-        public IEnumerable<Animal> InterestInAnimals { get; set; } = new List<Animal>();
+        // public IEnumerable<Animal> InterestInAnimals { get; set; } = new List<Animal>();
+        public IEnumerable<InterestedAnimal> InterestedAnimals { get; set; } = new List<InterestedAnimal>();
 
-        public IEnumerable<Stay> AnimalsAdopted { get; set; } = new List<Stay>();
+        public int InterestCount { get; set; }
     }
 }

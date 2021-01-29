@@ -6,11 +6,13 @@ using AS_Core.DomainModel;
 using AS_DomainServices.Services;
 using AS_Identity;
 using AS_Management.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AS_Management.Controllers
 {
+    [Authorize(Policy = "RequireVolunteer")]
     public class TreatmentController : Controller
     {
         private readonly ITreatmentService _treatmentService;
@@ -80,12 +82,11 @@ namespace AS_Management.Controllers
 
                 _treatmentService.Add(TreatmentViewModel.Treatment);
                 return RedirectToAction(nameof(Index));
-            } catch (Exception e)
+            } catch (InvalidOperationException e)
             {
-                Console.WriteLine("Error occured" + e); // TODO: use logger service for this
+                // throw e;
+                return View(TreatmentViewModel);
             }
-
-            return View(TreatmentViewModel);
         }
 
         // GET: Treatment/Edit/5

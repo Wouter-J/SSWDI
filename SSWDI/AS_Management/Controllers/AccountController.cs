@@ -74,7 +74,7 @@ namespace AS_Management.Controllers
                 };
                 var mappedEntity = _mapper.Map<User, ApplicationUser>(domainUser);
 
-                var result = await _userService.HandleRegistration(domainUser, mappedEntity);
+                var result = await _userService.HandleVolunteerRegistration(domainUser, mappedEntity);
 
                 if (result.Succeeded)
                 {
