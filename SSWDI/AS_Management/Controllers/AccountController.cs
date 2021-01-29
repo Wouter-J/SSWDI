@@ -49,6 +49,13 @@ namespace AS_Management.Controllers
             return View();
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Login(string returnUrl = null)
+        {
+            return RedirectToPage("/Account/Login", new { Area = "Identity" });
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

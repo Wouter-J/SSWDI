@@ -34,7 +34,9 @@ html {
     font-size: 16px;
   }
 }
-
+img {
+    max-width: 350px !important;
+}
 .border-top {
   border-top: 1px solid #e5e5e5;
 }
