@@ -42,9 +42,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.ChildFriendly)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReasonGivenAway)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -81,9 +78,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ChildFriendly)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReasonGivenAway)
                 </td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.ID">Details</a> |

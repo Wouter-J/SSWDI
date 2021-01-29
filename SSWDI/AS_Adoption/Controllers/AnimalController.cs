@@ -36,31 +36,19 @@ namespace AS_Adoption.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Policy = "RequireCustomer")]
+        [Authorize(Policy = "VolunteerOrCustomer")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        //[Authorize(Policy = "RequireCustomer")]
+        [Authorize(Policy = "VolunteerOrCustomer")]
         public async Task<IActionResult> Create(Animal animal)
         {
-            Animal recievedAnimal = new Animal();
+            await animalHttpService.Add(animal);
 
-            using (var httpClient = new HttpClient())
-            {
-                // Transform our object to JSON
-                StringContent content = new StringContent(JsonConvert.SerializeObject(animal), Encoding.UTF8, "application/json");
-
-                using (var response = await httpClient.PostAsync(apiBaseUrl + "/api/animal", content))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    recievedAnimal = JsonConvert.DeserializeObject<Animal>(apiResponse);
-                }
-            }
-
-            return View(recievedAnimal);
+            return View("/Views/Home/Index.cshtml");
         }
     }
 }

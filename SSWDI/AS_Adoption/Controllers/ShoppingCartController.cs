@@ -11,7 +11,8 @@ using Microsoft.Extensions.Configuration;
 
 namespace AS_Adoption.Controllers
 {
-    // [Authorize(Policy = "RequireCustomer")]
+
+    [Authorize(Policy = "VolunteerOrCustomer")]
     public class ShoppingCartController : Controller
     {
         private readonly IConfiguration _configuration;

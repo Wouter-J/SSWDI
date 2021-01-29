@@ -30,17 +30,7 @@ namespace AS_Adoption.Controllers
         public async Task<IActionResult> IndexAsync([FromQuery] AnimalFilter animalFilters)
         {
             var vm = new StayViewModel();
-            /*
-            using (var httpClient = new HttpClient())
-            {
-                // TODO: Fix this
-                using (var response = await httpClient.GetAsync(apiBaseUrl + "/api/stay?" + animalFilters))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    vm.Stays = JsonConvert.DeserializeObject<List<Stay>>(apiResponse);
-                }
-            }
-            */
+
             vm.Stays = await _stayHttpService.HandleFilter(animalFilters);
 
             return View(vm);
@@ -64,10 +54,5 @@ namespace AS_Adoption.Controllers
 
             return View("Views/Stay/Index.cshtml", vm);
         }
-
-        //List available adoptions (get link with animal)
-
-        // Show interest (Add to UserList & Keep it as a reference. Max 3)
-
     }
 }

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -44,6 +45,25 @@ namespace AS_HttpData
             }
 
             return animal;
+        }
+
+        public async Task<Animal> Add(Animal animal)
+        {
+            Animal recievedAnimal = new Animal();
+
+            using (var httpClient = new HttpClient())
+            {
+                // Transform our object to JSON
+                StringContent content = new StringContent(JsonConvert.SerializeObject(animal), Encoding.UTF8, "application/json");
+
+                using (var response = await httpClient.PostAsync(apiBaseUrl + "/api/animal", content))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    recievedAnimal = JsonConvert.DeserializeObject<Animal>(apiResponse);
+                }
+            }
+
+            return recievedAnimal;
         }
 
         public async Task<IEnumerable<Animal>> GetInterestedAnimal(System.Security.Claims.ClaimsPrincipal currentUser)

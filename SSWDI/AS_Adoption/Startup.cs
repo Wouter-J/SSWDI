@@ -52,6 +52,8 @@ namespace AS_Adoption
                     policy => policy.RequireRole("Volunteer"));
                 options.AddPolicy("RequireCustomer",
                     policy => policy.RequireRole("Customer"));
+                options.AddPolicy("VolunteerOrCustomer",
+                    policy => policy.RequireRole("Customer", "Volunteer"));
             });
 
             services.AddControllersWithViews();
