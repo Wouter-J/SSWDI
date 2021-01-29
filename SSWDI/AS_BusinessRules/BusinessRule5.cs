@@ -23,7 +23,10 @@ namespace AS_BusinessRules
             // Arrange
             Mock<IAnimalRepository> animalRepository = new Mock<IAnimalRepository>();
 
-            IAnimalService animalService = new AnimalService(animalRepository.Object);
+            Mock<ILodgingRepository> lodgingRepository = new Mock<ILodgingRepository>();
+
+            IAnimalService animalService = new AnimalService(animalRepository.Object, lodgingRepository.Object);
+
             Animal dog = new Animal
             {
                 ID = 1,
@@ -60,7 +63,10 @@ namespace AS_BusinessRules
             // Arrange
             Mock<IAnimalRepository> animalRepository = new Mock<IAnimalRepository>();
 
-            IAnimalService animalService = new AnimalService(animalRepository.Object);
+            Mock<ILodgingRepository> lodgingRepository = new Mock<ILodgingRepository>();
+
+            IAnimalService animalService = new AnimalService(animalRepository.Object, lodgingRepository.Object);
+
             Animal dog = new Animal
             {
                 ID = 1,
@@ -97,7 +103,10 @@ namespace AS_BusinessRules
             // Arrange
             Mock<IAnimalRepository> animalRepository = new Mock<IAnimalRepository>();
 
-            IAnimalService animalService = new AnimalService(animalRepository.Object);
+            Mock<ILodgingRepository> lodgingRepository = new Mock<ILodgingRepository>();
+
+            IAnimalService animalService = new AnimalService(animalRepository.Object, lodgingRepository.Object);
+
             Animal dog = new Animal
             {
                 ID = 1,
@@ -131,8 +140,10 @@ namespace AS_BusinessRules
         {
             // Arrange
             Mock<IAnimalRepository> animalRepository = new Mock<IAnimalRepository>();
+            Mock<ILodgingRepository> lodgingRepository = new Mock<ILodgingRepository>();
 
-            IAnimalService animalService = new AnimalService(animalRepository.Object);
+            IAnimalService animalService = new AnimalService(animalRepository.Object, lodgingRepository.Object);
+
             Animal dog = new Animal
             {
                 ID = 1,

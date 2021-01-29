@@ -43,15 +43,7 @@ namespace AS_Services
                     throw new InvalidOperationException("Age can't be less then 0");
                 }
 
-                IEnumerable<Lodging> freeLodges = ReturnAvailableLocations(animal);
-                if(freeLodges.Count() >= 1)
-                {
-                    _animalRepository.Add(animal);
-                } else
-                {
-                    throw new InvalidOperationException("No Available Lodges");
-                }
-
+                _animalRepository.Add(animal);
             } catch (InvalidOperationException e)
             {
                 throw e;
