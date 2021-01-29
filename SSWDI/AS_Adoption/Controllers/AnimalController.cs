@@ -46,7 +46,20 @@ namespace AS_Adoption.Controllers
         [Authorize(Policy = "VolunteerOrCustomer")]
         public async Task<IActionResult> Create(Animal animal)
         {
-            await animalHttpService.Add(animal);
+            if (animal.ReasonGivenAway == null)
+            {
+                ViewBag.Message = "Please submit a reason why you are giving the animal away";
+                return View(animal);
+            }
+
+            try
+            {
+                await animalHttpService.Add(animal);
+            } catch (InvalidOperationException e)
+            {
+                ViewBag.Message = e;
+                return View(animal);
+            }
 
             return View("/Views/Home/Index.cshtml");
         }

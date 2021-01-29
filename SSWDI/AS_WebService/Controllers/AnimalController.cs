@@ -35,6 +35,7 @@ namespace AS_WebService.Controllers
             return Ok(_animalService.GetRelatedAnimal(user));
         }
         */
+
         [HttpGet("{id:int}")]
         public IActionResult GetAnimal(int id)
         {

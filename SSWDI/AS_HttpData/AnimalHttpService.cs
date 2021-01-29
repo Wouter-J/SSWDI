@@ -49,21 +49,27 @@ namespace AS_HttpData
 
         public async Task<Animal> Add(Animal animal)
         {
-            Animal recievedAnimal = new Animal();
-
-            using (var httpClient = new HttpClient())
+            try
             {
-                // Transform our object to JSON
-                StringContent content = new StringContent(JsonConvert.SerializeObject(animal), Encoding.UTF8, "application/json");
+                Animal recievedAnimal = new Animal();
 
-                using (var response = await httpClient.PostAsync(apiBaseUrl + "/api/animal", content))
+                using (var httpClient = new HttpClient())
                 {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    recievedAnimal = JsonConvert.DeserializeObject<Animal>(apiResponse);
-                }
-            }
+                    // Transform our object to JSON
+                    StringContent content = new StringContent(JsonConvert.SerializeObject(animal), Encoding.UTF8, "application/json");
 
-            return recievedAnimal;
+                    using (var response = await httpClient.PostAsync(apiBaseUrl + "/api/animal", content))
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        recievedAnimal = JsonConvert.DeserializeObject<Animal>(apiResponse);
+                    }
+                }
+
+                return recievedAnimal;
+            } catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public async Task<IEnumerable<Animal>> GetInterestedAnimal(System.Security.Claims.ClaimsPrincipal currentUser)
