@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AS_Management.Controllers
 {
+    [Authorize(Policy = "RequireVolunteer")]
     public class AnimalController : Controller
     {
         private readonly IAnimalService _animalService;

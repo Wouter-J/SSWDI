@@ -6,11 +6,13 @@ using AS_Core.DomainModel;
 using AS_DomainServices.Services;
 using AS_Identity;
 using AS_Management.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AS_Management.Controllers
 {
+    [Authorize(Policy = "RequireVolunteer")]
     public class TreatmentController : Controller
     {
         private readonly ITreatmentService _treatmentService;
