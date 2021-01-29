@@ -17,8 +17,8 @@ namespace AS_Adoption.Controllers
     {
         private readonly IConfiguration _configuration;
         private string apiBaseUrl = "";
-        private readonly InterestHttpService interestHttpService = new InterestHttpService();
-        private readonly AnimalHttpService animalHttpService = new AnimalHttpService();
+        private readonly InterestHttpRepository interestHttpService = new InterestHttpRepository();
+        private readonly AnimalHttpRepository animalHttpService = new AnimalHttpRepository();
 
         public ShoppingCartController(IConfiguration configuration)
         {

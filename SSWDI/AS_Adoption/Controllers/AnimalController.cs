@@ -17,7 +17,7 @@ namespace AS_Adoption.Controllers
     {
         private readonly IConfiguration _configuration;
         private string apiBaseUrl = "";
-        private readonly AnimalHttpService animalHttpService = new AnimalHttpService();
+        private readonly AnimalHttpRepository animalHttpService = new AnimalHttpRepository();
 
         public AnimalController(IConfiguration configuration)
         {

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AS_DomainHttpService\AS_DomainHttpService.csproj" />
     <ProjectReference Include="..\AS_DomainServices\AS_DomainServices.csproj" />
   </ItemGroup>
 

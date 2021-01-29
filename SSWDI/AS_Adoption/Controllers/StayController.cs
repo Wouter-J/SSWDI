@@ -19,7 +19,7 @@ namespace AS_Adoption.Controllers
     {
         private readonly IConfiguration _configuration;
         private string apiBaseUrl = "";
-        private readonly StayHttpService _stayHttpService = new StayHttpService();
+        private readonly StayHttpRepository _stayHttpService = new StayHttpRepository();
 
         public StayController(IConfiguration configuration)
         {

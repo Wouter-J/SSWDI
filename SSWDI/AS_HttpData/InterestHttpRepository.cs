@@ -1,5 +1,6 @@
 ﻿using AS_Core.DomainModel;
 using AS_Core.Filters;
+using AS_DomainHttpService;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Web;
 
 namespace AS_HttpData
 {
-    public class InterestHttpService
+    public class InterestHttpRepository : IInterestHttpService
     {
         private string apiBaseUrl = "https://localhost:44301";
 

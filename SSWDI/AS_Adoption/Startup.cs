@@ -1,7 +1,9 @@
 using System;
+using AS_DomainHttpService;
 using AS_DomainServices.Repositories;
 using AS_DomainServices.Services;
 using AS_EFShelterData;
+using AS_HttpData;
 using AS_Identity;
 using AS_Services;
 using Microsoft.AspNetCore.Builder;
@@ -65,8 +67,10 @@ namespace AS_Adoption
             // Dependency Injection; Repos
             // services.AddTransient<IUserRepository, EFUserRepository>();
 
-            // Dependency Injection; Services
-            // services.AddTransient<IUserService, UserService>();
+            // Dependency Injection; Repos
+            services.AddTransient<IAnimalHttpService, AnimalHttpRepository>();
+            services.AddTransient<IInterestHttpService, InterestHttpRepository>();
+            services.AddTransient<IStayHttpService, StayHttpRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
