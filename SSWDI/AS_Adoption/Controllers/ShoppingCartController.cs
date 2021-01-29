@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AS_Adoption.ViewModels;
 using AS_Core.DomainModel;
+using AS_DomainHttpService;
 using AS_HttpData;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,20 +18,24 @@ namespace AS_Adoption.Controllers
     {
         private readonly IConfiguration _configuration;
         private string apiBaseUrl = "";
-        private readonly InterestHttpService interestHttpService = new InterestHttpService();
-        private readonly AnimalHttpService animalHttpService = new AnimalHttpService();
+        // private readonly InterestHttpRepository interestHttpService = new InterestHttpRepository();
+        private readonly IInterestHttpRepository _interestHttpRepository;
+        // private readonly AnimalHttpRepository animalHttpService = new AnimalHttpRepository();
+        private readonly IAnimalHttpRepository _animalHttpRepository;
 
-        public ShoppingCartController(IConfiguration configuration)
+        public ShoppingCartController(IConfiguration configuration, IInterestHttpRepository interestHttpRepository, IAnimalHttpRepository animalHttpRepository)
         {
             _configuration = configuration;
             apiBaseUrl = _configuration.GetValue<string>("WebAPIBaseUrl");
+            _animalHttpRepository = animalHttpRepository;
+            _interestHttpRepository = interestHttpRepository;
         }
 
         public async Task<IActionResult> Index()
         {
             System.Security.Claims.ClaimsPrincipal currentUser = this.User;
 
-            IEnumerable<InterestedAnimal> interestList = await interestHttpService.GetInterestedAnimal(currentUser);
+            IEnumerable<InterestedAnimal> interestList = await _interestHttpRepository.GetInterestedAnimal(currentUser);
 
             return View(interestList);
         }
@@ -41,7 +46,7 @@ namespace AS_Adoption.Controllers
         {
             System.Security.Claims.ClaimsPrincipal currentUser = this.User;
 
-            Animal animal = await animalHttpService.HttpGetByID(AnimalID);
+            Animal animal = await _animalHttpRepository.HttpGetByID(AnimalID);
             var vm = new InterestViewModel
             {
                 Animal = animal
@@ -56,10 +61,10 @@ namespace AS_Adoption.Controllers
         public async Task<IActionResult> Create(InterestViewModel interest)
         {
             System.Security.Claims.ClaimsPrincipal currentUser = this.User;
-            Animal animal = await animalHttpService.HttpGetByID(interest.Animal.ID);
+            Animal animal = await _animalHttpRepository.HttpGetByID(interest.Animal.ID);
             try
             {
-                await interestHttpService.ShowInterest(animal, currentUser);
+                await _interestHttpRepository.ShowInterest(animal, currentUser);
             } catch (InvalidOperationException e)
             {
                 ViewBag.Message = "Already displayed interest in this animal";
@@ -72,7 +77,7 @@ namespace AS_Adoption.Controllers
 
         public async Task<IActionResult> Delete(int ID)
         {
-            Animal animal = await animalHttpService.HttpGetByID(ID);
+            Animal animal = await _animalHttpRepository.HttpGetByID(ID);
 
             return View(animal);
         }
@@ -82,8 +87,8 @@ namespace AS_Adoption.Controllers
         public async Task<IActionResult> DeleteConfirmed(int ID)
         {
             System.Security.Claims.ClaimsPrincipal currentUser = this.User;
-            Animal animal = await animalHttpService.HttpGetByID(ID);
-            await interestHttpService.RemoveInterest(animal, currentUser);
+            Animal animal = await _animalHttpRepository.HttpGetByID(ID);
+            await _interestHttpRepository.RemoveInterest(animal, currentUser);
 
             return View();
         }

@@ -7,6 +7,7 @@ using System.Web;
 using AS_Adoption.ViewModels;
 using AS_Core.DomainModel;
 using AS_Core.Filters;
+using AS_DomainHttpService;
 using AS_DomainServices.Services;
 using AS_HttpData;
 using Microsoft.AspNetCore.Mvc;
@@ -19,11 +20,13 @@ namespace AS_Adoption.Controllers
     {
         private readonly IConfiguration _configuration;
         private string apiBaseUrl = "";
-        private readonly StayHttpService _stayHttpService = new StayHttpService();
+        private readonly IStayHttpRepositorycs _stayRepository;
+        // private readonly StayHttpRepository _stayHttpService = new StayHttpRepository();
 
-        public StayController(IConfiguration configuration)
+        public StayController(IConfiguration configuration, IStayHttpRepositorycs stayRepository)
         {
             _configuration = configuration;
+            _stayRepository = stayRepository;
             apiBaseUrl = _configuration.GetValue<string>("WebAPIBaseUrl");
         }
 
@@ -31,7 +34,7 @@ namespace AS_Adoption.Controllers
         {
             var vm = new StayViewModel();
 
-            vm.Stays = await _stayHttpService.HandleFilter(animalFilters);
+            vm.Stays = await _stayRepository.HandleFilter(animalFilters);
 
             return View(vm);
         }
@@ -50,7 +53,7 @@ namespace AS_Adoption.Controllers
                 CanBeAdopted = true
             };
 
-            vm.Stays = await _stayHttpService.HandleFilter(filter);
+            vm.Stays = await _stayRepository.HandleFilter(filter);
 
             return View("Views/Stay/Index.cshtml", vm);
         }
