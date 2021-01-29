@@ -15,6 +15,7 @@ namespace AS_DomainServices.Services
         /// <returns>The User object.</returns>
         User FindByUsername(string Email);
 
-        Task<IdentityResult> HandleRegistration(User user, ApplicationUser applicationUser);
+        Task<IdentityResult> HandleVolunteerRegistration(User user, ApplicationUser applicationUser);
+        Task<IdentityResult> HandleUserRegistration(User domainUser, ApplicationUser mappedEntity);
     }
 }

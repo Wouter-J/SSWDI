@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace AS_Management.ViewModels
+namespace AS_Adoption.ViewModels
 {
     public class RegisterViewModel
     {

@@ -54,9 +54,10 @@ namespace AS_Adoption.Controllers
 
             AnimalFilter filter = new AnimalFilter
             {
-                Gender = stay.Gender,
-                AnimalType = stay.AnimalType,
-                ChildFriendly = stay.ChildFriendly
+                Gender = stay.Animal.Gender,
+                AnimalType = stay.Animal.AnimalType,
+                ChildFriendly = stay.Animal.ChildFriendly,
+                CanBeAdopted = true
             };
 
             vm.Stays = await _stayHttpService.HandleFilter(filter);

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using AS_Adoption.ViewModels;
 using AS_Core.DomainModel;
 using AS_DomainServices.Services;
 using AS_Identity;
-using AS_Management.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -14,7 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace AS_Management.Controllers
+namespace AS_Adoption.Controllers
 {
     public class AccountController : Controller
     {
@@ -26,7 +25,7 @@ namespace AS_Management.Controllers
         private readonly IMapper _mapper;
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, 
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
             IUserService userService, RoleManager<IdentityRole> roleManager, IMapper mapper)
         {
             _userManager = userManager;
@@ -74,7 +73,7 @@ namespace AS_Management.Controllers
                 };
                 var mappedEntity = _mapper.Map<User, ApplicationUser>(domainUser);
 
-                var result = await _userService.HandleVolunteerRegistration(domainUser, mappedEntity);
+                var result = await _userService.HandleUserRegistration(domainUser, mappedEntity);
 
                 if (result.Succeeded)
                 {
@@ -89,7 +88,7 @@ namespace AS_Management.Controllers
                     }
                 }
 
-            foreach (var error in result.Errors)
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
@@ -98,6 +97,5 @@ namespace AS_Management.Controllers
             // If we got this far, something failed, redisplay form
             return View("Areas/Identity/Pages/Account/Register.cshtml", model);
         }
-
     }
 }

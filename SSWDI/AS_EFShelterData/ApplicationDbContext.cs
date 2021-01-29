@@ -71,12 +71,12 @@ namespace AS_EFShelterData
             modelBuilder.Entity<InterestedAnimal>()
                 .HasOne(x => x.User)
                 .WithMany(y => y.InterestedAnimals)
-                .HasForeignKey(y => y.AnimalID);
+                .HasForeignKey(y => y.UserID);
 
             modelBuilder.Entity<InterestedAnimal>()
                 .HasOne(x => x.Animal)
                 .WithMany(y => y.InterestedAnimals)
-                .HasForeignKey(y => y.UserID);
+                .HasForeignKey(y => y.AnimalID);
 
             // Uses ModelBuilderExtensions; Seed method
             modelBuilder.Seed();

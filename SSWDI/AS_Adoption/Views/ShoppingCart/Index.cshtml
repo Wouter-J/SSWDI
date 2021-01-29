@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<AS_Core.DomainModel.InterestedAnimal>
 
-<h2>Hi</h2>
+<h2>Current animals you have interest in</h2>
 
 <table class="table">
     <thead>
@@ -19,7 +19,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Animal.Name)
                 </td>
-
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Animal.ID">Remove interest</a>
+                </td>
             </tr>
         }
     </tbody>

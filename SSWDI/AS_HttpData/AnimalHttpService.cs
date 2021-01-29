@@ -30,6 +30,22 @@ namespace AS_HttpData
             return animalList;
         }
 
+        public async Task<Animal> HttpGetByID(int ID)
+        {
+            Animal animal = new Animal();
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync(apiBaseUrl + "/api/animal/" + ID))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    animal = JsonConvert.DeserializeObject<Animal>(apiResponse);
+                }
+            }
+
+            return animal;
+        }
+
         public async Task<IEnumerable<Animal>> GetInterestedAnimal(System.Security.Claims.ClaimsPrincipal currentUser)
         {
             List<Animal> animalList = new List<Animal>();

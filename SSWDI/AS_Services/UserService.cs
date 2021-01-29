@@ -50,20 +50,12 @@ namespace AS_Services
 
         public User FindByUsername(string Email)
         {
-            IEnumerable<User> AllUsers = _userRepository.GetAll();
-
-            // Usinq LINQ to find relatedStay
-            var user = from User in AllUsers
-                            where User.Email == Email
-                       select User;
-
-            // TODO: Clean this up with a cast?
-            User FoundUser = user.FirstOrDefault();
+            User FoundUser = _userRepository.FindByUsername(Email);
 
             return FoundUser;
         }
 
-        public async Task<IdentityResult> HandleRegistration(User user, ApplicationUser applicationUser)
+        public async Task<IdentityResult> HandleVolunteerRegistration(User user, ApplicationUser applicationUser)
         {
             applicationUser.Id = Guid.NewGuid().ToString();
             applicationUser.UserName = user.Email;
@@ -72,9 +64,7 @@ namespace AS_Services
 
             // TODO: Move this
             var volunteer = new IdentityRole("Volunteer");
-            var customer = new IdentityRole("Customer");
             await _roleManager.CreateAsync(volunteer);
-            await _roleManager.CreateAsync(customer);
 
             if (result.Succeeded)
             {
@@ -87,6 +77,40 @@ namespace AS_Services
             }
 
             return result;
+        }
+
+        public async Task<IdentityResult> HandleUserRegistration(User user, ApplicationUser applicationUser)
+        {
+            applicationUser.Id = Guid.NewGuid().ToString();
+            applicationUser.UserName = user.Email;
+
+            var result = await _userManager.CreateAsync(applicationUser);
+
+            // TODO: Move this
+            var customer = new IdentityRole("Customer");
+            await _roleManager.CreateAsync(customer);
+
+            if (result.Succeeded)
+            {
+                var volunteerRole = await _roleManager.FindByNameAsync("Customer");
+
+                await _userManager.AddToRoleAsync(applicationUser, volunteerRole.Name);
+
+                // Create Domain level user
+                Add(user);
+            }
+
+            return result;
+        }
+
+        public void IncreaseAdoptionCount(User user)
+        {
+            _userRepository.IncreaseAdoptionCount(user);
+        }
+
+        public void DecreaseAdoptionCount(User user)
+        {
+            _userRepository.DecreaseAdoptionCount(user);
         }
     }
 }

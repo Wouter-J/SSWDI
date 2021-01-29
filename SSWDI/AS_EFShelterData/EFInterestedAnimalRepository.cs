@@ -24,6 +24,39 @@ namespace AS_EFShelterData
                         .Include(x => x.User);
         }
 
+        public InterestedAnimal FindByIDAndUser(int id, int userID)
+        {
+            var interest = from Interests in _context.InterestedAnimals
+                           where Interests.AnimalID == id && Interests.UserID == userID
+                           select Interests;
+
+            InterestedAnimal animal = interest.FirstOrDefault();
+
+            return animal;
+        }
+
+        public IEnumerable<InterestedAnimal> FindRelatedAnimals(int ID)
+        {
+            /*
+            // TODO: Cleanup func
+            IEnumerable<InterestedAnimal> AllInterests = GetAll();
+
+            var interest = from Interest in AllInterests
+                           where Interest.UserID == ID
+                           select Interest;
+
+            List < InterestedAnimal > interestList = new List<InterestedAnimal>();
+            _context.InterestedAnimals.Where(x => x.UserID == ID);
+            interestList.Add()
+                */
+
+            var interests = from Interests in _context.InterestedAnimals.Include(x => x.Animal)
+                            where Interests.UserID == ID
+                            select Interests;
+
+            return interests;
+        }
+
         public void SaveInterestedAnimal(InterestedAnimal animal)
         {
 

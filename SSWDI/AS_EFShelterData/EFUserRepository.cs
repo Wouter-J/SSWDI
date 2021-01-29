@@ -1,5 +1,7 @@
 ﻿using AS_Core.DomainModel;
 using AS_DomainServices.Repositories;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AS_EFShelterData
@@ -17,6 +19,41 @@ namespace AS_EFShelterData
         /// <param name="context"></param>
         public EFUserRepository(ApplicationDbContext context) : base(context)
         {
+        }
+
+        public User FindByUsername(string username)
+        {
+            IEnumerable<User> AllUsers = GetAll();
+
+            // Usinq LINQ to find relatedStay
+            var user = from User in AllUsers
+                       where User.Email == username
+                       select User;
+            User userFound = user.FirstOrDefault();
+
+            return userFound;
+        }
+
+        public void IncreaseAdoptionCount(User user)
+        {
+            User DbUser = _context.Users.AsNoTracking()
+                       .FirstOrDefault(a => a.ID == user.ID);
+            if (DbUser != null)
+            {
+                DbUser.InterestCount++;
+                _context.SaveChanges();
+            }
+        }
+
+        public void DecreaseAdoptionCount(User user)
+        {
+            User DbUser = _context.Users.AsNoTracking()
+                       .FirstOrDefault(a => a.ID == user.ID);
+            if (DbUser != null)
+            {
+                DbUser.InterestCount--;
+            }
+            _context.SaveChanges();
         }
 
         public void SaveUser(User user)
