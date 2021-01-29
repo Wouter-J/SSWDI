@@ -24,6 +24,7 @@ namespace AS_Services
 
         public void Add(Comment comment)
         {
+            comment.Stay = null;
             _commentRepository.Add(comment);
         }
 
