@@ -11,7 +11,7 @@ using System.Web;
 namespace AS_HttpData
 {
     // TODO: Re-Do & Cleanup if possible
-    public class StayHttpRepository : IStayHttpService
+    public class StayHttpRepository : IStayHttpRepositorycs
     {
         private string apiBaseUrl = "https://localhost:44301";
         

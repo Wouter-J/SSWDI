@@ -23,6 +23,7 @@ namespace AS_Adoption.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,

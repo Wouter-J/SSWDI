@@ -68,9 +68,9 @@ namespace AS_Adoption
             // services.AddTransient<IUserRepository, EFUserRepository>();
 
             // Dependency Injection; Repos
-            services.AddTransient<IAnimalHttpService, AnimalHttpRepository>();
-            services.AddTransient<IInterestHttpService, InterestHttpRepository>();
-            services.AddTransient<IStayHttpService, StayHttpRepository>();
+            services.AddTransient<IAnimalHttpRepository, AnimalHttpRepository>();
+            services.AddTransient<IInterestHttpRepository, InterestHttpRepository>();
+            services.AddTransient<IStayHttpRepositorycs, StayHttpRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

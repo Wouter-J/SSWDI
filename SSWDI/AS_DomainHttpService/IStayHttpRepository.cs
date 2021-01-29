@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace AS_DomainHttpService
 {
-    public interface IStayHttpService
+    public interface IStayHttpRepositorycs
     {
-        public Task<IEnumerable<Stay>> HandleFilter(AnimalFilter filter)
+        public Task<IEnumerable<Stay>> HandleFilter(AnimalFilter filter);
     }
 }

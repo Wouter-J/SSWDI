@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AS_DomainHttpService
 {
-    public interface IAnimalHttpService
+    public interface IAnimalHttpRepository
     {
         public Task<IEnumerable<Animal>> HttpIndex();
 

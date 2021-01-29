@@ -12,7 +12,7 @@ using System.Web;
 
 namespace AS_HttpData
 {
-    public class InterestHttpRepository : IInterestHttpService
+    public class InterestHttpRepository : IInterestHttpRepository
     {
         private string apiBaseUrl = "https://localhost:44301";
 

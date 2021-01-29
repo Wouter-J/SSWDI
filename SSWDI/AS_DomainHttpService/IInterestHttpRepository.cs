@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AS_DomainHttpService
 {
-    public interface IInterestHttpService
+    public interface IInterestHttpRepository
     {
         public Task<IEnumerable<InterestedAnimal>> HttpIndex();
 

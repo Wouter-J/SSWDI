@@ -11,7 +11,7 @@ using System.Web;
 
 namespace AS_HttpData
 {
-    public class AnimalHttpRepository : IAnimalHttpService
+    public class AnimalHttpRepository : IAnimalHttpRepository
     {
         private string apiBaseUrl = "https://localhost:44301";
 
