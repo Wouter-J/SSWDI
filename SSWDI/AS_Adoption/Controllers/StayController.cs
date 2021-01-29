@@ -19,7 +19,7 @@ namespace AS_Adoption.Controllers
     public class StayController : Controller
     {
         private readonly IConfiguration _configuration;
-        private string apiBaseUrl = "";
+        private string apiBaseUrl = "https://as-api-wj.azurewebsites.net";
         private readonly IStayHttpRepositorycs _stayRepository;
         // private readonly StayHttpRepository _stayHttpService = new StayHttpRepository();
 
@@ -27,7 +27,7 @@ namespace AS_Adoption.Controllers
         {
             _configuration = configuration;
             _stayRepository = stayRepository;
-            apiBaseUrl = _configuration.GetValue<string>("WebAPIBaseUrl");
+            // apiBaseUrl = _configuration.GetValue<string>("WebAPIBaseUrl");
         }
 
         public async Task<IActionResult> IndexAsync([FromQuery] AnimalFilter animalFilters)
