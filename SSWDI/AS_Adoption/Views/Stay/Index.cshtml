@@ -104,9 +104,6 @@
                     @Html.DisplayFor(modelItem => item.Animal.ReasonGivenAway)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.Animal.ID">Details</a> |
-                    @Html.ActionLink("Comments", "Index", "Comment", new { AnimalID = item.Animal.ID }, null) |
-                    @Html.ActionLink("Place Comment", "Create", "Comment", new { AnimalID = item.Animal.ID }, null)
                     @Html.ActionLink("Show interest", "Create", "ShoppingCart", new { AnimalID = item.Animal.ID }, null)
                 </td>
             </tr>

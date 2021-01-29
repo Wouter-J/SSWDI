@@ -19,6 +19,24 @@ namespace AS_WebService.Controllers
             _userService = userService;
         }
 
+        /// <summary>
+        /// All available Users.
+        /// These are all Users availabl.
+        /// </summary>
+        /// <returns>List of animals.</returns>
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return Ok(_userService.GetAll());
+        }
+
+        [HttpGet("{id:int}")]
+        public IActionResult GetUser(int id)
+        {
+            User user = _userService.FindByID(id);
+            return Ok(user);
+        }
+
         [HttpGet("name")]
         public IActionResult GetUserByName([FromQuery] string username)
         {

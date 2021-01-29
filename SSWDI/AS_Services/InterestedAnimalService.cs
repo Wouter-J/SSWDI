@@ -11,15 +11,27 @@ namespace AS_Services
     {
         private readonly IInterestedAnimalRepository _interestedAnimalRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IAnimalRepository _animalRepository;
 
-        public InterestedAnimalService(IInterestedAnimalRepository interestedAnimalRepository, IUserRepository userRepository)
+        public InterestedAnimalService(IInterestedAnimalRepository interestedAnimalRepository, IUserRepository userRepository, IAnimalRepository animalRepository)
         {
             _interestedAnimalRepository = interestedAnimalRepository;
             _userRepository = userRepository;
+            _animalRepository = animalRepository;
         }
 
         public void Add(InterestedAnimal entity)
         {
+            if (entity.Animal == null)
+            {
+                entity.Animal = _animalRepository.FindByID(entity.AnimalID);
+            }
+
+            if (entity.User == null)
+            {
+                entity.User = _userRepository.FindByID(entity.UserID);
+            }
+
             // Check if not more then three animals
             // If so allow to add
             if (entity.User.InterestCount < 3)

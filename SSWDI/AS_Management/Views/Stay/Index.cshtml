@@ -39,11 +39,12 @@
     <tbody>
         @foreach (var item in Model.Animals)
         {
-            @if (item.Stays != null && item.DateOfDeath == null) // Prevent any animals with no stay or those that have died to show up.
+            @if (item.Stays != null && item.DateOfDeath == null && item.Stays.Count > 0) // Prevent any animals with no stay or those that have died to show up.
             {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Stays.Count);
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
