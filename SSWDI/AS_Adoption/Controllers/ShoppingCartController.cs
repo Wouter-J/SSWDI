@@ -17,7 +17,7 @@ namespace AS_Adoption.Controllers
     public class ShoppingCartController : Controller
     {
         private readonly IConfiguration _configuration;
-        private string apiBaseUrl = "";
+        private string apiBaseUrl = "https://as-api-wj.azurewebsites.net";
         // private readonly InterestHttpRepository interestHttpService = new InterestHttpRepository();
         private readonly IInterestHttpRepository _interestHttpRepository;
         // private readonly AnimalHttpRepository animalHttpService = new AnimalHttpRepository();
@@ -26,7 +26,7 @@ namespace AS_Adoption.Controllers
         public ShoppingCartController(IConfiguration configuration, IInterestHttpRepository interestHttpRepository, IAnimalHttpRepository animalHttpRepository)
         {
             _configuration = configuration;
-            apiBaseUrl = _configuration.GetValue<string>("WebAPIBaseUrl");
+            // apiBaseUrl = _configuration.GetValue<string>("WebAPIBaseUrl");
             _animalHttpRepository = animalHttpRepository;
             _interestHttpRepository = interestHttpRepository;
         }

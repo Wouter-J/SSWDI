@@ -17,14 +17,14 @@ namespace AS_Adoption.Controllers
     public class AnimalController : Controller
     {
         private readonly IConfiguration _configuration;
-        private string apiBaseUrl = "";
+        private string apiBaseUrl = "https://as-api-wj.azurewebsites.net";
         // private readonly AnimalHttpRepository animalHttpService = new AnimalHttpRepository();
         private readonly IAnimalHttpRepository _animalHttpRepository;
 
         public AnimalController(IConfiguration configuration, IAnimalHttpRepository animalHttpRepository)
         {
             _configuration = configuration;
-            apiBaseUrl = _configuration.GetValue<string>("WebAPIBaseUrl");
+            // apiBaseUrl = _configuration.GetValue<string>("WebAPIBaseUrl");
             _animalHttpRepository = animalHttpRepository;
         }
 
